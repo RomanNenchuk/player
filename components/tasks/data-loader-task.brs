@@ -44,11 +44,11 @@ function _ParseRss(xml_string as String) as Object
     end if
 
     episode = CreateObject("roSGNode", "ContentNode")
-    episode.title                = item.title.GetText()
-    episode.description          = item.description.GetText()
-    episode.streamformat         = "mp4"
-    episode.url                  = item.enclosure@url
-    episode.hdposterurl          = thumbnail_url
+    episode.title = item.title.GetText()
+    episode.description = item.description.GetText()
+    episode.streamformat = "mp4"
+    episode.url = item.enclosure@url
+    episode.hdposterurl = thumbnail_url
     episode.shortdescriptionline2 = duration_str
 
     root.AppendChild(episode)

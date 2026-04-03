@@ -6,7 +6,8 @@
     <Label 
       id="welcome_label"
       text="Welcome to TED"
+      translation="[960, 540]" 
       color = "0xFFFFFFFF"
-      translation="[960, 540]" />
+      />
   </children>
 </component>

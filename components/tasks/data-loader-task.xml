@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="DataLoaderTask" extends="Task">
+
+    <interface>
+        <field id="content_output" type="node" />
+    </interface>
+
+    <script type="text/brightscript" uri="pkg:/components/tasks/data-loader-task.brs" />
+
+</component>

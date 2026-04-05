@@ -1,7 +1,6 @@
 sub init()
 
     m.top.functionName = "_executeTask"
-    
 end sub
 
 sub _executeTask()

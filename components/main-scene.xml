@@ -4,11 +4,23 @@
   <script type="text/brightscript" uri="pkg:/components/services/feed-service.brs" />
 
   <children>
-    <Label 
-      id="welcome_label"
-      text="Welcome to TED"
-      translation="[960, 540]" 
-      color = "0xFFFFFFFF"
-      />
-  </children>
+        <Rectangle id="background" width="1920" height="1080" color="0x0F0F0FFF" />
+        
+        <RowList 
+            id="content_row_list" 
+            translation="[100, 150]" 
+            itemComponentName="RowListItem" 
+            numRows="3" 
+            itemSize="[1720, 350]" 
+            rowHeights="[350]" 
+            rowItemSize="[[400, 225]]" 
+            itemSpacing="[0, 50]" 
+            rowItemSpacing="[[30, 0]]" 
+            rowLabelOffset="[[0, -40]]" 
+            showRowLabel="true" 
+            rowLabelColor="0xFFFFFFFF"
+            rowLabelFont="font:MediumSystemFont"
+            focusXOffset="[0]"
+            rowFocusAnimationStyle="floatingFocus" />
+    </children>
 </component>

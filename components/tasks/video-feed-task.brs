@@ -1,6 +1,6 @@
 sub init()
 
-  m.top.function_name = "_executeTask"
+  m.top.functionName = "_executeTask"
 end sub
 
 sub _executeTask()
@@ -15,7 +15,7 @@ sub _executeTask()
 
   if (response_string <> "")
 
-    m.top.content_output = _ParseRss(response_string)
+    m.top.contentOutput = _ParseRss(response_string)
   end if
 
 end sub
@@ -72,16 +72,14 @@ end function
 
 function _ParseItem(item as Object) as Object
 
-  episode = CreateObject("roSGNode", "ContentNode")
-  episode.title = item.title.GetText()
-  episode.description = item.description.GetText()
-  episode.url = item.enclosure@url
-  episode.hd_poster_url = _ExtractThumbnailUrl(item)
-  episode.short_description_line_2 = _ExtractDuration(item)
-  episode.stream_format = _ExtractStreamFormat(item)
-  episode.release_date = _ExtractPubDate(item)
-
-  return episode
+    episode = CreateObject("roSGNode", "ContentNode")
+    episode.title = item.title.GetText()
+    episode.description = item.description.GetText()
+    episode.url = item.enclosure@url
+    episode.hdposterurl = _ExtractThumbnailUrl(item)
+    episode.shortdescriptionline2 = _ExtractDuration(item)
+    episode.streamformat = _ExtractStreamFormat(item)
+    return episode
 
 end function
 

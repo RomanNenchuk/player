@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="DataLoaderTask" extends="Task">
+<component name="VideoLoaderTask" extends="Task">
 
     <interface>
         <field id="content_output" type="node" />
     </interface>
 
-    <script type="text/brightscript" uri="pkg:/components/tasks/data-loader-task.brs" />
+    <script type="text/brightscript" uri="pkg:/components/tasks/video-feed-task.brs" />
 
 </component>

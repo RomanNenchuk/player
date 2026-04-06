@@ -66,15 +66,29 @@ function _ParseRss(xml_string as String) as Object
             if (duration_nodes.Count() > 0)
                 duration_str = duration_nodes[0].GetText()
             end if
+
+            if duration_str.Left(3) = "00:" then
+                duration_str = duration_str.Mid(4)
+            end if
+
+            stream_format = "mp4" ' Fallback default
+            enclosure_type = item.enclosure@type
+            
+            if enclosure_type <> invalid and enclosure_type <> ""
+                type_parts = enclosure_type.Split("/")
+                if type_parts.Count() > 1
+                    stream_format = type_parts[1]
+                end if
+            end if
             
             episode = CreateObject("roSGNode", "ContentNode")
             episode.title = item.title.GetText()
             episode.description = item.description.GetText()
-            episode.streamformat = "mp4"
             episode.url = item.enclosure@url
             episode.hdposterurl = thumbnail_url
             episode.shortdescriptionline2 = duration_str
-            
+            episode.streamformat = stream_format
+
             row_node.AppendChild(episode)
         end for
         

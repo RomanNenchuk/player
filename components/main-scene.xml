@@ -8,7 +8,7 @@
         <Rectangle id="background" width="1920" height="1080" color="0x0F0F0FFF" />
         
         <RowList 
-            id="content_row_list" 
+            id="contentRowList"
             translation="[100, 150]" 
             itemComponentName="RowListItem" 
             numRows="3" 

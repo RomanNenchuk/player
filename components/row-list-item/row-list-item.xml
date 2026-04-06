@@ -9,7 +9,7 @@
     <children>
         <Poster id="poster" width="400" height="225" loadDisplayMode="scaleToFill" />
         
-        <Rectangle id="duration_bg" color="0x000000CC" width="70" height="30" translation="[320, 185]">
+        <Rectangle id="durationBg" color="0x000000CC" width="70" height="30" translation="[320, 185]">
             <Label id="duration_label" width="70" height="30" horizAlign="center" vertAlign="center" color="0xFFFFFFFF" font="font:SmallestSystemFont" />
         </Rectangle>
         

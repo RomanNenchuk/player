@@ -3,7 +3,7 @@ sub init()
     m.poster = m.top.findNode("poster")
     m.title_label = m.top.findNode("title_label")
     m.duration_label = m.top.findNode("duration_label")
-    m.duration_bg = m.top.findNode("duration_bg")
+    m.duration_bg = m.top.findNode("durationBg")
     
 end sub
 

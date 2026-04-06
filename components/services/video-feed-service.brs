@@ -1,14 +1,14 @@
-sub _initDataLoader()
+sub initDataLoader()
     
-  m.data_task = CreateObject("roSGNode", "VideoLoaderTask")
-  m.data_task.ObserveField("contentOutput", "_onDataLoaded")
-  m.data_task.control = "RUN"
+  m.video_task = CreateObject("roSGNode", "VideoFeedTask")
+  m.video_task.ObserveField("contentOutput", "_onDataLoaded")
+  m.video_task.control = "RUN"
     
 end sub
 
 sub _onDataLoaded()
 
-  content_node = m.data_task.contentOutput
+  content_node = m.video_task.contentOutput
 
   if (content_node = invalid)
     print "[Scene] contentOutput is invalid"
@@ -16,6 +16,7 @@ sub _onDataLoaded()
   end if
   
   m.content_row_list.content = content_node
+
 end sub
 
 function OnKeyEvent(key as String, press as Boolean) as Boolean
@@ -28,10 +29,9 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
                 m.content_row_list.SetFocus(true)
                 handled = true
             end if
-            
         end if
-        
     end if
     
     return handled
+
 end function

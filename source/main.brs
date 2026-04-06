@@ -7,17 +7,20 @@ sub main()
   scene = screen.CreateScene("MainScene")
   screen.Show()
 
-  while(true)
+  while (true)
+
     msg = Wait(0, m.port)
     msg_type = Type(msg)
 
-    if(msg_type = "roSGScreenEvent")
+    if (msg_type = "roSGScreenEvent")
 
-      if(msg.isScreenClosed())
+      if (msg.isScreenClosed())
+
         return
       end if
 
     end if
+
   end while
 
 end sub

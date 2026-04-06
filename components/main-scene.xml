@@ -6,7 +6,7 @@
 
   <children>
     <Label 
-      id="welcome_label"
+      id="welcomeLabel"
       text="Welcome to TED"
       translation="[960, 540]" 
       color = "0xFFFFFFFF"

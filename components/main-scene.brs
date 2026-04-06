@@ -1,6 +1,6 @@
 sub init()
   
-  m.welcome_label = m.top.FindNode("welcome_label")
+  m.welcomeLabel = m.top.FindNode("welcomeLabel")
   _initDataLoader()
   
 end sub

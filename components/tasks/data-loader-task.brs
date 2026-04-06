@@ -50,7 +50,7 @@ function _ParseRss(xml_string as String) as Object
             end_index = total_items - 1
         end if
         
-        for i = start_index to end_index step 1
+        for i = start_index to end_index
             item = items[i]
             
             thumbnail_url = ""

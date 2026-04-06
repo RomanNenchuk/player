@@ -11,11 +11,11 @@
         <Poster id="poster" width="400" height="225" loadDisplayMode="scaleToFill" />
         
         <Rectangle id="durationBg" color="0x000000CC" width="70" height="30" translation="[320, 185]">
-            <Label id="duration_label" width="70" height="30" horizAlign="center" vertAlign="center" color="0xFFFFFFFF" font="font:SmallestSystemFont" />
+            <Label id="durationLabel" width="70" height="30" horizAlign="center" vertAlign="center" color="0xFFFFFFFF" font="font:SmallestSystemFont" />
         </Rectangle>
         
-        <Label id="title_label" width="400" translation="[0, 245]" color="0xFFFFFFFF" font="font:SmallSystemFont" numLines="1" wrap="false" />
+        <Label id="titleLabel" width="400" translation="[0, 245]" color="0xFFFFFFFF" font="font:SmallSystemFont" numLines="1" wrap="false" />
         
-        <Label id="date_label" width="400" translation="[0, 280]" color="0xAAAAAAFF" font="font:SmallestSystemFont" numLines="1" wrap="false" />
+        <Label id="dateLabel" width="400" translation="[0, 280]" color="0xAAAAAAFF" font="font:SmallestSystemFont" numLines="1" wrap="false" />
     </children>
 </component>

@@ -1,0 +1,28 @@
+sub _initDataLoader()
+    
+  m.data_task = CreateObject("roSGNode", "VideoLoaderTask")
+  m.data_task.ObserveField("contentOutput", "_onDataLoaded")
+  m.data_task.control = "RUN"
+
+end sub
+
+sub _onDataLoaded()
+
+  content_node = m.data_task.contentOutput
+
+  if (content_node = invalid)
+    print "[Scene] contentOutput is invalid"
+    return
+  end if
+
+  count = content_node.GetChildCount()
+  print "[Scene] Total episodes: " ; count
+
+  if (count > 0)
+    first = content_node.GetChild(0)
+    print "[Scene] First title: " ; first.title
+    print "[Scene] First URL:   " ; first.url
+    print "[Scene] Thumbnail:   " ; first.hdposterurl
+  end if
+
+end sub

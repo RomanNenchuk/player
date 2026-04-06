@@ -1,5 +1,6 @@
 sub init()
 
+  m.top.createChild("TrackerTask")
   m.screenStack = m.top.findNode("screenStack")
   m.screens = []
   showScreen("HomeScreen")
@@ -12,7 +13,7 @@ sub showScreen(screenName as String)
     
     if (newScreen <> invalid)
 
-      if (m.screens.Count() > 0)
+      if (m.screens.Count() > 1)
         prevScreen = m.screens.Peek()
         prevScreen.visible = false
       end if

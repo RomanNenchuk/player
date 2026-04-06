@@ -72,6 +72,7 @@ function _ParseItem(item as Object) as Object
     episode.hdposterurl = _ExtractThumbnailUrl(item)
     episode.shortdescriptionline2 = _ExtractDuration(item)
     episode.streamformat = _ExtractStreamFormat(item)
+    episode.ReleaseDate = _ExtractPubDate(item)
     return episode
 
 end function
@@ -120,5 +121,15 @@ function _ExtractStreamFormat(item as Object) as String
     end if
     
     return "mp4"
+
+end function
+
+function _ExtractPubDate(item as Object) as String
+
+    if (item.pubDate <> invalid)
+        return item.pubDate.GetText()
+    end if
+    
+    return ""
 
 end function

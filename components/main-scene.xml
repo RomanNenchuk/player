@@ -4,7 +4,7 @@
   <script type="text/brightscript" uri="pkg:/components/utils/video-rss-parser.brs" />
 
   <children>
-        <Rectangle id="background" width="1920" height="1080" color="0x0F0F0FFF" />
+        <Rectangle id="background" width="1920" height="1080" color="0x0C0C0CFF" />
         
         <Group id="screenStack" />
     </children>

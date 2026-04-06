@@ -4,6 +4,7 @@ sub init()
     m.title_label = m.top.findNode("title_label")
     m.duration_label = m.top.findNode("duration_label")
     m.duration_bg = m.top.findNode("durationBg")
+    m.date_label = m.top.findNode("date_label")
     
 end sub
 
@@ -15,6 +16,11 @@ sub _onContentChange()
         m.poster.uri = item_data.hdposterurl
         m.title_label.text = item_data.title
         
+        pubDateStr = item_data.ReleaseDate
+        if pubDateStr <> invalid and pubDateStr <> ""
+            m.date_label.text = GetTimeAgo(pubDateStr)
+        end if
+
         duration_str = item_data.shortdescriptionline2
         
         if (duration_str <> "")

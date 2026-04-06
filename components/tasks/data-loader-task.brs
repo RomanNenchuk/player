@@ -41,6 +41,8 @@ function _ParseRss(xml_string as String) as Object
     for each row_title in row_titles
         row_node = CreateObject("roSGNode", "ContentNode")
         row_node.title = row_title
+
+        print row_title
         
         start_index = current_item_index
         end_index = start_index + items_per_row - 1
@@ -49,7 +51,7 @@ function _ParseRss(xml_string as String) as Object
             end_index = total_items - 1
         end if
         
-        for i = start_index to end_index step 1
+        for i = start_index to end_index
             item = items[i]
             
             thumbnail_url = ""
@@ -65,6 +67,12 @@ function _ParseRss(xml_string as String) as Object
             if (duration_nodes.Count() > 0)
                 duration_str = duration_nodes[0].GetText()
             end if
+
+            if duration_str.Left(3) = "00:" then
+                duration_str = duration_str.Mid(4)
+            end if
+            
+            print duration_str
             
             episode = CreateObject("roSGNode", "ContentNode")
             episode.title = item.title.GetText()

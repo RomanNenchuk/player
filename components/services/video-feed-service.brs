@@ -1,6 +1,6 @@
 sub _initDataLoader()
     
-  m.data_task = CreateObject("roSGNode", "DataLoaderTask")
+  m.data_task = CreateObject("roSGNode", "VideoLoaderTask")
   m.data_task.ObserveField("content_output", "_onDataLoaded")
   m.data_task.control = "RUN"
 

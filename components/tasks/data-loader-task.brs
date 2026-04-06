@@ -29,6 +29,11 @@ function _ParseRss(xml_string as String) as Object
         print "[DataLoaderTask] XML parse failed"
         return root
     end if
+
+    if (xml.channel = invalid or xml.channel.item = invalid)
+        print "[DataLoaderTask] RSS structure is invalid: missing channel or items"
+        return root
+    end if
     
     items = xml.channel.item
     total_items = items.Count()

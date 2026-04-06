@@ -1,18 +1,18 @@
 sub _initDataLoader()
     
   m.data_task = CreateObject("roSGNode", "VideoLoaderTask")
-  m.data_task.ObserveField("content_output", "_onDataLoaded")
+  m.data_task.ObserveField("contentOutput", "_onDataLoaded")
   m.data_task.control = "RUN"
     
 end sub
 
 sub _onDataLoaded()
 
-  content_node = m.data_task.content_output
-  
+  content_node = m.data_task.contentOutput
+
   if (content_node = invalid)
-      print "[Scene] content_output is invalid"
-      return
+    print "[Scene] contentOutput is invalid"
+    return
   end if
   
   m.content_row_list.content = content_node

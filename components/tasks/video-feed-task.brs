@@ -14,7 +14,7 @@ sub _executeTask()
     response_string = url_transfer.GetToString()
     
     if (response_string <> "")
-        m.top.content_output = _ParseRss(response_string)
+        m.top.contentOutput = _ParseRss(response_string)
     end if
     
 end sub
@@ -24,12 +24,12 @@ function _ParseRss(xml_string as String) as Object
     root = CreateObject("roSGNode", "ContentNode")
     xml = CreateObject("roXMLElement")
     
-    if not xml.Parse(xml_string)
+    if (not xml.Parse(xml_string))
         print "[DataLoaderTask] XML parse failed"
         return root
     end if
 
-    if xml.channel = invalid or xml.channel.item = invalid
+    if (xml.channel = invalid or xml.channel.item = invalid)
         print "[DataLoaderTask] RSS structure is invalid: missing channel or items"
         return root
     end if
@@ -46,7 +46,9 @@ function _ParseRss(xml_string as String) as Object
         print row_title
         
         end_index = current_item_index + items_per_row - 1
-        if end_index >= items.Count() then end_index = items.Count() - 1
+        if (end_index >= items.Count()) 
+            end_index = items.Count() - 1
+        end if
         
         for i = current_item_index to end_index
             row_node.AppendChild(_ParseItem(items[i]))
@@ -78,7 +80,7 @@ function _ExtractThumbnailUrl(item as Object) as String
 
     media_nodes = item.GetNamedElements("media:thumbnail")
     
-    if media_nodes.Count() > 0
+    if (media_nodes.Count() > 0)
         return media_nodes[0]@url
     end if
     
@@ -90,11 +92,13 @@ function _ExtractDuration(item as Object) as String
 
     duration_nodes = item.GetNamedElements("itunes:duration")
     
-    if duration_nodes.Count() = 0 then return ""
+    if (duration_nodes.Count() = 0) 
+        return ""
+    end if
     
     duration_str = duration_nodes[0].GetText()
     
-    if duration_str.Left(3) = "00:" then
+    if (duration_str.Left(3) = "00:")
         return duration_str.Mid(4)
     end if
 
@@ -106,9 +110,13 @@ function _ExtractStreamFormat(item as Object) as String
 
     enclosure_type = item.enclosure@type
     
-    if enclosure_type <> invalid and enclosure_type <> ""
+    if (enclosure_type <> invalid and enclosure_type <> "")
         type_parts = enclosure_type.Split("/")
-        if type_parts.Count() > 1 then return type_parts[1]
+        
+        if (type_parts.Count() > 1) 
+            return type_parts[1]
+        end if
+        
     end if
     
     return "mp4"

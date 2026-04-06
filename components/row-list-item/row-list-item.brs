@@ -1,10 +1,10 @@
 sub init()
 
     m.poster = m.top.findNode("poster")
-    m.title_label = m.top.findNode("title_label")
-    m.duration_label = m.top.findNode("duration_label")
+    m.title_label = m.top.findNode("titleLabel")
+    m.duration_label = m.top.findNode("durationLabel")
     m.duration_bg = m.top.findNode("durationBg")
-    m.date_label = m.top.findNode("date_label")
+    m.date_label = m.top.findNode("dateLabel")
     
 end sub
 

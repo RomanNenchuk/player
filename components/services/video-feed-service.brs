@@ -16,6 +16,11 @@ sub _onDataLoaded()
     return
   end if
 
-  m.content_row_list.content = content_node
+  if (m.content_row_list <> invalid)
+
+    m.content_row_list.content = content_node
+  else
+    print "[Scene] Warning: m.content_row_list is invalid"
+  end if
 
 end sub

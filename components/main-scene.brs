@@ -84,7 +84,9 @@ sub onNavigateRequest(event as Object)
       if new_screen <> invalid and nav_info.DoesExist("contentData")
 
           new_screen.content = nav_info.contentData
+          
         end if
+
     end if
     
 end sub

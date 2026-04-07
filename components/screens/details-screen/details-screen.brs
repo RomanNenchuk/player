@@ -18,6 +18,7 @@ sub onContentChange()
         m.description.text = item_content.description
         
         m.play_button.SetFocus(true)
+        
     end if
 
 end sub

@@ -62,7 +62,9 @@ function _ParseRss(xml_string as String) as Object
     end if
 
     for i = current_item_index to end_index
+
       row_node.AppendChild(_ParseItem(items[i]))
+    
     end for
 
     current_item_index = end_index + 1

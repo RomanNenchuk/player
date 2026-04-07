@@ -28,6 +28,7 @@ sub onFocusChange()
     if (m.top.hasFocus())
 
         m.content_row_list.SetFocus(true)
+        
     end if
 
 end sub

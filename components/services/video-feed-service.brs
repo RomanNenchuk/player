@@ -1,6 +1,7 @@
 sub initDataLoader()
 
   m.video_task = CreateObject("roSGNode", "VideoFeedTask")
+  m.content_row_list.ObserveField("rowItemSelected", "onRowItemSelected")
   m.video_task.ObserveField("contentOutput", "_onDataLoaded")
   m.video_task.control = "RUN"
 
@@ -41,3 +42,21 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
   return handled
 
 end function
+
+sub onRowItemSelected()
+
+  row_index = m.content_row_list.rowItemSelected[0]
+  col_index = m.content_row_list.rowItemSelected[1]
+  
+  selected_content = m.content_row_list.content.GetChild(row_index).GetChild(col_index)
+  
+  ' 1. Ask the main scene stack to create and show the DetailsScreen
+  ' callFunc returns the newly created screen node
+  details_screen = m.top.GetScene().callFunc("ShowScreen", "DetailsScreen")
+  
+  ' 2. Pass the data to the screen (this triggers OnContentChange in details-screen.brs)
+  if details_screen <> invalid
+      details_screen.content = selected_content
+  end if
+
+end sub

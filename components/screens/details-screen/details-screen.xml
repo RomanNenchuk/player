@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="DetailsScreen" extends="Group">
+    <script type="text/brightscript" uri="pkg:/components/screens/details-screen/details-screen.brs" />
+
+    <interface>
+        <field id="content" type="node" onChange="OnContentChange" />
+    </interface>
+
+    <children>
+        <Poster 
+            id="thumbnail" 
+            width="640" 
+            height="360" 
+            translation="[100, 100]" 
+            loadDisplayMode="scaleToFit" />
+            
+        <Label 
+            id="title" 
+            width="800" 
+            translation="[800, 100]" 
+            font="font:LargeBoldSystemFont" 
+            wrap="true" />
+            
+        <Label 
+            id="description" 
+            width="800" 
+            translation="[800, 180]" 
+            wrap="true" 
+            numLines="5" />
+            
+        <Button 
+            id="playButton" 
+            text="Play Video" 
+            translation="[800, 400]" />
+    </children>
+</component>

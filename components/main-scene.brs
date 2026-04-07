@@ -4,18 +4,17 @@ sub init()
   m.screen_stack = m.top.findNode("screenStack")
   m.screens = []
 
-  showScreen("HomeScreen")
+  ShowScreen("HomeScreen")
 
 end sub
 
-sub showScreen(screen_name as String)
+function ShowScreen(screen_name as String) as Object
 
   new_screen = CreateObject("roSGNode", screen_name)
 
   if (new_screen <> invalid)
 
-    if (m.screens.Count() > 1)
-
+    if (m.screens.Count() > 0) 
       prev_screen = m.screens.Peek()
       prev_screen.visible = false
     end if
@@ -25,8 +24,10 @@ sub showScreen(screen_name as String)
 
     new_screen.SetFocus(true)
   end if
+  
+  return new_screen 
 
-end sub
+end function
 
 sub closeScreen()
 

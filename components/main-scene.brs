@@ -14,7 +14,10 @@ function ShowScreen(screen_name as String) as Object
 
   if (new_screen <> invalid)
 
-    if (m.screens.Count() > 0) 
+    new_screen.ObserveField("navigateTo", "onNavigateRequest")
+
+    if (m.screens.Count() > 0)
+
       prev_screen = m.screens.Peek()
       prev_screen.visible = false
     end if
@@ -65,3 +68,18 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
   return handled
 
 end function
+
+sub onNavigateRequest(event as Object)
+  
+    nav_info = event.GetData()
+    
+    if nav_info <> invalid and nav_info.DoesExist("screenName")
+
+      new_screen = ShowScreen(nav_info.screenName)
+
+      if new_screen <> invalid and nav_info.DoesExist("contentData")
+
+          new_screen.content = nav_info.contentData
+        end if
+    end if
+end sub

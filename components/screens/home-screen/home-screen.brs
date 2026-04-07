@@ -36,15 +36,11 @@ sub onRowItemSelected()
   col_index = m.content_row_list.rowItemSelected[1]
   
   selected_content = m.content_row_list.content.GetChild(row_index).GetChild(col_index)
-  
-  ' 1. Ask the main scene stack to create and show the DetailsScreen
-  ' callFunc returns the newly created screen node
-  details_screen = m.top.GetScene().callFunc("ShowScreen", "DetailsScreen")
-  
-  ' 2. Pass the data to the screen (this triggers OnContentChange in details-screen.brs)
-  if details_screen <> invalid
-      details_screen.content = selected_content
-  end if
+
+  m.top.navigateTo = {
+    screenName: "DetailsScreen",
+    contentData: selected_content
+  }
 
 end sub
 

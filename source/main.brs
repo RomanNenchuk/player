@@ -17,6 +17,7 @@ sub main()
       if (msg.isScreenClosed())
 
         return
+        
       end if
 
     end if

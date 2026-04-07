@@ -7,12 +7,14 @@ function ParseRssFeed(xml_string as String) as Object
 
     print "[RssParser] XML parse failed"
     return root
+
   end if
 
   if (xml.channel = invalid or xml.channel.item = invalid)
 
     print "[RssParser] RSS structure is invalid: missing channel or items"
     return root
+
   end if
 
   items = xml.channel.item
@@ -30,6 +32,7 @@ function ParseRssFeed(xml_string as String) as Object
     if (end_index >= items.Count())
 
       end_index = items.Count() - 1
+
     end if
 
     for i = current_item_index to end_index
@@ -67,6 +70,7 @@ function _ExtractThumbnailUrl(item as Object) as String
   if (media_nodes.Count() > 0)
 
     return media_nodes[0]@url
+
   end if
 
   return ""
@@ -80,6 +84,7 @@ function _ExtractDuration(item as Object) as String
   if (duration_nodes.Count() = 0)
 
     return ""
+
   end if
 
   duration_str = duration_nodes[0].GetText()
@@ -87,6 +92,7 @@ function _ExtractDuration(item as Object) as String
   if (duration_str.Left(3) = "00:")
 
     return duration_str.Mid(4)
+
   end if
 
   return duration_str
@@ -104,6 +110,7 @@ function _ExtractStreamFormat(item as Object) as String
     if (type_parts.Count() > 1)
 
       return type_parts[1]
+      
     end if
 
   end if

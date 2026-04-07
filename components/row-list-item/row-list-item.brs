@@ -17,7 +17,8 @@ sub _onContentChange()
         m.title_label.text = item_data.title
         
         pubDateStr = item_data.ReleaseDate
-        if pubDateStr <> invalid and pubDateStr <> ""
+        if (pubDateStr <> invalid and pubDateStr <> "")
+        
             m.date_label.text = GetTimeAgo(pubDateStr)
         end if
 

@@ -16,7 +16,7 @@
             rowLabelOffset="[[0, 30]]" 
             showRowLabel="[true]" 
             rowLabelColor="0xFFFFFFFF"
-            rowLabelFont="font:LargeSystemFont"
+            rowLabelFont="font:SmallSystemFont"
             focusXOffset="[0]"
             rowFocusAnimationStyle="floatingFocus" 
         />

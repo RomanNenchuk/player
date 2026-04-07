@@ -1,0 +1,8 @@
+{
+    "diagnosticFilters": [
+        {
+            "src": "**/components/TrackerTask.xml",
+            "ignore": true
+        }
+    ]
+}

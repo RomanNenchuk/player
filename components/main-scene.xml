@@ -2,14 +2,10 @@
 <component name="MainScene" extends="Scene">
   <script type="text/brightscript" uri="pkg:/components/main-scene.brs" />
   <script type="text/brightscript" uri="pkg:/components/utils/video-rss-parser.brs" />
-  
-  <interface>
-    <function name="ShowScreen" />
-  </interface>
 
   <children>
         <Rectangle id="background" width="1920" height="1080" color="0x0C0C0CFF" />
         
-        <Group id="screenStack" />
+        <ScreenManager id="screenManager" />
     </children>
 </component>

@@ -82,4 +82,5 @@ sub onNavigateRequest(event as Object)
           new_screen.content = nav_info.contentData
         end if
     end if
+    
 end sub

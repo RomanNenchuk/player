@@ -12,6 +12,7 @@ function GetTimeAgo(date_string as String) as String
     if (day.Len() = 1)
 
       day = "0" + day
+
     end if
 
     month_str = match[2]
@@ -38,6 +39,7 @@ function GetTimeAgo(date_string as String) as String
     if (month = invalid)
 
       month = "01"
+
     end if
 
     iso_string = year + "-" + month + "-" + day + "T" + time_str + "Z"
@@ -51,6 +53,7 @@ function GetTimeAgo(date_string as String) as String
   if (pub_seconds = 0)
 
     return ""
+
   end if
 
   now_obj = CreateObject("roDateTime")
@@ -60,11 +63,13 @@ function GetTimeAgo(date_string as String) as String
   if (diff < 0)
 
     return "Just now"
+
   end if
 
   if (diff < 60)
 
     return "Just now"
+
   end if
 
   if (diff < 3600)
@@ -86,6 +91,7 @@ function GetTimeAgo(date_string as String) as String
   else
 
     return _GetPluralString(diff \ 31536000, "year")
+
   end if
 
 end function
@@ -99,6 +105,7 @@ function _GetPluralString(count as Integer, unit as String) as String
   else
 
     return count.ToStr() + " " + unit + "s ago"
+    
   end if
 
 end function

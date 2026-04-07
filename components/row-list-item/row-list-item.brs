@@ -22,6 +22,7 @@ sub _onContentChange()
         if (pub_date_str <> invalid and pub_date_str <> "")
         
             m.date_label.text = GetTimeAgo(pub_date_str)
+
         end if
 
         print pub_date_str
@@ -57,6 +58,7 @@ sub _onContentChange()
         else
 
             m.duration_bg.visible = false
+        
         end if
         
     end if

@@ -18,12 +18,14 @@ sub showScreen(screen_name as String)
 
       prev_screen = m.screens.Peek()
       prev_screen.visible = false
+
     end if
 
     m.screen_stack.AppendChild(new_screen)
     m.screens.Push(new_screen)
 
     new_screen.SetFocus(true)
+
   end if
 
 end sub
@@ -39,6 +41,7 @@ sub closeScreen()
     prev_screen.visible = true
 
     prev_screen.SetFocus(true)
+
   end if
 
 end sub
@@ -55,6 +58,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
         closeScreen()
         handled = true
+      
       end if
 
     end if

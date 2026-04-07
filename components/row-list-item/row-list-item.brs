@@ -21,6 +21,9 @@ sub _onContentChange()
             m.date_label.text = GetTimeAgo(pubDateStr)
         end if
 
+        print pubDateStr
+        print m.date_label.text
+
         duration_str = item_data.shortdescriptionline2
         
         if (duration_str <> "")

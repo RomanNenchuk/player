@@ -79,6 +79,7 @@ function _ParseItem(item as Object) as Object
     episode.hdposterurl = _ExtractThumbnailUrl(item)
     episode.shortdescriptionline2 = _ExtractDuration(item)
     episode.streamformat = _ExtractStreamFormat(item)
+    episode.ReleaseDate = _ExtractPubDate(item)
     return episode
 
 end function
@@ -137,11 +138,11 @@ end function
 
 function _ExtractPubDate(item as Object) as String
 
-  if (item.pub_date <> invalid)
-
-    return item.pub_date.GetText()
+  if (item.pubDate <> invalid)
+    
+      return item.pubDate.GetText()
   end if
-
+  
   return ""
 
 end function

@@ -1,17 +1,25 @@
 function GetScreenManager() as Object
 
-    return m.top.getScene().findNode("screenManager")
+    screen_manager = m.top.getScene().findNode("screenManager")
+
+    if (screen_manager = invalid)
+
+        print "WARNING: 'screenManager' node not found in scene. Falling back to dummy node."
+        return createObject("roSGNode", "Node")
+
+    end if
+
+    return screen_manager
 
 end function
 
 sub goToPreviousScreen() as Boolean
 
-    handled = false
-    screen_manager = GetScreenManager()
+    handled = GetScreenManager().callFunc("GoBack")
 
-    if (screen_manager <> invalid)
+    if (handled = invalid)
 
-        handled = screen_manager.callFunc("GoBack")
+        return false
 
     end if
 
@@ -21,12 +29,6 @@ end sub
 
 sub navigateTo(payload as Object)
 
-    screen_manager = GetScreenManager()
-
-    if (screen_manager <> invalid)
-
-        screen_manager.callFunc("navigateToScreen", payload)
-
-    end if
+    GetScreenManager().callFunc("navigateToScreen", payload)
 
 end sub

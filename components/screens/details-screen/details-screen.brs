@@ -9,7 +9,7 @@ sub init()
 
     if (m.close_timer <> invalid)
 
-        m.close_timer.ObserveField("fire", "onTimerComplete")
+        m.close_timer.ObserveField("fire", "goToPreviousScreen")
 
     end if
 
@@ -49,18 +49,6 @@ sub onContentChange()
             m.close_timer.control = "start"
 
         end if
-
-    end if
-
-end sub
-
-sub onTimerComplete()
-
-    screen_manager = m.top.getScene().findNode("screenManager")
-
-    if (screen_manager <> invalid)
-
-        screen_manager.callFunc("GoBack")
 
     end if
 

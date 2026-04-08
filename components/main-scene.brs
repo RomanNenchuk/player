@@ -4,7 +4,7 @@ sub init()
     
     m.screen_manager = m.top.findNode("screenManager")
     
-    m.screen_manager.callFunc("NavigateToScreen", { screenName: "HomeScreen" })
+    navigateTo({ screenName: "HomeScreen" })
     
 end sub
 
@@ -16,7 +16,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
         
         if (key = "back")
             
-            handled = m.screen_manager.callFunc("GoBack")
+            handled = goToPreviousScreen()
             
         end if
         

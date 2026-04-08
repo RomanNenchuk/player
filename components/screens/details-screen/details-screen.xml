@@ -2,6 +2,7 @@
 <component name="DetailsScreen" extends="Group">
 
     <script type="text/brightscript" uri="pkg:/components/screens/details-screen/details-screen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
 
     <interface>
         <field id="content" type="node" onChange="onContentChange" />

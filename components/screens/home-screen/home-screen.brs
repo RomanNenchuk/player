@@ -4,8 +4,6 @@ sub init()
     m.content_row_list.ObserveField("rowItemSelected", "onRowItemSelected")
     m.top.ObserveField("focusedChild", "onFocusChange")
     
-    m.screen_manager = m.top.getScene().findNode("screenManager")
-
     initDataLoader()
 
 end sub
@@ -22,7 +20,7 @@ sub onRowItemSelected()
     contentData: selected_content
   }
 
-  m.screen_manager.callFunc("NavigateToScreen", payload)
+  navigateTo(payload)
 
 end sub
 

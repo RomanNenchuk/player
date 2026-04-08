@@ -58,13 +58,12 @@
                 color="0xBBBBBBFF" 
             />
             
-            <LabelList 
+            <MarkupList
                 id="buttonList" 
                 translation="[100, 360]" 
                 itemSize="[600, 60]" 
                 itemSpacing="[0, 15]" 
-                color="0xFFFFFFFF" 
-                focusedColor="0x000000FF" 
+                itemComponentName="ModalButton" 
             />
             
         </Group>

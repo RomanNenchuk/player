@@ -10,14 +10,6 @@ sub navigateToScreen(payload as Object)
     if (payload <> invalid and payload.DoesExist("screenName"))
         
         new_screen = CreateObject("roSGNode", payload.screenName)
-
-        '''' /* TEST
-        if (payload.screenName = "DetailsScreen")
-
-            new_screen = invalid
-
-        end if
-        '''' */ TEST
         
         if (new_screen <> invalid)
             
@@ -45,8 +37,8 @@ sub navigateToScreen(payload as Object)
             
             modal_config = {
                 "title": "Navigation Error",
-                "message": "We couldn't load the requested screen. Please try again.",
-                "buttons": ["OK", "Retry"]
+                "message": "Requested page unavailable. Please try again.",
+                "buttons": ["OK"]
             }
             
             showModal(modal_config)

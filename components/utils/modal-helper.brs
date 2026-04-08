@@ -1,6 +1,7 @@
-sub showModal(config as Object)
+function showModal(config as Object) as Object
     
     scene = m.top.getScene()
+    modal = invalid
     
     if (scene <> invalid)
         
@@ -23,7 +24,9 @@ sub showModal(config as Object)
         
     end if
     
-end sub
+    return modal
+    
+end function
 
 sub _onModalDismissed(event as Object)
     

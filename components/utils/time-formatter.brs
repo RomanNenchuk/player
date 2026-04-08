@@ -1,8 +1,7 @@
-function GetTimeAgo(date_string as String) as String
+function ParseDateStringToSeconds(date_string as String) as Integer
 
   regex = CreateObject("roRegex", "(\d{1,2})\s+([a-zA-Z]{3})\s+(\d{4})\s+(\d{2}:\d{2}:\d{2})", "")
   match = regex.Match(date_string)
-
   pub_seconds = 0
 
   if (match.Count() = 5)
@@ -43,12 +42,20 @@ function GetTimeAgo(date_string as String) as String
     end if
 
     iso_string = year + "-" + month + "-" + day + "T" + time_str + "Z"
-
+    
     date_obj = CreateObject("roDateTime")
     date_obj.FromISO8601String(iso_string)
     pub_seconds = date_obj.AsSeconds()
 
   end if
+
+  return pub_seconds
+
+end function
+
+function GetTimeAgo(date_string as String) as String
+
+  pub_seconds = ParseDateStringToSeconds(date_string)
 
   if (pub_seconds = 0)
 

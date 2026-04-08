@@ -13,7 +13,7 @@ sub init()
 
     if (m.close_timer <> invalid)
 
-        m.close_timer.ObserveField("fire", "_onTimerComplete")
+        m.close_timer.ObserveField("fire", "goToPreviousScreen")
 
     end if
 

@@ -5,41 +5,47 @@ sub init()
     
 end sub
 
-function NavigateToScreen(payload as Object) as Object
-    
+sub navigateToScreen(payload as Object)
+
     if (payload <> invalid and payload.DoesExist("screenName"))
-        
+
         new_screen = CreateObject("roSGNode", payload.screenName)
-        
+
         if (new_screen <> invalid)
-            
+
             if (payload.DoesExist("contentData"))
-                
+
                 new_screen.content = payload.contentData
-                
+
             end if
-            
+
             if (m.screens.Count() > 0)
-                
+
                 prev_screen = m.screens.Peek()
                 prev_screen.visible = false
-                
+
             end if
-            
+
             m.screen_stack.AppendChild(new_screen)
             m.screens.Push(new_screen)
-            
+
             new_screen.SetFocus(true)
-            
+
+        else
+
+            print "Navigation Error: Failed to create screen - "; payload.screenName
+            ' TODO: Create separate PR to show error dialog to the user here
+
         end if
-        
-        return new_screen
-        
+
+    else
+
+        print "Navigation Error: Payload is invalid or missing 'screenName'"
+        ' TODO: Create separate PR to show error dialog to the user here
+
     end if
-    
-    return invalid
-    
-end function
+
+end sub
 
 function GoBack() as Boolean
     

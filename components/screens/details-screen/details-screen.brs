@@ -7,9 +7,13 @@ sub init()
     m.error_label = m.top.findNode("errorLabel")
     m.close_timer = m.top.findNode("closeTimer")
 
+    m.screen_manager = m.top.getScene().findNode("screenManager")
+    m.play_button.ObserveField("buttonSelected", "_onPlayPressed")
+    m.top.ObserveField("focusedChild", "_onFocusChange")
+
     if (m.close_timer <> invalid)
 
-        m.close_timer.ObserveField("fire", "onTimerComplete")
+        m.close_timer.ObserveField("fire", "_onTimerComplete")
 
     end if
 
@@ -54,26 +58,40 @@ sub onContentChange()
 
 end sub
 
-sub onTimerComplete()
+sub _onFocusChange()
 
-    screen_manager = m.top.getScene().findNode("screenManager")
+    if (m.top.hasFocus())
 
-    if (screen_manager <> invalid)
-
-        screen_manager.callFunc("GoBack")
+        m.play_button.SetFocus(true)
 
     end if
 
 end sub
 
-function OnKeyEvent(key as String, press as Boolean) as Boolean
+sub _onTimerComplete()
 
-    handled = false
-    if press then
-        
-        ' Future logic: handle "OK" press on the play_button to launch the Video node
+    if (m.screen_manager <> invalid)
+
+        m.screen_manager.callFunc("GoBack")
+
     end if
-    
-    return handled
 
-end function
+end sub
+
+sub _onPlayPressed()
+
+    print "Start playing video"
+    print m.top.content
+    
+    payload = {
+        screenName: "VideoPlayerScreen",
+        contentData: m.top.content
+    }
+
+    if (m.screen_manager <> invalid)
+    
+        m.screen_manager.callFunc("NavigateToScreen", payload)
+    
+    end if
+
+end sub

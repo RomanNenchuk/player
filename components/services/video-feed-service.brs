@@ -1,28 +1,30 @@
-sub _initDataLoader()
-    
-  m.data_task = CreateObject("roSGNode", "VideoLoaderTask")
-  m.data_task.ObserveField("contentOutput", "_onDataLoaded")
-  m.data_task.control = "RUN"
+sub initDataLoader()
+
+  m.video_task = CreateObject("roSGNode", "VideoFeedTask")
+  m.video_task.ObserveField("contentOutput", "_onDataLoaded")
+  m.video_task.control = "RUN"
 
 end sub
 
 sub _onDataLoaded()
 
-  content_node = m.data_task.contentOutput
+  content_node = m.video_task.contentOutput
 
   if (content_node = invalid)
+
     print "[Scene] contentOutput is invalid"
     return
+
   end if
 
-  count = content_node.GetChildCount()
-  print "[Scene] Total episodes: " ; count
+  if (m.content_row_list <> invalid)
 
-  if (count > 0)
-    first = content_node.GetChild(0)
-    print "[Scene] First title: " ; first.title
-    print "[Scene] First URL:   " ; first.url
-    print "[Scene] Thumbnail:   " ; first.hdposterurl
+    m.content_row_list.content = content_node
+
+  else
+  
+    print "[Scene] Warning: m.content_row_list is invalid"
+  
   end if
 
 end sub

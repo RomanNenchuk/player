@@ -88,10 +88,6 @@ sub _onPlayPressed()
         contentData: m.top.content
     }
 
-    if (m.screen_manager <> invalid)
-    
-        m.screen_manager.callFunc("NavigateToScreen", payload)
-    
-    end if
+    navigateTo(payload)
 
 end sub

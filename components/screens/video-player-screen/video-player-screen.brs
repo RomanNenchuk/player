@@ -40,13 +40,7 @@ sub _onVideoStateChange()
     if (state = "finished" or state = "error")
 
         m.video_player.control = "stop"
-        screen_manager = m.top.getScene().findNode("screenManager")
-
-        if (screen_manager <> invalid)
-
-            screen_manager.callFunc("GoBack")
-
-        end if
+        goToPreviousScreen()
 
     end if
 

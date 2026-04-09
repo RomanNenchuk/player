@@ -1,4 +1,4 @@
-function showModal(config as Object) as Object
+function ShowModal(config as Object) as Object
     
     scene = m.top.getScene()
     modal = invalid
@@ -12,9 +12,7 @@ function showModal(config as Object) as Object
             modal.title = config.title
             modal.message = config.message
             modal.buttons = config.buttons
-            
             scene.AppendChild(modal)
-            ' modal.SetFocus(true)
             
             m.current_modal = modal
             
@@ -26,7 +24,7 @@ function showModal(config as Object) as Object
     
 end function
 
-sub dismissModal()
+sub dismissModal(event as Object)
     
     scene = m.top.getScene()
     

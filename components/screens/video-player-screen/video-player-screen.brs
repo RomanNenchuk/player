@@ -8,7 +8,6 @@ end sub
 sub _onContentChange()
 
     item_content = m.top.content
-    ' item_content = invalid
 
     if (item_content <> invalid)
 
@@ -41,11 +40,8 @@ sub _onContentChange()
         
         if (modal <> invalid)
             
-            print "modal is valid, observing..."
             modal.ObserveField("itemSelected", "_onVideoModalDismissed")
-            print "observing done"
-            '  modal.SetFocus(true)
-        
+
         end if
 
     end if
@@ -54,8 +50,7 @@ end sub
 
 sub _onVideoModalDismissed(event as Object)
 
-    print "_onVideoModalDismissed!!!!"
-    dismissModal()
+    dismissModal(event)
     goToPreviousScreen()
 
 end sub

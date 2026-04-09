@@ -56,7 +56,6 @@ end sub
 
 sub _onButtonSelected(event as Object)
     
-    print "BUTTON SELECTED: "; event.GetData()
     m.top.itemSelected = event.GetData()
     
 end sub

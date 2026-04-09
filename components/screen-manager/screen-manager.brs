@@ -11,7 +11,7 @@ sub navigateToScreen(payload as Object)
         
         new_screen = CreateObject("roSGNode", payload.screenName)
         
-        ' if payload.screenName = "DetailsScreen" then new_screen = invalid
+        if payload.screenName = "DetailsScreen" then new_screen = invalid
         
         if (new_screen <> invalid)
             
@@ -43,8 +43,7 @@ sub navigateToScreen(payload as Object)
                 "buttons": ["OK"]
             }
             
-            showModal(modal_config)
-            m.current_modal.ObserveField("itemSelected", "_onModalDismissed")
+            showModalAndObserve(modal_config)
             
         end if
         
@@ -58,8 +57,7 @@ sub navigateToScreen(payload as Object)
             "buttons": ["OK"]
         }
         
-        showModal(modal_config)
-        m.current_modal.ObserveField("itemSelected", "_onModalDismissed")
+        showModalAndObserve(modal_config)
         
     end if
     
@@ -86,9 +84,14 @@ function GoBack() as Boolean
 
 end function
 
-sub _onModalDismissed(event as Object)
+sub showModalAndObserve(modal_config as Object)
     
-    print "_onModalDismissed!!!!"
-    dismissModal()
+    current_modal = showModal(modal_config)
+    
+    if (current_modal <> invalid)
+    
+        current_modal.ObserveField("itemSelected", "dismissModal")
+    
+    end if
 
 end sub

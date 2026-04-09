@@ -11,8 +11,6 @@ sub navigateToScreen(payload as Object)
         
         new_screen = CreateObject("roSGNode", payload.screenName)
         
-        if payload.screenName = "DetailsScreen" then new_screen = invalid
-        
         if (new_screen <> invalid)
             
             if (payload.DoesExist("contentData"))

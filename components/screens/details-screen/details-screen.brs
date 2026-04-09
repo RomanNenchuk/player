@@ -5,7 +5,6 @@ sub init()
     m.close_timer = m.top.findNode("closeTimer")
     m.screen_manager = m.top.getScene().findNode("screenManager")
 
-    m.hero.ObserveField("playSelected", "_onPlayPressed")
     m.top.ObserveField("focusedChild", "_onFocusChange")
 
     if (m.close_timer <> invalid)
@@ -66,19 +65,5 @@ sub _onTimerComplete()
         m.screen_manager.callFunc("GoBack")
 
     end if
-
-end sub
-
-sub _onPlayPressed()
-
-    print "Start playing video"
-    print m.top.content
-    
-    payload = {
-        "screenName": "VideoPlayerScreen",
-        "contentData": m.top.content
-    }
-
-    navigateTo(payload)
 
 end sub

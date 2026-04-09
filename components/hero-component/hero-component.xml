@@ -2,10 +2,10 @@
 <component name="HeroComponent" extends="Group">
 
     <script type="text/brightscript" uri="pkg:/components/hero-component/hero-component.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
 
     <interface>
         <field id="content" type="node" onChange="onContentChange" />
-        <field id="playSelected" type="boolean" alias="playButton.buttonSelected" />
     </interface>
 
     <children>

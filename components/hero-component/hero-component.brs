@@ -5,6 +5,7 @@ sub init()
     m.description = m.top.findNode("description")
     m.play_button = m.top.findNode("playButton")
     
+    m.play_button.ObserveField("buttonSelected", "_onPlayPressed")
     m.top.ObserveField("focusedChild", "_onFocusChange")
 
 end sub
@@ -30,5 +31,19 @@ sub _onFocusChange()
         m.play_button.SetFocus(true)
 
     end if
+
+end sub
+
+sub _onPlayPressed()
+
+    print "Start playing video"
+    print m.top.content
+    
+    payload = {
+        "screenName": "VideoPlayerScreen",
+        "contentData": m.top.content
+    }
+
+    navigateTo(payload)
 
 end sub

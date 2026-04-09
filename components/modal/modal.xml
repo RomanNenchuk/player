@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="Modal" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/modal/modal.brs" />
+
+    <interface>
+        <field id="title" type="string" value="" onChange="onTitleChange" />
+        <field id="message" type="string" value="" onChange="onMessageChange" />
+        <field id="buttons" type="stringarray" value="[]" onChange="onButtonsChange" />
+        <field id="itemSelected" type="integer" value="-1" />
+    </interface>
+
+    <children>
+        <Rectangle 
+            id="backgroundOverlay" 
+            color="0x000000D9" 
+            width="1920" 
+            height="1080" 
+        />
+
+        <Group 
+            id="dialogContainer" 
+            translation="[560, 240]">
+            
+            <Rectangle 
+                id="dialogBackground" 
+                color="0x252525FF" 
+                width="800" 
+                height="550" 
+            />
+            
+
+            <Label 
+                id="titleLabel" 
+                translation="[0, 60]" 
+                width="800" 
+                horizAlign="center" 
+                font="font:LargeBoldSystemFont" 
+                color="0xFFFFFFFF" 
+            />
+            
+            <Rectangle 
+                id="separatorLine" 
+                translation="[100, 130]" 
+                color="0x444444FF" 
+                width="600" 
+                height="2" 
+            />
+            
+            <Label 
+                id="messageLabel" 
+                translation="[100, 170]" 
+                width="600" 
+                wrap="true" 
+                horizAlign="center" 
+                lineSpacing="5" 
+                font="font:MediumSystemFont" 
+                color="0xBBBBBBFF" 
+            />
+            
+            <MarkupList
+                id="buttonList" 
+                translation="[100, 360]" 
+                itemSize="[600, 60]" 
+                itemSpacing="[0, 15]" 
+                itemComponentName="ModalButton" 
+            />
+            
+        </Group>
+
+    </children>
+
+</component>

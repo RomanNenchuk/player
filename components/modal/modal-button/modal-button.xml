@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ModalButton" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/modal/modal-button/modal-button.brs" />
+
+    <interface>
+        <field id="itemContent" type="node" onChange="onContentChange" />
+        <field id="focusPercent" type="float" onChange="onFocusChange" />
+    </interface>
+
+    <children>
+        <Rectangle 
+            id="buttonBackground" 
+            width="600" 
+            height="60" 
+            color="0x00000000" 
+        />
+        
+        <Label 
+            id="buttonText" 
+            width="600" 
+            height="60" 
+            horizAlign="center" 
+            vertAlign="center" 
+            font="font:MediumBoldSystemFont" 
+            color="0xFFFFFFFF" 
+        />
+    </children>
+
+</component>

@@ -36,13 +36,18 @@ sub onButtonsChange()
     end for
     
     m.button_list.content = content
+    m.button_list.SetFocus(true) 
     
 end sub
 
 sub _onFocusChange()
+
+     print "focusedChild changed, hasFocus: "; m.top.hasFocus()
+     print "focused child: "; m.top.focusedChild
     
     if (m.top.hasFocus())
         
+        print "setting focus to button_list"
         m.button_list.SetFocus(true)
         
     end if
@@ -51,7 +56,7 @@ end sub
 
 sub _onButtonSelected(event as Object)
     
-    print event.GetData()
+    print "BUTTON SELECTED: "; event.GetData()
     m.top.itemSelected = event.GetData()
     
 end sub

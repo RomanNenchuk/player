@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="DetailsScreen" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/screens/details-screen/details-screen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
+
+    <interface>
+        <field id="content" type="node" onChange="onContentChange" />
+    </interface>
+
+    <children>
+        
+        <LayoutGroup translation="[100, 100]" itemSpacings="[40]">
+            <Poster 
+                id="thumbnail" 
+                width="640" 
+                height="360" 
+                loadDisplayMode="scaleToFit" />
+                
+            <Button 
+                id="playButton" 
+                text="Play Video" 
+                minWidth="200"
+                iconUri=""
+                focusedIconUri="" />
+        </LayoutGroup>
+
+        <LayoutGroup translation="[800, 100]" itemSpacings="[20]">
+            <Label 
+                id="title" 
+                width="1000" 
+                font="font:LargeBoldSystemFont" 
+                wrap="true" />
+                
+            <Label 
+                id="description" 
+                width="1000" 
+                wrap="true" 
+                numLines="15" />
+        </LayoutGroup>
+
+        <Label
+            id="errorLabel"
+            text="Content is currently unavailable. Going back..."
+            width="1920"
+            translation="[0, 500]"
+            horizAlign="center"
+            visible="false" />
+
+        <Timer
+            id="closeTimer"
+            duration="3"
+            repeat="false" />
+
+    </children>
+
+</component>

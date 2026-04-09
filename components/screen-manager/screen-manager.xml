@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="ScreenManager" extends="Group">
+    <script type="text/brightscript" uri="pkg:/components/screen-manager/screen-manager.brs" />
+    
+    <interface>
+        <function name="NavigateToScreen" />
+        <function name="GoBack" />
+    </interface>
+
+    <children>
+        <Group id="screenStack" />
+    </children>
+</component>

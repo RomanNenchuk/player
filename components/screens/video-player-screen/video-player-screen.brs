@@ -12,6 +12,7 @@ sub _onContentChange()
     if (item_content <> invalid)
 
         video_content = CreateObject("roSGNode", "ContentNode")
+        
         video_content.url = item_content.url
         video_content.title = item_content.title
 
@@ -27,31 +28,25 @@ sub _onContentChange()
         
         m.video_player.content = video_content
         m.video_player.control = "play"
-        m.video_player.setFocus(true)
+        m.video_player.SetFocus(true)
 
     else
 
         modal_config = {
             "title": "Notice",
             "message": "This video content is currently unavailable.",
-            "buttons": ["Go back"]
+            "buttons": ["Go back"],
+            "callbacks": [
+                {
+                    "func": _onGoBackClicked,
+                    "data": invalid
+                }
+            ]
         }
-        modal = ShowModal(modal_config)
         
-        if (modal <> invalid)
-            
-            modal.ObserveField("itemSelected", "_onVideoModalDismissed")
-
-        end if
+        ShowModal(modal_config)
 
     end if
-
-end sub
-
-sub _onVideoModalDismissed(event as Object)
-
-    dismissModal(event)
-    goToPreviousScreen()
 
 end sub
 
@@ -90,16 +85,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
 end function
 
-sub _onModalDismissed(event as Object)
-
-    print "_onModalDismissed in VideoPlayer!!!!"
-
-    scene = m.top.getScene()
-
-    if (m.current_modal <> invalid and scene <> invalid)
-        scene.RemoveChild(m.current_modal)
-        m.current_modal = invalid
-    end if
+sub _onGoBackClicked(data as Object)
 
     goToPreviousScreen()
 

@@ -119,8 +119,14 @@ function _ExtractDuration(item as Object) as String
 
   if (duration_str.Left(3) = "00:")
 
-    return duration_str.Mid(4)
+    duration_str = duration_str.Mid(3)
 
+  end if
+
+  if (duration_str.Left(1) = "0" and duration_str.Mid(2, 1) = ":")
+    
+    duration_str = duration_str.Mid(1)
+  
   end if
 
   return duration_str

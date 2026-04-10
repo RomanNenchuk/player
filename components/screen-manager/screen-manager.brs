@@ -2,6 +2,21 @@ sub init()
 
     m.screen_stack = m.top.findNode("screenStack")
     m.screens = []
+    m.top.ObserveField("focusedChild", "_onManagerFocusChange")
+
+end sub
+
+sub _onManagerFocusChange()
+
+    if (m.top.hasFocus())
+
+        if (m.screens <> invalid and m.screens.Count() > 0)
+
+            m.screens.Peek().SetFocus(true)
+
+        end if
+
+    end if
 
 end sub
 

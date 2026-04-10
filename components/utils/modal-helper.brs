@@ -73,18 +73,7 @@ sub dismissModal()
         m.current_modal = invalid
         m.current_modal_config = invalid
 
-        ' in case this method is called for ScreenManager
-        if (m.screens <> invalid and type(m.screens) = "roArray" and m.screens.Count() > 0)
-
-            ' otherwise ScreenManger would set focus on itself and we'd lose focus
-            m.screens.Peek().SetFocus(true)
-
-        else
-
-            ' if it is called from regular screen
-            m.top.SetFocus(true)
-
-        end if
+        m.top.SetFocus(true)
 
     end if
 

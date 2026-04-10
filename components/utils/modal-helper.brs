@@ -28,6 +28,7 @@ sub _onModalItemSelected(event as Object)
     
     func_to_call = invalid
     data_to_pass = invalid
+    has_data = false
 
     if (m.current_modal_config <> invalid and m.current_modal_config.DoesExist("callbacks"))
 
@@ -40,7 +41,13 @@ sub _onModalItemSelected(event as Object)
             if (callback_info <> invalid and callback_info.DoesExist("func"))
 
                 func_to_call = callback_info.func
-                data_to_pass = callback_info.data
+                
+                if (callback_info.DoesExist("data"))
+
+                    data_to_pass = callback_info.data
+                    has_data = true
+
+                end if
 
             end if
 
@@ -56,7 +63,15 @@ sub _onModalItemSelected(event as Object)
 
         if (GetInterface(func_to_call, "ifFunction") <> invalid)
 
-            func_to_call(data_to_pass)
+            if (has_data)
+                
+                func_to_call(data_to_pass)
+            
+            else
+            
+                func_to_call()
+            
+            end if
 
         end if
 

@@ -8,7 +8,9 @@
     <children>
 
         <HeroComponent
-            id="hero"/>
+            id="hero"
+            compactMode="true"
+            translation="[100, 100]"/>
 
         <RowList 
             id="contentRowList"

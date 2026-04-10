@@ -47,3 +47,18 @@ sub _onPlayPressed()
     navigateTo(payload)
 
 end sub
+
+sub onCompactModeChange()
+    if (m.top.compactMode = true)
+
+        m.title.numLines = 2
+        m.description.numLines = 5
+
+    else
+
+        m.title.numLines = 0
+        m.description.numLines = 0
+
+    end if
+
+end sub

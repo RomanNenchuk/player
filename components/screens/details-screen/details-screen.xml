@@ -9,7 +9,9 @@
     </interface>
 
     <children>
-        <HeroComponent id="hero" />
+        <HeroComponent 
+            id="hero"
+            translation="[100, 100]" />
 
         <Label
             id="errorLabel"

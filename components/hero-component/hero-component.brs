@@ -7,6 +7,9 @@ sub init()
     
     m.play_button.ObserveField("buttonSelected", "_onPlayPressed")
     m.top.ObserveField("focusedChild", "_onFocusChange")
+    print "----------------------------------------------"
+    print m.play_button.boundingRect()
+    print "----------------------------------------------"
 
 end sub
 
@@ -19,6 +22,7 @@ sub onContentChange()
         m.thumbnail.uri = item_content.HDPosterUrl
         m.title.text = item_content.title
         m.description.text = item_content.description
+        updateLayout()
 
     end if
 
@@ -49,16 +53,51 @@ sub _onPlayPressed()
 end sub
 
 sub onCompactModeChange()
+
+    updateLayout()
+
+end sub
+
+sub updateLayout()
+
     if (m.top.compactMode = true)
 
-        m.title.numLines = 2
-        m.description.numLines = 5
+        m.title.numLines = 0
+        m.title.height = 0
+
+        title_rect = m.title.boundingRect()
+        title_height = title_rect.height
+        
+        total_max_height = 500
+        spacing = 20
+
+        remaining_height = total_max_height - title_height - spacing
+
+        if (remaining_height > 0)
+
+            m.description.visible = true
+            m.description.numLines = 0
+            m.description.height = remaining_height
+
+        else
+
+            m.description.visible = false
+
+        end if
 
     else
 
+        m.title.ellipsizeOnBoundary = false
+        m.description.ellipsizeOnBoundary = false
+
         m.title.numLines = 0
+        m.title.height = 0
+        
+        m.description.visible = true
         m.description.numLines = 0
+        m.description.height = 0
 
     end if
-
+    
 end sub
+

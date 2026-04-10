@@ -32,14 +32,12 @@
                     id="title" 
                     width="1000" 
                     font="font:LargeBoldSystemFont" 
-                    wrap="true" 
-                    ellipsizeOnBoundary="true" />
+                    wrap="true" />
                     
                 <Label 
                     id="description" 
                     width="1000" 
-                    wrap="true" 
-                    ellipsizeOnBoundary="true" />
+                    wrap="true" />
             </LayoutGroup>
 
         </LayoutGroup>

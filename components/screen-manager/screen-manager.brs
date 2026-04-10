@@ -67,7 +67,7 @@ sub navigateToScreen(payload as Object)
         modal_config = {
             "title": "Invalid Request",
             "message": "The navigation request was invalid. Please try again.",
-            "buttons": ["OK"],
+            "buttons": ["OK"]
         }
 
         ShowModal(modal_config)

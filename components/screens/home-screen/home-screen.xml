@@ -1,15 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="HomeScreen" extends="Group">
+
     <script type="text/brightscript" uri="pkg:/components/screens/home-screen/home-screen.brs" />
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
     
     <children>
+
+        <HeroComponent
+            id="hero"/>
+
         <RowList 
             id="contentRowList"
-            translation="[100, 150]" 
+            translation="[100, 650]" 
             itemComponentName="RowListItem" 
-            numRows="3" 
+            numRows="7" 
             itemSize="[1720, 400]" 
             rowItemSize="[[400, 225]]" 
             itemSpacing="[0, 50]" 
@@ -19,7 +24,32 @@
             rowLabelColor="0xFFFFFFFF"
             rowLabelFont="font:SmallSystemFont"
             focusXOffset="[0]"
-            rowFocusAnimationStyle="floatingFocus" 
-        />
+            rowFocusAnimationStyle="floatingFocus" />
+        
+        <Animation id="hideHeroAnim" duration="0.3" easeFunction="linear">
+            <FloatFieldInterpolator
+                fieldToInterp="hero.opacity"
+                key="[0.0, 1.0]"
+                keyValue="[1.0, 0.0]" />
+
+            <Vector2DFieldInterpolator
+                fieldToInterp="contentRowList.translation"
+                key="[0.0, 1.0]"
+                keyValue="[[100.0, 650.0], [100.0, 120.0]]" />
+        </Animation>
+
+        <Animation id="showHeroAnim" duration="0.3" easeFunction="linear">
+            <FloatFieldInterpolator
+                fieldToInterp="hero.opacity"
+                key="[0.0, 1.0]"
+                keyValue="[0.0, 1.0]" />
+
+            <Vector2DFieldInterpolator
+                fieldToInterp="contentRowList.translation"
+                key="[0.0, 1.0]"
+                keyValue="[[100.0, 120.0], [100.0, 650.0]]" />
+        </Animation>
+
     </children>
+
 </component>

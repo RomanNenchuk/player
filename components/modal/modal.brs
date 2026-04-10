@@ -42,12 +42,8 @@ end sub
 
 sub _onFocusChange()
 
-     print "focusedChild changed, hasFocus: "; m.top.hasFocus()
-     print "focused child: "; m.top.focusedChild
-    
     if (m.top.hasFocus())
         
-        print "setting focus to button_list"
         m.button_list.SetFocus(true)
         
     end if

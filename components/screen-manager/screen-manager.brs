@@ -2,37 +2,52 @@ sub init()
 
     m.screen_stack = m.top.findNode("screenStack")
     m.screens = []
+    m.top.ObserveField("focusedChild", "_onManagerFocusChange")
+
+end sub
+
+sub _onManagerFocusChange()
+
+    if (m.top.hasFocus())
+
+        if (m.screens <> invalid and m.screens.Count() > 0)
+
+            m.screens.Peek().SetFocus(true)
+
+        end if
+
+    end if
 
 end sub
 
 sub navigateToScreen(payload as Object)
-    
+
     if (payload <> invalid and payload.DoesExist("screenName"))
-        
+
         new_screen = CreateObject("roSGNode", payload.screenName)
-        
+
         if (new_screen <> invalid)
-            
+
             if (payload.DoesExist("contentData"))
-                
+
                 new_screen.content = payload.contentData
-                
+
             end if
-            
+
             if (m.screens.Count() > 0)
-                
+
                 prev_screen = m.screens.Peek()
                 prev_screen.visible = false
-                
+
             end if
-            
+
             m.screen_stack.AppendChild(new_screen)
             m.screens.Push(new_screen)
             
             new_screen.SetFocus(true)
-            
+
         else
-            
+
             print "Navigation Error: Failed to create screen - "; payload.screenName
             
             modal_config = {
@@ -40,13 +55,13 @@ sub navigateToScreen(payload as Object)
                 "message": "Requested page unavailable. Please try again.",
                 "buttons": ["OK"]
             }
-            
-            showModalAndObserve(modal_config)
-            
+
+            ShowModal(modal_config)
+
         end if
-        
+
     else
-        
+
         print "Navigation Error: Payload is invalid or missing 'screenName'"
         
         modal_config = {
@@ -54,11 +69,11 @@ sub navigateToScreen(payload as Object)
             "message": "The navigation request was invalid. Please try again.",
             "buttons": ["OK"]
         }
-        
-        showModalAndObserve(modal_config)
-        
+
+        ShowModal(modal_config)
+
     end if
-    
+
 end sub
 
 function GoBack() as Boolean
@@ -81,15 +96,3 @@ function GoBack() as Boolean
     return handled
 
 end function
-
-sub showModalAndObserve(modal_config as Object)
-    
-    current_modal = showModal(modal_config)
-    
-    if (current_modal <> invalid)
-    
-        current_modal.ObserveField("itemSelected", "dismissModal")
-    
-    end if
-
-end sub

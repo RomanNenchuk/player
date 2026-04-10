@@ -5,6 +5,7 @@ sub init()
     
     m.hide_hero_anim = m.top.findNode("hideHeroAnim")
     m.show_hero_anim = m.top.findNode("showHeroAnim")
+    m.custom_splash_screen = m.top.findNode("customSplashScreen")
 
     m.content_row_list.ObserveField("rowItemSelected", "_onRowItemSelected")
     m.content_row_list.ObserveField("content", "_onContentLoad")
@@ -26,6 +27,15 @@ sub _onContentLoad()
 
             m.hero.content = first_row.getChild(0)
 
+        end if
+
+        m.hero.visible = true
+        m.content_row_list.visible = true
+
+        if (m.custom_splash_screen <> invalid)
+            
+            m.custom_splash_screen.visible = false
+        
         end if
 
     end if

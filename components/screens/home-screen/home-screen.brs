@@ -9,6 +9,8 @@ sub init()
     m.content_row_list.ObserveField("rowItemSelected", "_onRowItemSelected")
     m.content_row_list.ObserveField("content", "_onContentLoad")
     m.top.ObserveField("focusedChild", "_onFocusChange")
+
+    m.last_focused_element = m.hero
     
     initDataLoader()
 
@@ -36,6 +38,7 @@ sub _onRowItemSelected()
     col_index = m.content_row_list.rowItemSelected[1]
     
     selected_content = m.content_row_list.content.GetChild(row_index).GetChild(col_index)
+    m.last_focused_element = m.content_row_list
     
     payload = {
         "screenName": "DetailsScreen",
@@ -50,8 +53,12 @@ sub _onFocusChange()
 
     if (m.top.hasFocus())
 
-        m.hero.SetFocus(true)
-        
+        if (m.last_focused_element <> invalid)
+
+            m.last_focused_element.SetFocus(true)
+
+        end if
+
     end if
 
 end sub
@@ -67,6 +74,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
             if (key = "down")
 
                 m.content_row_list.SetFocus(true)
+                m.last_focused_element = m.content_row_list
                 m.hide_hero_anim.control = "start"
                 handled = true
 
@@ -80,6 +88,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
             if (key = "up" and current_row = 0)
 
                 m.hero.SetFocus(true)
+                m.last_focused_element = m.hero
                 m.show_hero_anim.control = "start"
                 handled = true
 
@@ -87,6 +96,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
                 m.content_row_list.jumpToRowItem = [0, 0]
                 m.hero.SetFocus(true)
+                m.last_focused_element = m.hero
                 m.show_hero_anim.control = "start"
                 handled = true
 

@@ -6,7 +6,9 @@ sub main()
 
   scene = screen.CreateScene("MainScene")
   screen.Show()
-
+  
+  scene.ObserveField("exitApp", m.port)
+  
   while (true)
 
     msg = Wait(0, m.port)
@@ -18,6 +20,15 @@ sub main()
 
         return
         
+      end if
+
+    else if (msg_type = "roSGNodeEvent")
+
+      if (msg.GetField() = "exitApp" and msg.GetData() = true)
+        
+        screen.close()
+        return
+
       end if
 
     end if

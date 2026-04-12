@@ -88,7 +88,15 @@ sub dismissModal()
         m.current_modal = invalid
         m.current_modal_config = invalid
 
-        m.top.SetFocus(true)
+        if (m.screen_manager <> invalid)
+            
+            m.screen_manager.SetFocus(true)
+            
+        else
+            
+            m.top.SetFocus(true)
+            
+        end if
 
     end if
 

@@ -18,6 +18,25 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
             
             handled = goToPreviousScreen()
             
+            if (not handled)
+            
+                modal_config = {
+                    "title": "Confirmation",
+                    "message": "Sure you wanna exit?",
+                    "buttons": ["OK", "Cancel"],
+                    "callbacks": [
+                        {
+                            "func": _onExitAppClicked,
+                        },
+                        invalid
+                    ]
+                }
+
+                ShowModal(modal_config)
+                handled = true
+
+            end if
+
         end if
         
     end if
@@ -25,3 +44,9 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
     return handled
     
 end function
+
+sub _onExitAppClicked()
+
+    m.top.exitApp = true
+
+end sub

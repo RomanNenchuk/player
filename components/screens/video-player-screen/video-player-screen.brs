@@ -39,7 +39,6 @@ sub _onContentChange()
             "callbacks": [
                 {
                     "func": _onGoBackClicked,
-                    "data": invalid
                 }
             ]
         }
@@ -85,7 +84,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
 end function
 
-sub _onGoBackClicked(data as Object)
+sub _onGoBackClicked()
 
     goToPreviousScreen()
 

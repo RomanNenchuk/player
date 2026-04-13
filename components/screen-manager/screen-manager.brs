@@ -36,41 +36,38 @@ sub navigateToScreen(payload as Object)
 
             if (m.screens.Count() > 0)
 
-                prev_screen = m.screens.Peek()
-                prev_screen.visible = false
+                m.screens.Peek().visible = false
 
             end if
 
             m.screen_stack.AppendChild(new_screen)
             m.screens.Push(new_screen)
-            
+
             new_screen.SetFocus(true)
 
         else
 
             print "Navigation Error: Failed to create screen - "; payload.screenName
-            
-            modal_config = {
+
+            ShowModal({
                 "title": "Navigation Error",
                 "message": "Requested page unavailable. Please try again.",
-                "buttons": ["OK"]
-            }
-
-            ShowModal(modal_config)
+                "buttons": ["OK"],
+                "focusTarget": m.top
+            })
 
         end if
 
     else
 
         print "Navigation Error: Payload is invalid or missing 'screenName'"
-        
-        modal_config = {
+
+        ShowModal({
             "title": "Invalid Request",
             "message": "The navigation request was invalid. Please try again.",
-            "buttons": ["OK"]
-        }
-
-        ShowModal(modal_config)
+            "buttons": ["OK"],
+            "focusTarget": m.top
+        })
 
     end if
 
@@ -87,8 +84,8 @@ function GoBack() as Boolean
 
         prev_screen = m.screens.Peek()
         prev_screen.visible = true
-
         prev_screen.SetFocus(true)
+
         handled = true
 
     end if

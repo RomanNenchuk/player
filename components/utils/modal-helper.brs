@@ -1,22 +1,30 @@
 function ShowModal(config as Object) as Object
 
-    modal = CreateObject("roSGNode", "Modal")
+    if (m.current_modal <> invalid)
 
-    if (modal <> invalid)
-
-        modal.title = config.title
-        modal.message = config.message
-        modal.buttons = config.buttons
-        
-        m.current_modal_config = config
-        m.current_modal = modal
-        
-        modal.ObserveField("itemSelected", "_onModalItemSelected")
-        
-        m.top.AppendChild(modal)
-        modal.SetFocus(true)
+        dismissModal()
 
     end if
+
+    modal = CreateObject("roSGNode", "Modal")
+
+    if (modal = invalid)
+
+        return invalid
+
+    end if
+
+    modal.title = config.title
+    modal.message = config.message
+    modal.buttons = config.buttons
+
+    m.current_modal = modal
+    m.current_modal_config = config
+
+    modal.ObserveField("itemSelected", "_onModalItemSelected")
+
+    m.top.AppendChild(modal)
+    modal.SetFocus(true)
 
     return modal
 
@@ -59,19 +67,15 @@ sub _onModalItemSelected(event as Object)
     dismissModal()
 
     ' execute callback
-    if (func_to_call <> invalid)
+    if (func_to_call <> invalid and GetInterface(func_to_call, "ifFunction") <> invalid)
 
-        if (GetInterface(func_to_call, "ifFunction") <> invalid)
+        if (has_data)
 
-            if (has_data)
-                
-                func_to_call(data_to_pass)
-            
-            else
-            
-                func_to_call()
-            
-            end if
+            func_to_call(data_to_pass)
+
+        else
+
+            func_to_call()
 
         end if
 
@@ -81,22 +85,30 @@ end sub
 
 sub dismissModal()
 
-    if (m.current_modal <> invalid)
+    if (m.current_modal = invalid)
 
-        m.current_modal.UnobserveField("itemSelected")
-        m.top.RemoveChild(m.current_modal)
-        m.current_modal = invalid
-        m.current_modal_config = invalid
+        return
 
-        if (m.screen_manager <> invalid)
-            
-            m.screen_manager.SetFocus(true)
-            
-        else
-            
-            m.top.SetFocus(true)
-            
-        end if
+    end if
+
+    m.current_modal.UnobserveField("itemSelected")
+    m.top.RemoveChild(m.current_modal)
+
+    m.current_modal = invalid
+    m.current_modal_config = invalid
+
+    if (m.current_modal_focus_target <> invalid)
+
+        m.current_modal_focus_target.SetFocus(true)
+        m.current_modal_focus_target = invalid
+
+    else if (m.screen_manager <> invalid)
+
+        m.screen_manager.SetFocus(true)
+
+    else
+
+        m.top.SetFocus(true)
 
     end if
 

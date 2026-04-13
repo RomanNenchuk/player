@@ -32,18 +32,15 @@ sub _onContentChange()
 
     else
 
-        modal_config = {
+        ShowModal({
             "title": "Notice",
             "message": "This video content is currently unavailable.",
-            "buttons": ["Go back"],
+            "buttons": ["Go Back"],
+            "focusTarget": m.top,
             "callbacks": [
-                {
-                    "func": _onGoBackClicked,
-                }
+                { "func": _onGoBackClicked }
             ]
-        }
-        
-        ShowModal(modal_config)
+        })
 
     end if
 
@@ -52,7 +49,7 @@ end sub
 sub _onVideoStateChange()
 
     state = m.video_player.state
-    
+
     if (state = "finished" or state = "error")
 
         m.video_player.control = "stop"
@@ -66,20 +63,16 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     handled = false
     
-    if (press)
-    
-        if (key = "back")
-    
-            if (m.video_player.state = "playing" or m.video_player.state = "buffering")
-    
-                m.video_player.control = "stop"
-    
-            end if
-    
+    if (press and key = "back")
+
+        if (m.video_player.state = "playing" or m.video_player.state = "buffering")
+
+            m.video_player.control = "stop"
+
         end if
-    
+
     end if
-    
+
     return handled
 
 end function

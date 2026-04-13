@@ -1,48 +1,42 @@
 sub init()
-    
+
     m.top.createChild("TrackerTask")
-    
+
     m.screen_manager = m.top.findNode("screenManager")
-    
-    navigateTo({ screenName: "HomeScreen" })
-    
+
+    navigateTo({ "screenName": "HomeScreen" })
+
 end sub
 
 function OnKeyEvent(key as String, press as Boolean) as Boolean
-    
+
     handled = false
-    
-    if (press)
-        
-        if (key = "back")
-            
-            handled = goToPreviousScreen()
-            
-            if (not handled)
-            
-                modal_config = {
-                    "title": "Confirmation",
-                    "message": "Sure you wanna exit?",
-                    "buttons": ["OK", "Cancel"],
-                    "callbacks": [
-                        {
-                            "func": _onExitAppClicked,
-                        },
-                        invalid
-                    ]
-                }
 
-                ShowModal(modal_config)
-                handled = true
+    if (press and key = "back")
 
-            end if
+        handled = goToPreviousScreen()
+
+        if (not handled)
+
+            ShowModal({
+                "title": "Confirmation",
+                "message": "Are you sure you want to exit?",
+                "buttons": ["OK", "Cancel"],
+                "focusTarget": m.screen_manager,
+                "callbacks": [
+                    { "func": _onExitAppClicked },
+                    invalid
+                ]
+            })
+
+            handled = true
 
         end if
-        
+
     end if
-    
+
     return handled
-    
+
 end function
 
 sub _onExitAppClicked()

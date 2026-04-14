@@ -13,7 +13,7 @@ function GetScreenManager() as Object
 
 end function
 
-sub goToPreviousScreen() as Boolean
+function GoToPreviousScreen() as Boolean
 
     handled = GetScreenManager().callFunc("GoBack")
 
@@ -25,7 +25,7 @@ sub goToPreviousScreen() as Boolean
 
     return handled
 
-end sub
+end function
 
 sub navigateTo(payload as Object)
 

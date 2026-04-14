@@ -5,6 +5,7 @@
 
     <interface>
         <field id="itemSelected" type="assocarray" />
+        <field id="activeTab" type="string" onChange="_onActiveTabChange" />
     </interface>
 
     <children>

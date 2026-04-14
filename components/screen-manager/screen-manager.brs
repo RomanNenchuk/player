@@ -45,15 +45,24 @@ sub navigateToScreen(payload as Object)
 
             new_screen.SetFocus(true)
 
+            m.top.activeScreen = payload.screenName
+
         else
 
             print "Navigation Error: Failed to create screen - "; payload.screenName
+
+            focus_target = m.top
+            if (payload.DoesExist("errorFocusTarget") and payload.errorFocusTarget <> invalid)
+
+                focus_target = payload.errorFocusTarget
+
+            end if
 
             ShowModal({
                 "title": "Navigation Error",
                 "message": "Requested page unavailable. Please try again.",
                 "buttons": ["OK"],
-                "focusTarget": m.top
+                "focusTarget": focus_target
             })
 
         end if
@@ -85,6 +94,10 @@ function GoBack() as Boolean
         prev_screen = m.screens.Peek()
         prev_screen.visible = true
         prev_screen.SetFocus(true)
+        
+        ' subtype returns the name of prev_screen's component, 
+        ' specified in its xml file, e.g. name="HomeScreen"
+        m.top.activeScreen = prev_screen.subtype()
 
         handled = true
 

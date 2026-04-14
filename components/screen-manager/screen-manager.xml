@@ -6,6 +6,7 @@
     <interface>
         <function name="NavigateToScreen" />
         <function name="GoBack" />
+        <field id="activeScreen" type="string" />
     </interface>
 
     <children>

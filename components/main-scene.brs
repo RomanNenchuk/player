@@ -3,6 +3,7 @@ sub init()
     m.top.createChild("TrackerTask")
 
     m.screen_manager = m.top.findNode("screenManager")
+    m.screen_manager.ObserveField("activeScreen", "_onScreenChanged")
     m.top_menu = m.top.findNode("topMenu")
     m.top_menu.ObserveField("itemSelected", "_onMenuItemSelected")
 
@@ -16,9 +17,16 @@ sub _onMenuVisibilityChange()
 
 end sub
 
+sub _onScreenChanged(event as Object)
+
+    m.top_menu.activeTab = event.getData()
+
+end sub
+
 sub _onMenuItemSelected(event as Object)
 
     payload = event.getData()
+    payload.errorFocusTarget = m.top_menu
     
     navigateTo(payload)
 

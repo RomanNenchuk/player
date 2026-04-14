@@ -56,17 +56,21 @@ sub _onItemSelected()
 
     selected_index = m.menu_grid.itemSelected
     selected_item = m.menu_grid.content.getChild(selected_index)
+    
+    m.top.itemSelected = { screenName: selected_item.id }
+
+end sub
+
+sub _onActiveTabChange()
+
+    active_id = m.top.activeTab
     total_items = m.menu_grid.content.getChildCount()
 
     for i = 0 to total_items - 1
 
         child = m.menu_grid.content.getChild(i)
-        child.isActive = false
+        child.isActive = (child.id = active_id)
 
     end for
-
-    selected_item.isActive = true
-
-    m.top.itemSelected = { screenName: selected_item.id }
 
 end sub

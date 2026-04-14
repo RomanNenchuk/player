@@ -21,6 +21,16 @@ function ShowModal(config as Object) as Object
     m.current_modal = modal
     m.current_modal_config = config
 
+    if (config.DoesExist("focusTarget") and config.focusTarget <> invalid)
+
+        m.current_modal_focus_target = config.focusTarget
+
+    else
+
+        m.current_modal_focus_target = invalid
+
+    end if
+
     modal.ObserveField("itemSelected", "_onModalItemSelected")
 
     m.top.AppendChild(modal)

@@ -36,7 +36,6 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
             if (not handled)
 
-                ' Перевіряємо через isInFocusChain
                 if (not m.top_menu.isInFocusChain() and m.top_menu.visible)
 
                     m.top_menu.SetFocus(true)
@@ -71,7 +70,6 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
         else if (key = "up")
 
-            ' Якщо фокус не в меню - перекидаємо на меню
             if (not m.top_menu.isInFocusChain() and m.top_menu.visible)
 
                 m.top_menu.SetFocus(true)
@@ -81,7 +79,6 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
         else if (key = "down")
 
-            ' Якщо фокус зараз в меню - перекидаємо на екран
             if (m.top_menu.isInFocusChain())
 
                 m.screen_manager.SetFocus(true)

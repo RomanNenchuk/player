@@ -19,7 +19,7 @@
         <Poster
             id="tedLogo"
             uri="pkg:/images/logo_mini.jpg"
-            width="140"
+            width="120"
             height="40"
             translation="[100, 40]"
             loadDisplayMode="scaleToFit" />

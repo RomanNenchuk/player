@@ -34,7 +34,7 @@ sub _updateVisualState()
 
     else
 
-        m.tab_label.color = "0xAAAAAAFF"
+        m.tab_label.color = "0x888888FF"
 
     end if
 

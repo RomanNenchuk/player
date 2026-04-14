@@ -10,12 +10,12 @@
         <HeroComponent
             id="hero"
             compactMode="true"
-            translation="[100, 140]"
+            translation="[100, 130]"
             visible="false"/>
 
         <RowList 
             id="contentRowList"
-            translation="[100, 690]" 
+            translation="[100, 680]" 
             itemComponentName="RowListItem" 
             numRows="7" 
             itemSize="[1720, 400]" 
@@ -39,7 +39,7 @@
             <Vector2DFieldInterpolator
                 fieldToInterp="contentRowList.translation"
                 key="[0.0, 1.0]"
-                keyValue="[[100.0, 690.0], [100.0, 140.0]]" />
+                keyValue="[[100.0, 680.0], [100.0, 130.0]]" />
         </Animation>
 
         <Animation id="showHeroAnim" duration="0.3" easeFunction="linear">
@@ -51,7 +51,7 @@
             <Vector2DFieldInterpolator
                 fieldToInterp="contentRowList.translation"
                 key="[0.0, 1.0]"
-                keyValue="[[100.0, 140.0], [100.0, 690.0]]" />
+                keyValue="[[100.0, 130.0], [100.0, 680.0]]" />
         </Animation>
 
 

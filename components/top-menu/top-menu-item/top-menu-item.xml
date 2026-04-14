@@ -5,7 +5,8 @@
 
     <interface>
         <field id="itemContent" type="node" onChange="_onContentChange" />
-        <field id="focusPercent" type="float" onChange="_onFocusPercentChange" />
+        <field id="focusPercent" type="float" onChange="_updateVisualState" />
+        <field id="itemHasFocus" type="boolean" onChange="_updateVisualState" />
     </interface>
 
     <children>
@@ -24,7 +25,7 @@
             width="150"
             height="4"
             translation="[50, 46]"
-            color="0xFF0055FF"
+            color="0xE62B1EFF"
             visible="false" />
 
     </children>

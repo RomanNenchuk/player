@@ -28,24 +28,66 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     handled = false
 
-    if (press and key = "back")
+    if (press)
 
-        handled = goToPreviousScreen()
+        if (key = "back")
 
-        if (not handled)
+            handled = goToPreviousScreen()
 
-            ShowModal({
-                "title": "Confirmation",
-                "message": "Are you sure you want to exit?",
-                "buttons": ["OK", "Cancel"],
-                "focusTarget": m.screen_manager,
-                "callbacks": [
-                    { "func": _onExitAppClicked },
-                    invalid
-                ]
-            })
+            if (not handled)
 
-            handled = true
+                ' Перевіряємо через isInFocusChain
+                if (not m.top_menu.isInFocusChain() and m.top_menu.visible)
+
+                    m.top_menu.SetFocus(true)
+                    handled = true
+
+                else
+
+                    focus_target = m.screen_manager
+
+                    if (m.top_menu.isInFocusChain())
+
+                        focus_target = m.top_menu
+
+                    end if
+
+                    ShowModal({
+                        "title": "Confirmation",
+                        "message": "Are you sure you want to exit?",
+                        "buttons": ["OK", "Cancel"],
+                        "focusTarget": focus_target,
+                        "callbacks": [
+                            { "func": _onExitAppClicked },
+                            invalid
+                        ]
+                    })
+
+                    handled = true
+
+                end if
+
+            end if
+
+        else if (key = "up")
+
+            ' Якщо фокус не в меню - перекидаємо на меню
+            if (not m.top_menu.isInFocusChain() and m.top_menu.visible)
+
+                m.top_menu.SetFocus(true)
+                handled = true
+
+            end if
+
+        else if (key = "down")
+
+            ' Якщо фокус зараз в меню - перекидаємо на екран
+            if (m.top_menu.isInFocusChain())
+
+                m.screen_manager.SetFocus(true)
+                handled = true
+
+            end if
 
         end if
 

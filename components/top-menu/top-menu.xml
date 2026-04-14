@@ -30,7 +30,7 @@
             numColumns="5"
             itemSize="[250, 50]"
             itemSpacing="[20, 0]"
-            drawFocusFeedback="true"
+            drawFocusFeedback="false"
             vertFocusAnimationStyle="fixedFocusWrap"
             itemComponentName="TopMenuItem" />
 

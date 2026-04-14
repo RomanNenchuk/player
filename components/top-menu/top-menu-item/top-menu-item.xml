@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="TopMenuItem" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/top-menu/top-menu-item/top-menu-item.brs" />
+
+    <interface>
+        <field id="itemContent" type="node" onChange="_onContentChange" />
+        <field id="focusPercent" type="float" onChange="_onFocusPercentChange" />
+    </interface>
+
+    <children>
+
+        <Label
+            id="tabLabel"
+            width="250"
+            height="50"
+            horizAlign="center"
+            vertAlign="center"
+            font="font:SmallSystemFont"
+            color="0xAAAAAAFF" />
+
+        <Rectangle
+            id="focusIndicator"
+            width="150"
+            height="4"
+            translation="[50, 46]"
+            color="0xFF0055FF"
+            visible="false" />
+
+    </children>
+
+</component>

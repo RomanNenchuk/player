@@ -3,8 +3,24 @@ sub init()
     m.top.createChild("TrackerTask")
 
     m.screen_manager = m.top.findNode("screenManager")
+    m.top_menu = m.top.findNode("topMenu")
+    m.top_menu.ObserveField("itemSelected", "_onMenuItemSelected")
 
     navigateTo({ "screenName": "HomeScreen" })
+
+end sub
+
+sub _onMenuVisibilityChange()
+
+    m.top_menu.visible = m.top.isMenuVisible
+
+end sub
+
+sub _onMenuItemSelected(event as Object)
+
+    payload = event.getData()
+    
+    navigateTo(payload)
 
 end sub
 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="TopMenu" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/top-menu/top-menu.brs" />
+
+    <interface>
+        <field id="itemSelected" type="assocarray" />
+    </interface>
+
+    <children>
+
+        <Rectangle
+            id="menuBackground"
+            width="1920"
+            height="120"
+            color="0x000000B3" />
+
+        <Poster
+            id="tedLogo"
+            uri="pkg:/images/logo_mini.jpg"
+            width="140"
+            height="40"
+            translation="[100, 40]"
+            loadDisplayMode="scaleToFit" />
+
+        <MarkupGrid
+            id="menuGrid"
+            translation="[400, 35]"
+            numRows="1"
+            numColumns="5"
+            itemSize="[250, 50]"
+            itemSpacing="[20, 0]"
+            drawFocusFeedback="true"
+            vertFocusAnimationStyle="fixedFocusWrap"
+            itemComponentName="TopMenuItem" />
+
+    </children>
+
+</component>

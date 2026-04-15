@@ -24,16 +24,11 @@
             translation="[100, 40]"
             loadDisplayMode="scaleToFit" />
 
-        <MarkupGrid
-            id="menuGrid"
+        <LayoutGroup
+            id="menuGroup"
             translation="[300, 35]"
-            numRows="1"
-            numColumns="6"
-            itemSize="[250, 50]"
-            itemSpacing="[10, 0]"
-            drawFocusFeedback="false"
-            vertFocusAnimationStyle="fixedFocusWrap"
-            itemComponentName="TopMenuItem" />
+            layoutDirection="horiz"
+            itemSpacings="[0]" />
 
     </children>
 

@@ -1,7 +1,9 @@
 sub init()
 
-    m.menu_grid = m.top.findNode("menuGrid")
-    m.menu_grid.ObserveField("itemSelected", "_onItemSelected")
+    m.menu_group = m.top.findNode("menuGroup")
+    m.current_focus_index = 0
+    m.menu_items = []
+
     m.top.ObserveField("focusedChild", "_onFocusChange")
 
     _setupMenu()
@@ -10,9 +12,9 @@ end sub
 
 sub _onFocusChange()
 
-    if (m.top.hasFocus())
+    if (m.top.hasFocus() and m.menu_items.count() > 0)
 
-        m.menu_grid.SetFocus(true)
+        m.menu_items[m.current_focus_index].SetFocus(true)
 
     end if
 
@@ -29,55 +31,93 @@ sub _setupMenu()
         { title: "Settings", screen: "SettingsScreen" }
     ]
 
-    content = CreateObject("roSGNode", "ContentNode")
-
     for i = 0 to tabs.count() - 1
-
+        
         menu_tab = tabs[i]
         
-        item = content.CreateChild("ContentNode")
-        item.title = menu_tab.title
-        item.id = menu_tab.screen
+        content = CreateObject("roSGNode", "ContentNode")
+        content.title = menu_tab.title
+        content.id = menu_tab.screen
         
         if (menu_tab.icon <> invalid)
-        
-            item.HDPosterUrl = menu_tab.icon
-        
+
+            content.HDPosterUrl = menu_tab.icon
+
         end if
         
-        item.addField("isActive", "boolean", false)
+        content.addField("isActive", "boolean", false)
         
         if (i = 0)
-
-            item.isActive = true
-
+            
+            content.isActive = true
+            
         end if
-
+        
+        item = m.menu_group.CreateChild("TopMenuItem")
+        item.itemContent = content
+        
+        m.menu_items.push(item)
+        
     end for
-
-    m.menu_grid.content = content
-
-end sub
-
-sub _onItemSelected()
-
-    selected_index = m.menu_grid.itemSelected
-    selected_item = m.menu_grid.content.getChild(selected_index)
-    
-    m.top.itemSelected = { screenName: selected_item.id }
 
 end sub
 
 sub _onActiveTabChange()
 
     active_id = m.top.activeTab
-    total_items = m.menu_grid.content.getChildCount()
 
-    for i = 0 to total_items - 1
-
-        child = m.menu_grid.content.getChild(i)
-        child.isActive = (child.id = active_id)
-
+    for i = 0 to m.menu_items.count() - 1
+        
+        child = m.menu_items[i]
+        content = child.itemContent
+        
+        if (content <> invalid)
+            
+            content.isActive = (content.id = active_id)
+            child.itemContent = content
+            
+        end if
+        
     end for
 
 end sub
+
+function OnKeyEvent(key as String, press as Boolean) as Boolean
+
+    handled = false
+
+    if (press)
+        
+        if (key = "right")
+            
+            if (m.current_focus_index < m.menu_items.count() - 1)
+                
+                m.current_focus_index += 1
+                m.menu_items[m.current_focus_index].SetFocus(true)
+                handled = true
+                
+            end if
+            
+        else if (key = "left")
+            
+            if (m.current_focus_index > 0)
+                
+                m.current_focus_index -= 1
+                m.menu_items[m.current_focus_index].SetFocus(true)
+                handled = true
+                
+            end if
+            
+        else if (key = "OK")
+            
+            selected_item = m.menu_items[m.current_focus_index]
+            m.top.itemSelected = { screenName: selected_item.itemContent.id }
+            handled = true
+            
+        end if
+        
+    end if
+    
+    return handled
+
+end function

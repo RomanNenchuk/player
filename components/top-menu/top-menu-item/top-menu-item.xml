@@ -5,8 +5,6 @@
 
     <interface>
         <field id="itemContent" type="node" onChange="_onContentChange" />
-        <field id="focusPercent" type="float" onChange="_updateVisualState" />
-        <field id="itemHasFocus" type="boolean" onChange="_updateVisualState" />
     </interface>
 
     <children>
@@ -15,24 +13,34 @@
             id="tabIcon"
             width="40" 
             height="40"
-            translation="[105, 5]" 
+            translation="[80, 5]" 
             visible="false"
             loadDisplayMode="scaleToFit" />
 
         <Label
             id="tabLabel"
-            width="250"
+            width="200"
             height="50"
             horizAlign="center"
             vertAlign="center"
             font="font:SmallSystemFont"
-            color="0xAAAAAAFF" />
+            color="0x888888FF" />
+
+        <Label
+            id="tabLabelBold"
+            width="200"
+            height="50"
+            horizAlign="center"
+            vertAlign="center"
+            font="font:SmallBoldSystemFont"
+            color="0xFFFFFFFF"
+            visible="false" />
 
         <Rectangle
             id="focusIndicator"
-            width="150"
+            width="140"
             height="4"
-            translation="[50, 46]"
+            translation="[30, 46]"
             color="0xE62B1EFF"
             visible="false" />
 

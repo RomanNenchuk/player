@@ -26,11 +26,11 @@
 
         <MarkupGrid
             id="menuGrid"
-            translation="[400, 35]"
+            translation="[300, 35]"
             numRows="1"
-            numColumns="5"
+            numColumns="6"
             itemSize="[250, 50]"
-            itemSpacing="[20, 0]"
+            itemSpacing="[10, 0]"
             drawFocusFeedback="false"
             vertFocusAnimationStyle="fixedFocusWrap"
             itemComponentName="TopMenuItem" />

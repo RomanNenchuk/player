@@ -2,14 +2,30 @@ sub init()
 
     m.tab_label = m.top.findNode("tabLabel")
     m.focus_indicator = m.top.findNode("focusIndicator")
+    m.tab_icon = m.top.findNode("tabIcon")
 
 end sub
 
 sub _onContentChange()
 
-    if (m.top.itemContent <> invalid)
+    content = m.top.itemContent
 
-        m.tab_label.text = m.top.itemContent.title
+    if (content <> invalid)
+
+        if (content.HDPosterUrl <> "")
+
+            m.tab_icon.uri = content.HDPosterUrl
+            m.tab_icon.visible = true
+            m.tab_label.visible = false
+
+        else
+
+            m.tab_label.text = content.title
+            m.tab_label.visible = true
+            m.tab_icon.visible = false
+
+        end if
+
         _updateVisualState()
 
     end if
@@ -19,10 +35,11 @@ end sub
 sub _updateVisualState()
 
     is_active_page = false
+    content = m.top.itemContent
 
-    if (m.top.itemContent <> invalid and m.top.itemContent.HasField("isActive"))
+    if (content <> invalid and content.hasField("isActive"))
 
-        is_active_page = m.top.itemContent.isActive
+        is_active_page = content.isActive
 
     end if
 
@@ -33,10 +50,22 @@ sub _updateVisualState()
         m.tab_label.color = "0xFFFFFFFF"
         m.tab_label.font = "font:SmallBoldSystemFont"
 
+        if (m.tab_icon <> invalid)
+
+            m.tab_icon.blendColor = "0xFFFFFFFF"
+
+        end if
+
     else
 
         m.tab_label.color = "0x888888FF"
         m.tab_label.font = "font:SmallSystemFont"
+
+        if (m.tab_icon <> invalid)
+
+            m.tab_icon.blendColor = "0x888888FF"
+
+        end if
 
     end if
 

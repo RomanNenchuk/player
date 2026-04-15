@@ -21,6 +21,7 @@ end sub
 sub _setupMenu()
 
     tabs = [
+        { title: "", screen: "SearchScreen", icon: "pkg:/images/search_icon.png" },
         { title: "Home", screen: "HomeScreen" },
         { title: "Shows", screen: "ShowsScreen" },
         { title: "Movies", screen: "MoviesScreen" },
@@ -37,6 +38,12 @@ sub _setupMenu()
         item = content.CreateChild("ContentNode")
         item.title = menu_tab.title
         item.id = menu_tab.screen
+        
+        if (menu_tab.icon <> invalid)
+        
+            item.HDPosterUrl = menu_tab.icon
+        
+        end if
         
         item.addField("isActive", "boolean", false)
         

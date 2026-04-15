@@ -1,5 +1,7 @@
 sub init()
 
+    hideTopMenu()
+
     m.video_player = m.top.findNode("videoPlayer")
     m.video_player.ObserveField("state", "_onVideoStateChange")
 

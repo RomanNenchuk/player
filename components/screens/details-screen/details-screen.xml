@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="DetailsScreen" extends="Group">
+<component name="DetailsScreen" extends="BaseScreen">
 
     <script type="text/brightscript" uri="pkg:/components/screens/details-screen/details-screen.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/top-menu-utils.brs" />
 
     <interface>
         <field id="content" type="node" onChange="onContentChange" />

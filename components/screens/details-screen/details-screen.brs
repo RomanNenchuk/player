@@ -1,5 +1,7 @@
 sub init()
 
+    hideTopMenu()
+
     m.hero = m.top.findNode("hero")
     m.error_label = m.top.findNode("errorLabel")
     m.close_timer = m.top.findNode("closeTimer")

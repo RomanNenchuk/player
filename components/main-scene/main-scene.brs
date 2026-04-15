@@ -6,14 +6,7 @@ sub init()
     m.top_menu = m.top.findNode("topMenu")
     m.top_menu.ObserveField("itemSelected", "_onMenuItemSelected")
 
-    m.main_screens = {
-        "HomeScreen": true,
-        "ShowsScreen": true,
-        "MoviesScreen": true,
-        "OnNowScreen": true,
-        "SettingsScreen": true,
-        "SearchScreen": true
-    }
+    m.top.ObserveField("isTopMenuVisible", "_onMenuVisibilityChanged")
 
     navigateTo({
         "screenName": "HomeScreen"
@@ -21,11 +14,22 @@ sub init()
 
 end sub
 
+sub _onMenuVisibilityChanged(event as Object)
+
+    is_visible = event.getData()
+
+    if (m.top_menu <> invalid)
+
+        m.top_menu.visible = is_visible
+
+    end if
+
+end sub
+
 sub _onScreenChanged(event as Object)
 
     active_screen_name = event.getData()
     m.top_menu.activeTab = active_screen_name
-    m.top_menu.visible = m.main_screens.DoesExist(active_screen_name)
 
 end sub
 

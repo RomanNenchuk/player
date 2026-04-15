@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="HomeScreen" extends="Group">
+<component name="HomeScreen" extends="BaseScreen">
 
     <script type="text/brightscript" uri="pkg:/components/screens/home-screen/home-screen.brs" />
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/top-menu-utils.brs" />
     
     <children>
 

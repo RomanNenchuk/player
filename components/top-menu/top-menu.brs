@@ -73,8 +73,15 @@ sub _onActiveTabChange()
         
         if (content <> invalid)
             
-            content.isActive = (content.id = active_id)
+            is_active = (content.id = active_id)
+            content.isActive = is_active
             child.itemContent = content
+
+            if (is_active)
+
+                m.current_focus_index = i
+            
+            end if
             
         end if
         

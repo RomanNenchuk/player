@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="PlayButton" extends="Group">
+    <script type="text/brightscript" uri="pkg:/components/play-button/play-button.brs" />
+    <interface>
+        <field id="text" type="string" value="Play Video" onChange="onTextChange" />
+        <field id="buttonSelected" type="boolean" value="false" />
+        <field id="width" type="float" value="200" onChange="onSizeChange" />
+        <field id="height" type="float" value="80" onChange="onSizeChange" />
+    </interface>
+    <children>
+        <Poster
+            id="normalBg"
+            uri="pkg:/images/normal_bg.png"
+            loadDisplayMode="stretch"
+            visible="true" />
+
+        <Poster
+            id="focusBg"
+            uri="pkg:/images/focus_bg.png"
+            loadDisplayMode="stretch"
+            visible="false" />
+
+        <Label
+            id="buttonLabel"
+            horizAlign="center"
+            vertAlign="center"
+            font="font:MediumBoldSystemFont" />
+    </children>
+</component>

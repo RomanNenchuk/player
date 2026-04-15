@@ -6,15 +6,8 @@ sub init()
 
     m.top.observeField("focusedChild", "_onFocusChange")
 
-    onTextChange()
     _applySize()
     _applyUnfocusedStyle()
-
-end sub
-
-sub onTextChange()
-
-    m.button_label.text = m.top.text
 
 end sub
 

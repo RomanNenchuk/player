@@ -13,7 +13,7 @@
     </interface>
 
   <children>
-        <Rectangle id="background" width="1920" height="1080" color="0x0C0C0CFF" />
+        <Rectangle id="background" width="1920" height="1080" color="0x000000FF" />
         
         <ScreenManager id="screenManager" />
 

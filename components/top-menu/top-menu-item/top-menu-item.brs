@@ -31,10 +31,12 @@ sub _updateVisualState()
     if (is_focused or is_active_page)
 
         m.tab_label.color = "0xFFFFFFFF"
+        m.tab_label.font = "font:SmallBoldSystemFont"
 
     else
 
         m.tab_label.color = "0x888888FF"
+        m.tab_label.font = "font:SmallSystemFont"
 
     end if
 

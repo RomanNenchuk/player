@@ -1,77 +1,20 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="SearchScreen" extends="Group">
+<component name="SearchScreen" extends="Group" focusable="true">
 
     <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen.brs" />
 
     <children>
-        <Group id="left_panel" translation="[100, 150]">
-            <Group id="voice_prompt_group" visible="false" translation="[0, 0]">
 
-                <Group id="mic_button_large" translation="[0, 0]">
-                    <Poster 
-                        id="mic_bg"
-                        uri="pkg:/images/mic_bg.png" 
-                        width="64" 
-                        height="64" 
-                    />
-                    <Poster 
-                        id="mic_icon_large" 
-                        uri="pkg:/images/mic_icon.png" 
-                        width="28"
-                        height="28"
-                        translation="[18, 18]" 
-                        blendColor="0xFFFFFFFF" 
-                    />
-                </Group>
-
-                <LayoutGroup 
-                    layoutDirection="horiz" 
-                    vertAlignment="center" 
-                    itemSpacings="[10, 10]"
-                    translation="[80, 32]"
-                >
-                    <Label 
-                        text="Press and Hold" 
-                        color="0x888888FF" 
-                        font="font:TinySystemFont" 
-                    />
-                    
-                    <Poster 
-                        uri="pkg:/images/mic_icon.png" 
-                        width="22" 
-                        height="22" 
-                        blendColor="0x888888FF" 
-                    />
-                    
-                    <Label 
-                        text="while you speak" 
-                        color="0x888888FF" 
-                        font="font:TinySystemFont" 
-                    />
-                </LayoutGroup>
-
-            </Group>
-            
-            <Rectangle 
-                id="keyboard_lines_bg" 
-                width="615" 
-                height="718" 
-                color="0x000000FF" 
-                translation="[0, 90]" 
-            />
-
-            <MarkupGrid 
-                id="keyboard_grid" 
-                itemComponentName="KeyboardItem"
-                numColumns="6"
-                numRows="7" 
-                itemSize="[90, 90]"
-                itemSpacing="[3, 3]" 
-                translation="[0, 100]" 
+        <Group id="left_panel" translation="[100, 150]">  
+            <LayoutGroup
+                id="keyboard_layout_group"
+                layoutDirection="vert"
+                itemSpacings="[3]"
+                translation="[0, 100]"
             />
         </Group>
 
-        <Group id="right_panel" translation="[700, 150]">
+         <Group id="right_panel" translation="[700, 150]">
             <Label 
                 id="empty_state_label" 
                 text="What are you looking for?" 
@@ -79,7 +22,6 @@
                 font="font:MediumSystemFont" 
                 translation="[200, 200]" 
             />
-            
             <Label 
                 id="search_results_title" 
                 text="" 
@@ -87,15 +29,6 @@
                 font="font:MediumSystemFont" 
                 visible="false" 
                 translation="[0, 0]" 
-            />
-            
-            <MarkupGrid 
-                id="results_grid" 
-                itemComponentName="VideoPosterItem" 
-                numColumns="3" 
-                itemSize="[250, 150]" 
-                visible="false" 
-                translation="[0, 50]" 
             />
         </Group>
 

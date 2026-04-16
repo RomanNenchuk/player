@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="KeyboardKey" extends="Group" focusable="true">
+
+    <script type="text/brightscript" uri="pkg:/components/keyboard/keyboard-key/keyboard-key.brs" />
+
+    <interface>
+        <field id="keyId"    type="string"  onChange="_onKeyDataChange" />
+        <field id="keyTitle" type="string"  onChange="_onKeyDataChange" />
+        <field id="keyWidth" type="integer" onChange="_onKeyDataChange" />
+    </interface>
+
+    <children>
+        <Rectangle id="background_rect" width="90" height="90" color="0x222222FF" />
+        <Label 
+            id="letter_label" 
+            width="90" 
+            height="90" 
+            horizAlign="center" 
+            vertAlign="center" 
+            color="0xFFFFFFFF" 
+            font="font:MediumSystemFont" />
+
+        <Poster 
+            id="icon_poster" 
+            width="40" 
+            height="40" 
+            translation="[25, 25]" 
+            visible="false" 
+            loadDisplayMode="scaleToFit" />
+    </children>
+
+</component>

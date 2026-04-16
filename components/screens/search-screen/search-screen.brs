@@ -1,37 +1,23 @@
 sub init()
 
-    m.keyboard_grid = m.top.findNode("keyboard_grid")
-    m.results_grid = m.top.findNode("results_grid")
-    m.debounce_timer = m.top.findNode("debounce_timer")
-    m.empty_state_label = m.top.findNode("empty_state_label")
-    m.search_results_title = m.top.findNode("search_results_title")
-    m.voice_prompt_group = m.top.findNode("voice_prompt_group")
+    m.keyboard_layout_group = m.top.findNode("keyboard_layout_group")
+    m.key_nodes    = []
+    m.key_grid     = []
 
+    m.search_results_title = m.top.findNode("search_results_title")
     m.search_query = ""
 
-    m.debounce_timer.ObserveField("fire", "_onDebounceTimerFired")
-    m.keyboard_grid.ObserveField("itemSelected", "_onKeyboardItemSelected")
+    m.top.ObserveField("focusedChild", "_onScreenFocusChange")
 
-    _checkVoiceSupport()
     _setupKeyboard()
 
 end sub
 
-sub _checkVoiceSupport()
+sub _onScreenFocusChange()
 
-    device_info = CreateObject("roDeviceInfo")
-    has_voice_support = device_info.HasFeature("audio_in")
-    
-    ' Remove this in production
-    has_voice_support = true
+    if (m.top.hasFocus() = true and m.key_nodes.count() > 0)
 
-    if (has_voice_support = true)
-
-        m.voice_prompt_group.visible = true
-
-    else
-
-        m.voice_prompt_group.visible = false
+        m.key_nodes[0]["node"].setFocus(true)
 
     end if
 
@@ -39,54 +25,226 @@ end sub
 
 sub _setupKeyboard()
 
-    keyboard_content = CreateObject("roSGNode", "ContentNode")
-    
-    keys = [
-        "a", "b", "c", "d", "e", "f", 
-        "g", "h", "i", "j", "k", "l", 
-        "m", "n", "o", "p", "q", "r", 
-        "s", "t", "u", "v", "w", "x", 
-        "y", "z", "1", "2", "3", "4", 
-        "5", "6", "7", "8", "9", "0",
-        "clear", "empty", "space", "empty", "backspace", "empty"
+    key_rows = [
+        ["a", "b", "c", "d", "e", "f"],
+        ["g", "h", "i", "j", "k", "l"],
+        ["m", "n", "o", "p", "q", "r"],
+        ["s", "t", "u", "v", "w", "x"],
+        ["y", "z", "1", "2", "3", "4"],
+        ["5", "6", "7", "8", "9", "0"],
+        ["clear", "space", "backspace"]
     ]
-    
-    current_index = 0
-    total_keys = keys.count()
-    
-    while (current_index < total_keys)
 
-        key_id = keys[current_index]
-        key_node = keyboard_content.createChild("ContentNode")
+    row_index = 0
+
+    for each row in key_rows
+
+        row_group = CreateObject("roSGNode", "LayoutGroup")
+        row_group.layoutDirection = "horiz"
+        row_group.itemSpacings = [3]
+
+        col_index = 0
+
+        for each key_id in row
+
+            key_node = CreateObject("roSGNode", "KeyboardKey")
+            key_node.id = "key_" + key_id
+            key_node.keyId = key_id
+            key_node.keyTitle = key_id
+
+            if (key_id = "clear" or key_id = "space" or key_id = "backspace")
+
+                key_node.keyWidth = 183
+
+            else
+
+                key_node.keyWidth = 90
+
+            end if
+
+            row_group.appendChild(key_node)
+
+            entry = {
+                "node": key_node,
+                "row": row_index,
+                "col": col_index,
+                "key_id": key_id
+            }
+
+            m.key_nodes.push(entry)
+            col_index = col_index + 1
         
-        key_node.id = key_id
-        
-        if (key_id <> "empty" and key_id <> "clear" and key_id <> "space" and key_id <> "backspace")
+        end for
 
-            key_node.title = key_id
-
-        end if
-        
-        current_index = current_index + 1
-
-    end while
+        m.keyboard_layout_group.appendChild(row_group)
+        row_index = row_index + 1
     
-    m.keyboard_grid.content = keyboard_content
+    end for
+
+    _buildKeyGrid()
+    _wireKeyboardFocus()
 
 end sub
 
-sub _onKeyboardItemSelected(event as Object)
+sub _buildKeyGrid()
 
-    selected_index = event.getData()
-    selected_item = m.keyboard_grid.content.getChild(selected_index)
+    m.key_grid = []
     
-    key_id = selected_item.id
+    for each entry in m.key_nodes
+    
+        row = entry["row"]
 
-    if (key_id = "empty")
+        if (row >= m.key_grid.count())
 
-        return
+            m.key_grid.push([])
+    
+        end if
+    
+        m.key_grid[row].push(entry["node"])
+    
+    end for
 
-    else if (key_id = "clear")
+end sub
+
+sub _wireKeyboardFocus()
+
+    m.focus_map = {}
+    num_rows = m.key_grid.count()
+
+    for row = 0 to num_rows - 1
+
+        row_keys = m.key_grid[row]
+        num_cols = row_keys.count()
+        last_col = num_cols - 1
+
+        for col = 0 to last_col
+
+            node = row_keys[col]
+            mapping = {}
+
+            if (col > 0) 
+                
+                mapping["left"] = row_keys[col - 1]
+
+            end if
+
+            if (col < last_col) 
+
+                mapping["right"] = row_keys[col + 1]
+
+            end if
+
+            if (row > 0)
+
+                prev_row = m.key_grid[row - 1]
+                target_col = col
+
+                if (target_col >= prev_row.count())
+
+                    target_col = prev_row.count() - 1
+
+                end if
+
+                mapping["up"] = prev_row[target_col]
+            
+            end if
+            
+            if (row < num_rows - 1)
+
+                next_row   = m.key_grid[row + 1]
+                target_col = col
+
+                if (target_col >= next_row.count()) 
+
+                    target_col = next_row.count() - 1
+
+                end if
+
+                mapping["down"] = next_row[target_col]
+
+            end if
+
+            m.focus_map[node.id] = mapping
+
+        end for
+
+    end for
+
+end sub
+
+function OnKeyEvent(key as String, press as Boolean) as Boolean
+
+    if (press = false) 
+
+        return false
+
+    end if
+
+    focused_id = _getFocusedKeyId()
+
+    if (focused_id = "")
+
+        if (m.key_nodes.count() > 0) 
+            
+            m.key_nodes[0]["node"].setFocus(true)
+        
+        end if
+        
+        return true
+    
+    end if
+
+    if (m.focus_map.DoesExist(focused_id))
+
+        mapping = m.focus_map[focused_id]
+
+        if (mapping.DoesExist(key))
+
+            mapping[key].setFocus(true)
+            return true
+        
+        else if (key = "OK")
+            
+            for each entry in m.key_nodes
+
+                if (entry["node"].id = focused_id)
+
+                    _handleKeyPress(entry["key_id"])
+                    return true
+
+                end if
+
+            end for
+            
+            return true
+
+        end if
+
+    end if
+
+    return false
+
+end function
+
+function _getFocusedKeyId() as String
+
+    for each entry in m.key_nodes
+
+        if (entry["node"].hasFocus() = true)
+
+            return entry["node"].id
+
+        end if
+
+    end for
+
+    return ""
+
+end function
+
+sub _handleKeyPress(key_id as String)
+
+    if (key_id = "clear")
 
         m.search_query = ""
 
@@ -104,80 +262,20 @@ sub _onKeyboardItemSelected(event as Object)
 
     else
 
-        m.search_query = m.search_query + selected_item.title
+        m.search_query = m.search_query + LCase(key_id)
 
     end if
 
-    _updateUiState()
-
-end sub
-
-sub _updateUiState()
+    m.search_results_title.text = m.search_query
 
     if (m.search_query = "")
 
-        m.empty_state_label.visible = true
-        m.results_grid.visible = false
         m.search_results_title.visible = false
-        m.debounce_timer.control = "stop"
 
     else
 
-        m.empty_state_label.visible = false
-        m.search_results_title.text = "Search results for " + Chr(34) + m.search_query + Chr(34)
         m.search_results_title.visible = true
-        m.debounce_timer.control = "start"
 
     end if
-
-end sub
-
-sub _onDebounceTimerFired()
-
-    _filterLocalVideos()
-
-end sub
-
-sub _filterLocalVideos()
-
-    MAX_RESULTS_LIMIT = 50
-
-    filtered_results_node = CreateObject("roSGNode", "ContentNode")
-
-    if (m.global <> invalid and m.global.video_catalog <> invalid)
-
-        total_videos = m.global.video_catalog.getChildCount()
-        current_index = 0
-        added_count = 0
-
-        while (current_index < total_videos)
-
-            video_node = m.global.video_catalog.getChild(current_index)
-            title = video_node.title
-            
-            match_position = Instr(1, title, m.search_query)
-
-            if (match_position > 0)
-
-                cloned_video = video_node.clone(true)
-                filtered_results_node.appendChild(cloned_video)
-                added_count = added_count + 1
-
-            end if
-
-            if (added_count >= MAX_RESULTS_LIMIT)
-
-                exit while
-
-            end if
-
-            current_index = current_index + 1
-
-        end while
-
-    end if
-
-    m.results_grid.content = filtered_results_node
-    m.results_grid.visible = true
 
 end sub

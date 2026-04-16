@@ -4,14 +4,40 @@
     <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen.brs" />
 
     <children>
+        <Group id="left_panel" translation="[100, 150]">
+        
+            <Group id="voice_prompt_group" visible="false" translation="[0, 0]">
+                <Group id="mic_button_large" translation="[0, 0]" focusable="true">
+                    <Poster 
+                        id="mic_bg"
+                        uri="pkg:/images/mic_bg.png" 
+                        width="64" 
+                        height="64" 
+                    />
+                    <Poster 
+                        id="mic_icon_large" 
+                        uri="pkg:/images/mic_icon.png" 
+                        width="28"
+                        height="28"
+                        translation="[18, 18]" 
+                        blendColor="0xFFFFFFFF" 
+                    />
+                </Group>
 
-        <Group id="left_panel" translation="[100, 150]">  
-            <LayoutGroup
-                id="keyboard_layout_group"
-                layoutDirection="vert"
-                itemSpacings="[3]"
-                translation="[0, 100]"
-            />
+                <LayoutGroup 
+                    layoutDirection="horiz" 
+                    vertAlignment="center" 
+                    itemSpacings="[10, 10]"
+                    translation="[80, 32]"
+                >
+                    <Label text="Press and Hold" color="0x888888FF" font="font:TinySystemFont" />
+                    <Poster uri="pkg:/images/mic_icon.png" width="22" height="22" blendColor="0x888888FF" />
+                    <Label text="while you speak" color="0x888888FF" font="font:TinySystemFont" />
+                </LayoutGroup>
+            </Group>
+
+            <CustomKeyboard id="keyboard" translation="[0, 100]" />
+
         </Group>
 
          <Group id="right_panel" translation="[700, 150]">

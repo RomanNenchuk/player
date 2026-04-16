@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="CustomKeyboard" extends="Group" focusable="true">
+
+    <script type="text/brightscript" uri="pkg:/components/custom-keyboard/custom-keyboard.brs" />
+
+    <interface>
+        <field id="searchQuery" type="string" value="" />
+        
+        <field id="exitDirection" type="string" value="" alwaysNotify="true" />
+    </interface>
+
+    <children>
+        <LayoutGroup
+            id="keyboard_layout_group"
+            layoutDirection="vert"
+            itemSpacings="[3]"
+        />
+    </children>
+
+</component>

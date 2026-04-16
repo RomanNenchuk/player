@@ -40,22 +40,22 @@
 
         </Group>
 
-         <Group id="right_panel" translation="[700, 150]">
+        <Group id="right_panel" translation="[700, 150]"> <Group id="search_header_group" translation="[0,0]">
+                
+            <Poster 
+                id="search_header_bg" 
+                uri="pkg:/images/pill_bg.9.png" 
+                height="64" />
+
             <Label 
-                id="empty_state_label" 
+                id="search_header_label" 
                 text="What are you looking for?" 
-                color="0xFFFFFFFF" 
-                font="font:MediumSystemFont" 
-                translation="[200, 200]" 
-            />
-            <Label 
-                id="search_results_title" 
-                text="" 
-                color="0xFFFFFFFF" 
-                font="font:MediumSystemFont" 
-                visible="false" 
-                translation="[0, 0]" 
-            />
+                color="0xCCCCCCFF" 
+                font="font:SmallerSystemFont"
+                wrap="false"
+                ellipsis="true"/>
+            
+            </Group>
         </Group>
 
         <Timer id="debounce_timer" duration="0.4" repeat="false" />

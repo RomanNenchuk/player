@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="KeyboardItem" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/keyboard/keyboard-item/keyboard-item.brs" />
+    <interface>
+        <field id="itemContent" type="node" onChange="_onItemContentChange" />
+        <field id="itemHasFocus" type="boolean" onChange="_onFocusChange" />
+    </interface>
+
+    <children>
+        <Rectangle
+            id="background_rect"
+            width="80"
+            height="80"
+            color="0x222222FF" 
+        />
+        
+        <Label
+            id="letter_label"
+            width="80"
+            height="80"
+            horizAlign="center"
+            vertAlign="center"
+            color="0xFFFFFFFF"
+            font="font:MediumSystemFont" 
+        />
+
+        <Poster
+            id="icon_poster"
+            width="40"
+            height="40"
+            translation="[20, 20]"
+            visible="false"
+            loadDisplayMode="scaleToFit" 
+        />
+    </children>
+
+</component>

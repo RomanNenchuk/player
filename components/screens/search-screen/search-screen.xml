@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="SearchScreen" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen.brs" />
+
+    <children>
+        <Group id="left_panel" translation="[100, 150]">
+            <Label 
+                id="voice_prompt" 
+                text="Press and Hold mic. while you speak" 
+                color="0xAAAAAAFF" 
+                font="font:SmallSystemFont" 
+                visible="false" 
+                translation="[0, 0]" 
+            />
+            
+            <Rectangle 
+                id="keyboard_lines_bg" 
+                width="485" 
+                height="566" 
+                color="0x000000FF" 
+                translation="[0, 50]" 
+            />
+
+            <MarkupGrid 
+                id="keyboard_grid" 
+                itemComponentName="KeyboardItem"
+                numColumns="6"
+                numRows="7" 
+                itemSize="[80, 80]" 
+                itemSpacing="[3, 3]" 
+                translation="[0, 50]" 
+            />
+        </Group>
+
+        <Group id="right_panel" translation="[700, 150]">
+            <Label 
+                id="empty_state_label" 
+                text="What are you looking for?" 
+                color="0xFFFFFFFF" 
+                font="font:MediumSystemFont" 
+                translation="[200, 200]" 
+            />
+            
+            <Label 
+                id="search_results_title" 
+                text="" 
+                color="0xFFFFFFFF" 
+                font="font:MediumSystemFont" 
+                visible="false" 
+                translation="[0, 0]" 
+            />
+            
+            <MarkupGrid 
+                id="results_grid" 
+                itemComponentName="VideoPosterItem" 
+                numColumns="3" 
+                itemSize="[250, 150]" 
+                visible="false" 
+                translation="[0, 50]" 
+            />
+        </Group>
+
+        <Timer id="debounce_timer" duration="0.4" repeat="false" />
+    </children>
+
+</component>

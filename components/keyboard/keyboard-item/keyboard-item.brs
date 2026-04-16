@@ -21,8 +21,8 @@ sub _onItemContentChange()
     else if (key_id = "clear" or key_id = "space" or key_id = "backspace")
         
         m.background_rect.visible = true
-        ' 80 (first cell) + 3 (itemSpacing) + 80 (second cell) = 163
-        m.background_rect.width = 163
+        ' 90 (first cell) + 3 (itemSpacing) + 90 (second cell) = 183
+        m.background_rect.width = 183
         
         m.letter_label.visible = false
         m.icon_poster.visible = true
@@ -30,34 +30,34 @@ sub _onItemContentChange()
         if (key_id = "clear")
 
             m.icon_poster.uri = "pkg:/images/icon_trash.png"
-            m.icon_poster.width = 30
-            m.icon_poster.height = 30
-            m.icon_poster.translation = [66, 25]
+            m.icon_poster.width = 25
+            m.icon_poster.height = 25
+            m.icon_poster.translation = [79, 32]
         
         else if (key_id = "space")
         
             m.icon_poster.uri = "pkg:/images/icon_space.png"
             m.icon_poster.width = 40
-            m.icon_poster.height = 40
-            m.icon_poster.translation = [61, 20]
+            m.icon_poster.height = 25
+            m.icon_poster.translation = [71, 32]
         
         else if (key_id = "backspace")
         
             m.icon_poster.uri = "pkg:/images/icon_backspace.png"
-            m.icon_poster.width = 30
-            m.icon_poster.height = 30
-            m.icon_poster.translation = [66, 25]
+            m.icon_poster.width = 25
+            m.icon_poster.height = 25
+            m.icon_poster.translation = [79, 32]
         
         end if
         
     else
 
         m.background_rect.visible = true
-        m.background_rect.width = 80
+        m.background_rect.width = 90
         
         m.icon_poster.visible = false
         m.letter_label.visible = true
-        m.letter_label.width = 80
+        m.letter_label.width = 90
         
         if (m.top.itemContent.title <> invalid)
 
@@ -83,7 +83,6 @@ end sub
 
 sub _updateFocusState()
 
-    ' ЗАХИСТ: ігноруємо відсутні дані та "порожні" клітинки, щоб не було сірих квадратів
     if (m.top.itemContent = invalid or m.top.itemContent.id = "empty") 
     
         return

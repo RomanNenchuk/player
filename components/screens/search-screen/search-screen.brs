@@ -5,7 +5,7 @@ sub init()
     m.debounce_timer = m.top.findNode("debounce_timer")
     m.empty_state_label = m.top.findNode("empty_state_label")
     m.search_results_title = m.top.findNode("search_results_title")
-    m.voice_prompt = m.top.findNode("voice_prompt")
+    m.voice_prompt_group = m.top.findNode("voice_prompt_group")
 
     m.search_query = ""
 
@@ -20,11 +20,18 @@ end sub
 sub _checkVoiceSupport()
 
     device_info = CreateObject("roDeviceInfo")
-    has_voice_support = true ' TODO: add real check
+    has_voice_support = device_info.HasFeature("audio_in")
+    
+    ' Remove this in production
+    has_voice_support = true
 
     if (has_voice_support = true)
 
-        m.voice_prompt.visible = true
+        m.voice_prompt_group.visible = true
+
+    else
+
+        m.voice_prompt_group.visible = false
 
     end if
 

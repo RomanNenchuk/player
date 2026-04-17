@@ -17,14 +17,14 @@ sub _onDataLoaded()
 
   end if
 
-  if (m.content_row_list <> invalid)
+  if (m.top.hasField("feedData"))
 
-    m.content_row_list.content = content_node
+    m.top.feedData = content_node
 
   else
-  
-    print "[Scene] Warning: m.content_row_list is invalid"
-  
+
+    print "[Scene] Warning: Component does not have 'feedData' interface"
+
   end if
 
 end sub

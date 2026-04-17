@@ -2,6 +2,7 @@
 <component name="CustomKeyboard" extends="Group" >
 
     <script type="text/brightscript" uri="pkg:/components/custom-keyboard/custom-keyboard.brs" />
+    <script type="text/brightscript" uri="pkg:/components/constants/keyboard-constants.brs" />
 
     <interface>
         <field id="searchQuery" type="string" value="" />

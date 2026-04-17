@@ -1,14 +1,16 @@
 sub init()
 
-	m.keyboard_layout_group = m.top.findNode("keyboard_layout_group")
-	m.key_nodes = []
-	m.key_grid = []
-	m.search_query = ""
-	m.last_focused_node = invalid
+    m.constants = KeyboardConstants()
 
-	m.top.ObserveField("focusedChild", "_onInternalFocusChange")
+    m.keyboard_layout_group = m.top.findNode("keyboard_layout_group")
+    m.key_nodes = []
+    m.key_grid = []
+    m.search_query = ""
+    m.last_focused_node = invalid
 
-	_setupKeyboard()
+    m.top.ObserveField("focusedChild", "_onInternalFocusChange")
+
+    _setupKeyboard()
 
 end sub
 
@@ -16,167 +18,161 @@ sub _onInternalFocusChange()
 
     if (m.top.hasFocus() = true and m.key_nodes.count() > 0)
 
-		if m.last_focused_node <> invalid
+        if (m.last_focused_node <> invalid)
 
-			m.last_focused_node.setFocus(true)
+            m.last_focused_node.setFocus(true)
 
-		else
+        else
 
-			m.key_nodes[0]["node"].setFocus(true)
+            m.key_nodes[0]["node"].setFocus(true)
             m.last_focused_node = m.key_nodes[0]["node"]
 
-		end if
+        end if
 
-	end if
+    end if
 
 end sub
 
 sub _setupKeyboard()
 
-	key_rows = [
-		["a", "b", "c", "d", "e", "f"],
-		["g", "h", "i", "j", "k", "l"],
-		["m", "n", "o", "p", "q", "r"],
-		["s", "t", "u", "v", "w", "x"],
-		["y", "z", "1", "2", "3", "4"],
-		["5", "6", "7", "8", "9", "0"],
-		["clear", "space", "backspace"]
-	]
+    constants = m.constants
+    key_rows = KeyboardLayout()
 
-	row_index = 0
+    row_index = 0
 
-	for each row in key_rows
+    for each row in key_rows
 
-		row_group = CreateObject("roSGNode", "LayoutGroup")
-		row_group.layoutDirection = "horiz"
-		row_group.itemSpacings = [3]
+        row_group = CreateObject("roSGNode", "LayoutGroup")
+        row_group.layoutDirection = "horiz"
+        row_group.itemSpacings = [constants.COL_SPACING]
+        col_index = 0
 
-		col_index = 0
+        for each key_id in row
 
-		for each key_id in row
+            key_node = CreateObject("roSGNode", "KeyboardKey")
+            key_node.id = "key_" + key_id
+            key_node.keyId = key_id
+            key_node.keyTitle = key_id
 
-			key_node = CreateObject("roSGNode", "KeyboardKey")
-			key_node.id = "key_" + key_id
-			key_node.keyId = key_id
-			key_node.keyTitle = key_id
+            is_special = (key_id = constants.KEY_ID_CLEAR or key_id = constants.KEY_ID_SPACE or key_id = constants.KEY_ID_BACKSPACE)
 
-			if (key_id = "clear" or key_id = "space" or key_id = "backspace")
+            if (is_special)
 
-				key_node.keyWidth = 203
+                key_node.keyWidth = constants.KEY_SIZE_WIDE
 
-			else
+            else
 
-				key_node.keyWidth = 100
+                key_node.keyWidth = constants.KEY_SIZE
 
-			end if
+            end if
 
-			row_group.appendChild(key_node)
+            row_group.appendChild(key_node)
 
-			entry = {
-				"node": key_node,
-				"row": row_index,
-				"col": col_index,
-				"key_id": key_id
-			}
+            entry = {
+                "node": key_node,
+                "row": row_index,
+                "col": col_index,
+                "key_id": key_id
+            }
 
-			m.key_nodes.push(entry)
-			col_index = col_index + 1
+            m.key_nodes.push(entry)
+            col_index = col_index + 1
 
-		end for
+        end for
 
-		m.keyboard_layout_group.appendChild(row_group)
-		row_index = row_index + 1
+        m.keyboard_layout_group.appendChild(row_group)
+        row_index = row_index + 1
 
-	end for
+    end for
 
-	_buildKeyGrid()
-	_wireKeyboardFocus()
+    _buildKeyGrid()
+    _wireKeyboardFocus()
 
 end sub
 
 sub _buildKeyGrid()
 
-	m.key_grid = []
+    m.key_grid = []
 
-	for each entry in m.key_nodes
+    for each entry in m.key_nodes
 
-		row = entry["row"]
+        row = entry["row"]
 
-		if (row >= m.key_grid.count())
+        if (row >= m.key_grid.count())
 
-			m.key_grid.push([])
+            m.key_grid.push([])
 
-		end if
+        end if
 
-		m.key_grid[row].push(entry["node"])
+        m.key_grid[row].push(entry["node"])
 
-	end for
+    end for
 
 end sub
 
 sub _wireKeyboardFocus()
 
-	m.focus_map = {}
-	num_rows = m.key_grid.count()
+    m.focus_map = {}
+    num_rows = m.key_grid.count()
 
-	for row = 0 to num_rows - 1
+    for row = 0 to num_rows - 1
 
-		row_keys = m.key_grid[row]
-		num_cols = row_keys.count()
-		last_col = num_cols - 1
+        row_keys = m.key_grid[row]
+        num_cols = row_keys.count()
+        last_col = num_cols - 1
 
-		for col = 0 to last_col
+        for col = 0 to last_col
 
-			node = row_keys[col]
-			mapping = {}
+            node = row_keys[col]
+            mapping = {}
 
-			if (col > 0)
+            if (col > 0)
 
-				mapping["left"] = row_keys[col - 1]
+                mapping["left"] = row_keys[col - 1]
 
-			end if
+            end if
 
-			if (col < last_col)
+            if (col < last_col)
 
-				mapping["right"] = row_keys[col + 1]
+                mapping["right"] = row_keys[col + 1]
 
-			end if
+            end if
 
-			if (row > 0)
+            if (row > 0)
 
-				prev_row = m.key_grid[row - 1]
-				target_col = col
+                prev_row = m.key_grid[row - 1]
+                target_col = col
 
-				if (target_col >= prev_row.count())
+                if (target_col >= prev_row.count())
 
-					target_col = prev_row.count() - 1
+                    target_col = prev_row.count() - 1
 
-				end if
+                end if
 
-				mapping["up"] = prev_row[target_col]
+                mapping["up"] = prev_row[target_col]
 
-			end if
+            end if
 
-			if (row < num_rows - 1)
+            if (row < num_rows - 1)
 
-				next_row = m.key_grid[row + 1]
-				target_col = col
+                next_row = m.key_grid[row + 1]
+                target_col = col
 
-				if (target_col >= next_row.count())
+                if (target_col >= next_row.count())
 
-					target_col = next_row.count() - 1
+                    target_col = next_row.count() - 1
 
-				end if
+                end if
 
-				mapping["down"] = next_row[target_col]
+                mapping["down"] = next_row[target_col]
 
-			end if
+            end if
 
-			m.focus_map[node.id] = mapping
+            m.focus_map[node.id] = mapping
 
-		end for
+        end for
 
-	end for
+    end for
 
 end sub
 
@@ -188,37 +184,37 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     end if
 
-    focused_id = _GetFocusedKeyId()
+    focused_id = _getFocusedKeyId()
 
-	if (focused_id = "")
+    if (focused_id = "")
 
-        if ( m.key_nodes.count() > 0 )
-        
-            if m.last_focused_node <> invalid
+        if (m.key_nodes.count() > 0)
 
-				m.last_focused_node.setFocus(true)
+            if (m.last_focused_node <> invalid)
 
-			else
+                m.last_focused_node.setFocus(true)
 
-				m.key_nodes[0]["node"].setFocus(true)
+            else
+
+                m.key_nodes[0]["node"].setFocus(true)
                 m.last_focused_node = m.key_nodes[0]["node"]
 
-			end if
+            end if
 
-		end if
+        end if
 
-		return true
+        return true
 
-	end if
+    end if
 
-    if (m.focus_map.DoesExist(focused_id))
+    if (m.focus_map.doesExist(focused_id))
 
         mapping = m.focus_map[focused_id]
 
-        if (mapping.DoesExist(key))
+        if (mapping.doesExist(key))
 
             mapping[key].setFocus(true)
-			m.last_focused_node = mapping[key]
+            m.last_focused_node = mapping[key]
 
             return true
 
@@ -254,44 +250,44 @@ end function
 
 function _getFocusedKeyId() as String
 
-	for each entry in m.key_nodes
+    for each entry in m.key_nodes
 
-		if (entry["node"].hasFocus() = true)
+        if (entry["node"].hasFocus() = true)
 
-			return entry["node"].id
+            return entry["node"].id
 
-		end if
+        end if
 
-	end for
+    end for
 
-	return ""
+    return ""
 
 end function
 
 sub _handleKeyPress(key_id as String)
 
-	if (key_id = "clear")
+    if (key_id = "clear")
 
-		m.search_query = ""
+        m.search_query = ""
 
-	else if (key_id = "backspace")
+    else if (key_id = "backspace")
 
-		if (Len(m.search_query) > 0)
+        if (len(m.search_query) > 0)
 
-			m.search_query = Left(m.search_query, Len(m.search_query) - 1)
+            m.search_query = left(m.search_query, len(m.search_query) - 1)
 
-		end if
+        end if
 
-	else if (key_id = "space")
+    else if (key_id = "space")
 
-		m.search_query = m.search_query + " "
+        m.search_query = m.search_query + " "
 
-	else
+    else
 
-		m.search_query = m.search_query + LCase(key_id)
+        m.search_query = m.search_query + lcase(key_id)
 
-	end if
+    end if
 
-	m.top.searchQuery = m.search_query
+    m.top.searchQuery = m.search_query
 
 end sub

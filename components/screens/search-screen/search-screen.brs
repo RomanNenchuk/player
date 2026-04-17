@@ -8,6 +8,9 @@ sub init()
     m.keyboard = m.top.findNode("keyboard")
     m.search_header_bg = m.top.findNode("search_header_bg")
     m.search_header_label = m.top.findNode("search_header_label")
+    m.search_results_grid = m.top.findNode("searchResultsGrid")
+
+    m.all_videos_flat = invalid
 
     m.mic_button_large.ObserveField("focusedChild", "_onMicFocusChange")
     m.top.ObserveField("focusedChild", "_onScreenFocusChange")
@@ -17,6 +20,7 @@ sub init()
 
     _checkVoiceSupport()
     _updateHeaderSize()
+    initDataLoader()
 
 end sub
 
@@ -51,32 +55,6 @@ sub _onScreenFocusChange()
 
 end sub
 
-sub _onSearchQueryChanged()
-
-    query = m.keyboard.searchQuery
-    max_chars = 50
-
-    if (query.len() > max_chars)
-
-        query = query.left(max_chars)
-        m.keyboard.searchQuery = query
-
-    end if
-
-    if (query = "")
-
-        m.search_header_label.text = "What are you looking for?"
-
-    else
-
-        m.search_header_label.text = "Search results for """ + query + """"
-
-    end if
-
-    _updateHeaderSize()
-
-end sub
-
 sub _onKeyboardExit()
 
     direction = m.keyboard.exitDirection
@@ -89,6 +67,10 @@ sub _onKeyboardExit()
 
         end if
 
+    else if (direction = "right")
+        
+        m.search_results_grid.setFocus(true)
+    
     end if
 
 end sub
@@ -113,6 +95,15 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
             print "Mic button clicked! Start voice search..."
 
+            return true
+
+        end if
+
+    else if (m.search_results_grid.hasFocus() = true)
+
+        if (key = "left")
+
+            m.keyboard.setFocus(true)
             return true
 
         end if
@@ -153,5 +144,120 @@ sub _updateHeaderSize()
     y_pos = (bg_height - current_label_bounds.height) / 2
 
     m.search_header_label.translation = [x_pos, y_pos]
+
+end sub
+
+sub _onFeedDataReceived()
+
+    content_node = m.top.feedData
+
+    if (content_node <> invalid)
+
+        m.all_videos_flat = CreateObject("roSGNode", "ContentNode")
+
+        for each row in content_node.getChildren(-1, 0)
+
+            if (row <> invalid and row.getChildCount() > 0)
+
+                for each video_item in row.getChildren(-1, 0)
+
+                    new_item = CreateObject("roSGNode", "ContentNode")
+                    
+                    new_item.title = video_item.title
+                    new_item.hdposterurl = video_item.hdposterurl
+                    new_item.ReleaseDate = video_item.ReleaseDate
+                    new_item.shortdescriptionline2 = video_item.shortdescriptionline2
+                    
+                    if (video_item.hasField("url"))
+
+                        new_item.url = video_item.url
+
+                    end if
+                    
+                    if (video_item.hasField("id"))
+
+                        new_item.id = video_item.id
+
+                    end if
+
+                    if (video_item.hasField("description"))
+
+                        new_item.description = video_item.description
+
+                    end if
+
+                    m.all_videos_flat.appendChild(new_item)
+
+                end for
+
+            end if
+
+        end for
+
+        _filterAndDisplayResults(m.keyboard.searchQuery)
+
+    end if
+
+end sub
+
+sub _filterAndDisplayResults(query as String)
+
+    if (m.all_videos_flat = invalid) 
+
+        return
+
+    end if
+
+    query_lower = LCase(query)
+    filtered_content = CreateObject("roSGNode", "ContentNode")
+
+    for each video in m.all_videos_flat.getChildren(-1, 0)
+
+        if (query_lower = "" or (video.title <> invalid and LCase(video.title).inStr(query_lower) >= 0))
+
+            filtered_content.appendChild(video.clone(false))
+
+        end if
+
+    end for
+
+    m.search_results_grid.content = filtered_content
+    
+    if (filtered_content.getChildCount() > 0)
+
+        m.search_results_grid.visible = true
+
+    else
+
+        m.search_results_grid.visible = false
+
+    end if
+
+end sub
+
+sub _onSearchQueryChanged()
+
+    query = m.keyboard.searchQuery
+    max_chars = 50
+
+    if (query.len() > max_chars)
+
+        query = query.left(max_chars)
+        m.keyboard.searchQuery = query
+
+    end if
+
+    if (query = "")
+
+        m.search_header_label.text = "What are you looking for?"
+
+    else
+
+        m.search_header_label.text = "Search results for """ + query + """"
+
+    end if
+
+    _updateHeaderSize()
+    _filterAndDisplayResults(query)
 
 end sub

@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="SearchScreen" extends="BaseScreen">
 
+    <interface>
+        <field id="feedData" type="node" alwaysNotify="true" onChange="_onFeedDataReceived" />
+    </interface>
+
     <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
 
     <children>
         <Group id="left_panel" translation="[100, 150]">
@@ -53,11 +58,21 @@
                     text="What are you looking for?" 
                     color="0xCCCCCCFF" 
                     font="font:SmallerSystemFont"
-                    wrap="false"
-                    ellipsis="true"/>
+                    wrap="false"/>
             
             </Group>
         </Group>
+
+        <MarkupGrid
+            id="searchResultsGrid"
+            translation="[750, 250]"
+            itemComponentName="RowListItem"
+            itemSize="[400, 310]"
+            itemSpacing="[30, 30]"
+            numColumns="2"
+            numRows="2"
+            height="800"
+            visible="false" />
 
         <Timer id="debounce_timer" duration="0.4" repeat="false" />
     </children>

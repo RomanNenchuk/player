@@ -9,8 +9,11 @@ sub init()
     m.search_header_bg = m.top.findNode("search_header_bg")
     m.search_header_label = m.top.findNode("search_header_label")
     m.search_results_grid = m.top.findNode("searchResultsGrid")
+    m.last_focused_section = m.keyboard
 
     m.all_videos_flat = invalid
+
+    m.search_results_grid.ObserveField("itemSelected", "_onGridItemSelected")
 
     m.mic_button_large.ObserveField("focusedChild", "_onMicFocusChange")
     m.top.ObserveField("focusedChild", "_onScreenFocusChange")
@@ -49,7 +52,7 @@ sub _onScreenFocusChange()
 
     if (m.top.hasFocus() = true)
 
-        m.keyboard.setFocus(true)
+        m.last_focused_section.setFocus(true)
 
     end if
 
@@ -64,12 +67,14 @@ sub _onKeyboardExit()
         if (m.voice_prompt_group.visible = true)
 
             m.mic_button_large.setFocus(true)
+            m.last_focused_section = m.mic_button_large
 
         end if
 
     else if (direction = "right")
         
         m.search_results_grid.setFocus(true)
+        m.last_focused_section = m.search_results_grid
     
     end if
 
@@ -88,6 +93,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
         if (key = "down")
 
             m.keyboard.setFocus(true)
+            m.last_focused_section = m.keyboard 
 
             return true
 
@@ -104,6 +110,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
         if (key = "left")
 
             m.keyboard.setFocus(true)
+            m.last_focused_section = m.keyboard
             return true
 
         end if
@@ -259,5 +266,24 @@ sub _onSearchQueryChanged()
 
     _updateHeaderSize()
     _filterAndDisplayResults(query)
+
+end sub
+
+sub _onGridItemSelected()
+
+    selected_index = m.search_results_grid.itemSelected
+    
+    selected_content = m.search_results_grid.content.getChild(selected_index)
+    
+    if selected_content <> invalid
+
+        payload = {
+            "screenName": "DetailsScreen",
+            "contentData": selected_content
+        }
+
+        navigateTo(payload)
+
+    end if
 
 end sub

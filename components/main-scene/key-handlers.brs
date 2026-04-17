@@ -30,15 +30,15 @@ end function
 
 function _HandleBackKey() as Boolean
 
-    if (GoToPreviousScreen())
+    if (not m.top_menu.isInFocusChain() and m.top_menu.visible)
+
+        m.top_menu.SetFocus(true)
 
         return true
 
     end if
-
-    if (not m.top_menu.isInFocusChain() and m.top_menu.visible)
-
-        m.top_menu.SetFocus(true)
+    
+    if (GoToPreviousScreen())
 
         return true
 

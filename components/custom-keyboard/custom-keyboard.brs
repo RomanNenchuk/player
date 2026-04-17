@@ -172,7 +172,7 @@ end sub
 
 function OnKeyEvent(key as String, press as Boolean) as Boolean
 
-    if ( press = false )
+    if (press = false)
 
         return false
 
@@ -180,7 +180,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     focused_id = _GetFocusedKeyId()
 
-    if ( focused_id = "" )
+    if (focused_id = "")
 
         if ( m.key_nodes.count() > 0 )
 
@@ -192,29 +192,27 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     end if
 
-    if ( m.focus_map.DoesExist(focused_id) )
+    if (m.focus_map.DoesExist(focused_id))
 
         mapping = m.focus_map[focused_id]
 
-        if ( mapping.DoesExist(key) )
+        if (mapping.DoesExist(key))
 
-            ' Рух всередині клавіатури
             mapping[key].setFocus(true)
 
             return true
 
-        else if ( key = "up" or key = "down" or key = "left" or key = "right" )
+        else if (key = "up" or key = "down" or key = "left" or key = "right")
 
-            ' Ми на краю і тиснемо назовні. Просто віддаємо напрямок батькам!
             m.top.exitDirection = key
 
             return true
 
-        else if ( key = "OK" )
+        else if (key = "OK")
 
             for each entry in m.key_nodes
 
-                if ( entry["node"].id = focused_id )
+                if (entry["node"].id = focused_id)
 
                     _handleKeyPress(entry["key_id"])
 

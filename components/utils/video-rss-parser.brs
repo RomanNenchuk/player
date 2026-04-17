@@ -36,8 +36,6 @@ function ParseRss(xml_string as String) as Object
     row_node = CreateObject("roSGNode", "ContentNode")
     row_node.title = row_title
 
-    print row_title
-
     end_index = current_item_index + items_per_row - 1
 
     if (end_index >= items.Count())

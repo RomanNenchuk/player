@@ -1,5 +1,7 @@
 sub init()
 
+    setTopMenuVisible(true)
+    
     m.voice_prompt_group = m.top.findNode("voice_prompt_group")
     m.mic_button_large = m.top.findNode("mic_button_large")
     m.mic_bg = m.top.findNode("mic_bg")
@@ -26,8 +28,6 @@ sub _checkVoiceSupport()
 end sub
 
 sub _onMicFocusChange()
-
-    print "Microphone focused"
 
     if (m.mic_button_large.hasFocus() = true)
 

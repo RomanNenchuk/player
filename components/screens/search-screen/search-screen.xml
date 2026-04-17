@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="SearchScreen" extends="Group" focusable="true">
+<component name="SearchScreen" extends="BaseScreen">
 
     <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen.brs" />
 
@@ -7,7 +7,7 @@
         <Group id="left_panel" translation="[100, 150]">
         
             <Group id="voice_prompt_group" visible="false" translation="[0, 0]">
-                <Group id="mic_button_large" translation="[0, 0]" focusable="true">
+                <Group id="mic_button_large" translation="[0, 0]">
                     <Poster 
                         id="mic_bg"
                         uri="pkg:/images/mic_bg.png" 
@@ -40,20 +40,21 @@
 
         </Group>
 
-        <Group id="right_panel" translation="[700, 150]"> <Group id="search_header_group" translation="[0,0]">
+        <Group id="right_panel" translation="[750, 150]"> 
+            <Group id="search_header_group" translation="[0,0]">
                 
-            <Poster 
-                id="search_header_bg" 
-                uri="pkg:/images/pill_bg.9.png" 
-                height="64" />
+                <Poster 
+                    id="search_header_bg" 
+                    uri="pkg:/images/pill_bg.9.png" 
+                    height="64" />
 
-            <Label 
-                id="search_header_label" 
-                text="What are you looking for?" 
-                color="0xCCCCCCFF" 
-                font="font:SmallerSystemFont"
-                wrap="false"
-                ellipsis="true"/>
+                <Label 
+                    id="search_header_label" 
+                    text="What are you looking for?" 
+                    color="0xCCCCCCFF" 
+                    font="font:SmallerSystemFont"
+                    wrap="false"
+                    ellipsis="true"/>
             
             </Group>
         </Group>

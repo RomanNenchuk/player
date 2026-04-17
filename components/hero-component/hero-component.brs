@@ -35,9 +35,6 @@ end sub
 
 sub _onPlayPressed()
 
-    print "Start playing video"
-    print m.top.content
-
     payload = {
         "screenName": "VideoPlayerScreen",
         "contentData": m.top.content

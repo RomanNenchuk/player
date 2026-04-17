@@ -67,7 +67,6 @@ end sub
 
 sub _onFocusChange()
 
-  print "_onFocusChange keyboard-key"
   _updateFocusVisual()
 
 end sub

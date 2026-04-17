@@ -16,7 +16,7 @@ sub _onKeyDataChange()
 
   if (key_width = 0)
 
-    key_width = 90
+    key_width = 100
 
   end if
 
@@ -35,21 +35,21 @@ sub _onKeyDataChange()
       m.icon_poster.uri = "pkg:/images/icon_trash.png"
       m.icon_poster.width = 25
       m.icon_poster.height = 25
-      m.icon_poster.translation = [center_x + 7, 32]
+      m.icon_poster.translation = [center_x + 7, 37]
 
     else if (key_id = "space")
 
       m.icon_poster.uri = "pkg:/images/icon_space.png"
       m.icon_poster.width = 40
       m.icon_poster.height = 25
-      m.icon_poster.translation = [center_x, 32]
+      m.icon_poster.translation = [center_x, 37]
 
     else if (key_id = "backspace")
 
       m.icon_poster.uri = "pkg:/images/icon_backspace.png"
       m.icon_poster.width = 25
       m.icon_poster.height = 25
-      m.icon_poster.translation = [center_x + 7, 32]
+      m.icon_poster.translation = [center_x + 7, 37]
 
     end if
 

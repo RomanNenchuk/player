@@ -45,7 +45,7 @@
 
         </Group>
 
-        <Group id="right_panel" translation="[750, 150]"> 
+        <Group id="right_panel" translation="[990, 150]"> 
             <Group id="search_header_group" translation="[0,0]">
                 
                 <Poster 
@@ -61,18 +61,19 @@
                     wrap="false"/>
             
             </Group>
-        </Group>
 
-        <MarkupGrid
-            id="searchResultsGrid"
-            translation="[750, 250]"
-            itemComponentName="RowListItem"
-            itemSize="[400, 310]"
-            itemSpacing="[30, 30]"
-            numColumns="2"
-            numRows="2"
-            height="800"
-            visible="false" />
+            <MarkupGrid
+                id="searchResultsGrid"
+                translation="[0, 100]"
+                itemComponentName="RowListItem"
+                itemSize="[400, 310]"
+                itemSpacing="[30, 30]"
+                numColumns="2"
+                numRows="2"
+                height="800"
+                visible="false" />
+                
+        </Group>
 
         <Timer id="debounce_timer" duration="0.4" repeat="false" />
     </children>

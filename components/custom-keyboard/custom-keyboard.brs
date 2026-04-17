@@ -62,11 +62,11 @@ sub _setupKeyboard()
 
 			if (key_id = "clear" or key_id = "space" or key_id = "backspace")
 
-				key_node.keyWidth = 183
+				key_node.keyWidth = 203
 
 			else
 
-				key_node.keyWidth = 90
+				key_node.keyWidth = 100
 
 			end if
 

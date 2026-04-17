@@ -48,18 +48,15 @@ sub _onKeyDataChange()
 
         if (key_id = constants.KEY_ID_CLEAR)
 
-            _setIcon(constants.ICON_CLEAR, constants.ICON_SIZE_STANDARD, 
-                constants.ICON_SIZE_STANDARD, center_x + 7, constants.ICON_Y)
+            _setIcon(constants.ICON_CLEAR, constants.ICON_SIZE_STANDARD, constants.ICON_SIZE_STANDARD, center_x + 7, constants.ICON_Y)
 
         else if (key_id = constants.KEY_ID_SPACE)
 
-            _setIcon(constants.ICON_SPACE, constants.ICON_SIZE_WIDE, 
-                constants.ICON_SIZE_STANDARD, center_x, constants.ICON_Y)
+            _setIcon(constants.ICON_SPACE, constants.ICON_SIZE_WIDE, constants.ICON_SIZE_STANDARD, center_x, constants.ICON_Y)
 
         else if (key_id = constants.KEY_ID_BACKSPACE)
 
-            _setIcon(constants.ICON_BACKSPACE, constants.ICON_SIZE_STANDARD, 
-                constants.ICON_SIZE_STANDARD, center_x + 7, constants.ICON_Y)
+            _setIcon(constants.ICON_BACKSPACE, constants.ICON_SIZE_STANDARD, constants.ICON_SIZE_STANDARD, center_x + 7, constants.ICON_Y)
 
         end if
 

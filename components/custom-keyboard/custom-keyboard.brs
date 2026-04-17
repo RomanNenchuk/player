@@ -4,6 +4,7 @@ sub init()
 	m.key_nodes = []
 	m.key_grid = []
 	m.search_query = ""
+	m.last_focused_node = invalid
 
 	m.top.ObserveField("focusedChild", "_onInternalFocusChange")
 
@@ -13,9 +14,18 @@ end sub
 
 sub _onInternalFocusChange()
 
-	if (m.top.hasFocus() = true and m.key_nodes.count() > 0)
+    if (m.top.hasFocus() = true and m.key_nodes.count() > 0)
 
-		m.key_nodes[0]["node"].setFocus(true)
+		if m.last_focused_node <> invalid
+
+			m.last_focused_node.setFocus(true)
+
+		else
+
+			m.key_nodes[0]["node"].setFocus(true)
+            m.last_focused_node = m.key_nodes[0]["node"]
+
+		end if
 
 	end if
 
@@ -180,17 +190,26 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     focused_id = _GetFocusedKeyId()
 
-    if (focused_id = "")
+	if (focused_id = "")
 
         if ( m.key_nodes.count() > 0 )
+        
+            if m.last_focused_node <> invalid
 
-            m.key_nodes[0]["node"].setFocus(true)
+				m.last_focused_node.setFocus(true)
 
-        end if
+			else
 
-        return true
+				m.key_nodes[0]["node"].setFocus(true)
+                m.last_focused_node = m.key_nodes[0]["node"]
 
-    end if
+			end if
+
+		end if
+
+		return true
+
+	end if
 
     if (m.focus_map.DoesExist(focused_id))
 
@@ -199,6 +218,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
         if (mapping.DoesExist(key))
 
             mapping[key].setFocus(true)
+			m.last_focused_node = mapping[key]
 
             return true
 

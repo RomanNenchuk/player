@@ -11,28 +11,28 @@
 
     <children>
         <Group id="leftPanel" translation="[100, 150]">
-        
+
             <Group id="voicePromptGroup" visible="false" translation="[0, 0]">
                 <Group id="micButtonLarge" translation="[0, 0]">
-                    <Poster 
+                    <Poster
                         id="micBg"
-                        uri="pkg:/images/mic_bg.png" 
-                        width="64" 
-                        height="64" 
+                        uri="pkg:/images/mic_bg.png"
+                        width="64"
+                        height="64"
                     />
-                    <Poster 
-                        id="micIconLarge" 
-                        uri="pkg:/images/mic_icon.png" 
+                    <Poster
+                        id="micIconLarge"
+                        uri="pkg:/images/mic_icon.png"
                         width="28"
                         height="28"
-                        translation="[18, 18]" 
-                        blendColor="0xFFFFFFFF" 
+                        translation="[18, 18]"
+                        blendColor="0xFFFFFFFF"
                     />
                 </Group>
 
-                <LayoutGroup 
-                    layoutDirection="horiz" 
-                    vertAlignment="center" 
+                <LayoutGroup
+                    layoutDirection="horiz"
+                    vertAlignment="center"
                     itemSpacings="[10, 10]"
                     translation="[80, 32]"
                 >
@@ -42,25 +42,25 @@
                 </LayoutGroup>
             </Group>
 
-            <CustomKeyboard id="keyboard" translation="[0, 100]" />
+            <DynamicMiniKeyboard
+                id="keyboard"
+                translation="[0, 50]"
+            />
 
         </Group>
 
-        <Group id="rightPanel" translation="[900, 150]"> 
-            <Group id="search_header_group" translation="[0,0]">
-                
-                <Poster 
-                    id="searchHeaderBg" 
-                    uri="pkg:/images/pill_bg.9.png" 
+        <Group id="rightPanel" translation="[900, 150]">
+            <Group id="search_header_group" translation="[0, 0]">
+                <Poster
+                    id="searchHeaderBg"
+                    uri="pkg:/images/pill_bg.9.png"
                     height="64" />
-
-                <Label 
-                    id="searchHeaderLabel" 
-                    text="What are you looking for?" 
-                    color="0xCCCCCCFF" 
+                <Label
+                    id="searchHeaderLabel"
+                    text="What are you looking for?"
+                    color="0xCCCCCCFF"
                     font="font:SmallerSystemFont"
-                    wrap="false"/>
-            
+                    wrap="false" />
             </Group>
 
             <MarkupGrid
@@ -73,7 +73,6 @@
                 numRows="2"
                 height="800"
                 visible="false" />
-                
         </Group>
 
     </children>

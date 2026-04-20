@@ -1,7 +1,7 @@
 sub init()
 
     setTopMenuVisible(true)
-    
+
     m.voice_prompt_group = m.top.findNode("voicePromptGroup")
     m.mic_button_large = m.top.findNode("micButtonLarge")
     m.mic_bg = m.top.findNode("micBg")
@@ -9,34 +9,120 @@ sub init()
     m.search_header_bg = m.top.findNode("searchHeaderBg")
     m.search_header_label = m.top.findNode("searchHeaderLabel")
     m.search_results_grid = m.top.findNode("searchResultsGrid")
-    m.last_focused_section = m.keyboard
-
     m.all_videos_flat = invalid
 
-    m.search_results_grid.ObserveField("itemSelected", "_onGridItemSelected")
+    m.keyboard.showTextEditBox = true
+    m.keyboard.textEditBox.voiceEnabled = true
 
+    m.keyboard_edit_box = m.keyboard.textEditBox
+
+    if (m.keyboard_edit_box <> invalid)
+
+        m.keyboard_edit_box.visible = true
+        m.keyboard_edit_box.voiceEnabled = true
+        m.keyboard_edit_box.focusable = false
+
+    end if
+
+    m.keyboard_grid = m.keyboard.keyGrid
+    m.last_focused_section = m.keyboard_grid
+
+    m.search_results_grid.ObserveField("itemSelected", "_onGridItemSelected")
     m.mic_button_large.ObserveField("focusedChild", "_onMicFocusChange")
     m.top.ObserveField("focusedChild", "_onScreenFocusChange")
-    m.keyboard.ObserveField("searchQuery", "_onSearchQueryChanged")
-    m.keyboard.ObserveField("exitDirection", "_onKeyboardExit")
+    m.keyboard.textEditBox.ObserveField("text", "_onSearchQueryChanged")
     m.search_header_label.ObserveField("boundingRect", "_onHeaderBoundsChanged")
 
     _checkVoiceSupport()
     _updateHeaderSize()
     initDataLoader()
 
+    m.keyboard_grid.setFocus(true)
+
+    keyboard_children = m.keyboard.getChildren(-1, 0)
+
+    for each child in keyboard_children
+
+        if (child <> invalid and child.subtype() = "VoiceTextEditBox")
+
+            m.voice_edit_box = child
+            m.voice_edit_box.scale = [0.001, 0.001]
+            m.voice_edit_box.focusable = false
+
+            exit for
+
+        end if
+
+    end for
+
+    m.keyboard.ObserveField("focusedChild", "_onKeyboardFocusChanged")
+
+    m.keyboard.textEditBox.voiceEnabled = true
+    m.keyboard_grid = m.keyboard.keyGrid
+    m.last_focused_section = m.keyboard_grid
+
+    m.keyboard.ObserveField("text", "_onSearchQueryChanged")
+
+end sub
+
+sub _onKeyboardFocusChanged()
+
+    if (m.voice_edit_box <> invalid and m.voice_edit_box.hasFocus())
+
+        if (m.voice_prompt_group.visible)
+
+            m.mic_button_large.setFocus(true)
+            m.last_focused_section = m.mic_button_large
+
+        else
+
+            m.keyboard_grid.setFocus(true)
+            m.last_focused_section = m.keyboard_grid
+
+        end if
+
+    end if
+
+end sub
+
+sub _onSearchQueryChanged()
+
+    query = m.keyboard.text
+    max_chars = 50
+
+    if (query.len() > max_chars)
+
+        query = query.left(max_chars)
+        m.keyboard.textEditBox.text = query
+
+    end if
+
+    if (query = "")
+
+        m.search_header_label.text = "What are you looking for?"
+
+    else
+
+        m.search_header_label.text = "Search results for """ + query + """"
+
+    end if
+
+    _updateHeaderSize()
+    _filterAndDisplayResults(query)
+
 end sub
 
 sub _checkVoiceSupport()
 
-	has_voice_support = true
-	m.voice_prompt_group.visible = has_voice_support
+    mic = CreateObject("roMicrophone")
+    has_voice_support = (mic <> invalid)
+    m.voice_prompt_group.visible = has_voice_support
 
 end sub
 
 sub _onMicFocusChange()
 
-    if (m.mic_button_large.hasFocus() = true)
+    if (m.mic_button_large.hasFocus())
 
         m.mic_bg.blendColor = "0xDF46C1FF"
 
@@ -50,7 +136,7 @@ end sub
 
 sub _onScreenFocusChange()
 
-    if (m.top.hasFocus() = true)
+    if (m.top.hasFocus())
 
         m.last_focused_section.setFocus(true)
 
@@ -58,59 +144,54 @@ sub _onScreenFocusChange()
 
 end sub
 
-sub _onKeyboardExit()
-
-    direction = m.keyboard.exitDirection
-
-    if (direction = "up")
-
-        if (m.voice_prompt_group.visible = true)
-
-            m.mic_button_large.setFocus(true)
-            m.last_focused_section = m.mic_button_large
-
-        end if
-
-    else if (direction = "right")
-        
-        m.search_results_grid.setFocus(true)
-        m.last_focused_section = m.search_results_grid
-    
-    end if
-
-end sub
-
 function OnKeyEvent(key as String, press as Boolean) as Boolean
 
-    if (press = false)
+    if (not press)
 
         return false
 
     end if
 
-    if (m.mic_button_large.hasFocus() = true)
+    if (m.mic_button_large.hasFocus())
 
         if (key = "down")
 
-            m.keyboard.setFocus(true)
-            m.last_focused_section = m.keyboard 
+            m.keyboard_grid.setFocus(true)
+            m.last_focused_section = m.keyboard_grid
 
             return true
 
         else if (key = "OK")
 
-            print "Mic button clicked! Start voice search..."
+            return true
+
+        end if
+
+    else if (m.search_results_grid.hasFocus())
+
+        if (key = "left")
+
+            m.keyboard_grid.setFocus(true)
+            m.last_focused_section = m.keyboard_grid
 
             return true
 
         end if
 
-    else if (m.search_results_grid.hasFocus() = true)
+    else if (m.keyboard_grid.hasFocus())
 
-        if (key = "left")
+        if (key = "right")
 
-            m.keyboard.setFocus(true)
-            m.last_focused_section = m.keyboard
+            m.search_results_grid.setFocus(true)
+            m.last_focused_section = m.search_results_grid
+
+            return true
+
+        else if (key = "up" and m.voice_prompt_group.visible)
+
+            m.mic_button_large.setFocus(true)
+            m.last_focused_section = m.mic_button_large
+
             return true
 
         end if
@@ -130,7 +211,6 @@ sub _updateHeaderSize()
 
     max_pill_width = 750
     horizontal_padding = 48
-    
     target_bg_width = text_bounds.width + horizontal_padding
 
     if (target_bg_width > max_pill_width)
@@ -146,11 +226,7 @@ sub _updateHeaderSize()
     end if
 
     current_label_bounds = m.search_header_label.boundingRect()
-    
-    x_pos = horizontal_padding / 2
-    y_pos = (bg_height - current_label_bounds.height) / 2
-
-    m.search_header_label.translation = [x_pos, y_pos]
+    m.search_header_label.translation = [horizontal_padding / 2, (bg_height - current_label_bounds.height) / 2]
 
 end sub
 
@@ -158,58 +234,59 @@ sub _onFeedDataReceived()
 
     content_node = m.top.feedData
 
-    if (content_node <> invalid)
+    if (content_node = invalid)
 
-        m.all_videos_flat = CreateObject("roSGNode", "ContentNode")
-
-        for each row in content_node.getChildren(-1, 0)
-
-            if (row <> invalid and row.getChildCount() > 0)
-
-                for each video_item in row.getChildren(-1, 0)
-
-                    new_item = CreateObject("roSGNode", "ContentNode")
-                    
-                    new_item.title = video_item.title
-                    new_item.hdposterurl = video_item.hdposterurl
-                    new_item.ReleaseDate = video_item.ReleaseDate
-                    new_item.shortdescriptionline2 = video_item.shortdescriptionline2
-                    
-                    if (video_item.hasField("url"))
-
-                        new_item.url = video_item.url
-
-                    end if
-                    
-                    if (video_item.hasField("id"))
-
-                        new_item.id = video_item.id
-
-                    end if
-
-                    if (video_item.hasField("description"))
-
-                        new_item.description = video_item.description
-
-                    end if
-
-                    m.all_videos_flat.appendChild(new_item)
-
-                end for
-
-            end if
-
-        end for
-
-        _filterAndDisplayResults(m.keyboard.searchQuery)
+        return
 
     end if
+
+    m.all_videos_flat = CreateObject("roSGNode", "ContentNode")
+
+    for each row in content_node.getChildren(-1, 0)
+
+        if (row <> invalid and row.getChildCount() > 0)
+
+            for each video_item in row.getChildren(-1, 0)
+
+                new_item = CreateObject("roSGNode", "ContentNode")
+                new_item.title = video_item.title
+                new_item.hdposterurl = video_item.hdposterurl
+                new_item.ReleaseDate = video_item.ReleaseDate
+                new_item.shortdescriptionline2 = video_item.shortdescriptionline2
+
+                if (video_item.hasField("url"))
+
+                    new_item.url = video_item.url
+
+                end if
+
+                if (video_item.hasField("id"))
+
+                    new_item.id = video_item.id
+
+                end if
+
+                if (video_item.hasField("description"))
+
+                    new_item.description = video_item.description
+
+                end if
+
+                m.all_videos_flat.appendChild(new_item)
+
+            end for
+
+        end if
+
+    end for
+
+    _filterAndDisplayResults(m.keyboard.text)
 
 end sub
 
 sub _filterAndDisplayResults(query as String)
 
-    if (m.all_videos_flat = invalid) 
+    if (m.all_videos_flat = invalid)
 
         return
 
@@ -229,60 +306,21 @@ sub _filterAndDisplayResults(query as String)
     end for
 
     m.search_results_grid.content = filtered_content
-    
-    if (filtered_content.getChildCount() > 0)
-
-        m.search_results_grid.visible = true
-
-    else
-
-        m.search_results_grid.visible = false
-
-    end if
-
-end sub
-
-sub _onSearchQueryChanged()
-
-    query = m.keyboard.searchQuery
-    max_chars = 50
-
-    if (query.len() > max_chars)
-
-        query = query.left(max_chars)
-        m.keyboard.searchQuery = query
-
-    end if
-
-    if (query = "")
-
-        m.search_header_label.text = "What are you looking for?"
-
-    else
-
-        m.search_header_label.text = "Search results for """ + query + """"
-
-    end if
-
-    _updateHeaderSize()
-    _filterAndDisplayResults(query)
+    m.search_results_grid.visible = (filtered_content.getChildCount() > 0)
 
 end sub
 
 sub _onGridItemSelected()
 
     selected_index = m.search_results_grid.itemSelected
-    
     selected_content = m.search_results_grid.content.getChild(selected_index)
-    
-    if selected_content <> invalid
 
-        payload = {
+    if (selected_content <> invalid)
+
+        navigateTo({
             "screenName": "DetailsScreen",
             "contentData": selected_content
-        }
-
-        navigateTo(payload)
+        })
 
     end if
 

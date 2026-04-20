@@ -38,9 +38,7 @@
 
         <Rectangle
             id="focusIndicator"
-            width="140"
             height="4"
-            translation="[30, 46]"
             color="0xE62B1EFF"
             visible="false" />
 

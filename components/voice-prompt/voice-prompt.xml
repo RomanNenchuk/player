@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="VoicePrompt" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/voice-prompt/voice-prompt.brs" />
+
+    <children>
+        <Group id="micButtonLarge" translation="[0, 0]">
+            <Poster
+                id="micBg"
+                uri="pkg:/images/mic_bg.png"
+                width="64"
+                height="64"
+            />
+            <Poster
+                id="micIconLarge"
+                uri="pkg:/images/mic_icon.png"
+                width="28"
+                height="28"
+                translation="[18, 18]"
+                blendColor="0xFFFFFFFF"
+            />
+        </Group>
+
+        <LayoutGroup
+            layoutDirection="horiz"
+            vertAlignment="center"
+            itemSpacings="[10, 10]"
+            translation="[80, 32]"
+        >
+            <Label text="Press and Hold" color="0x888888FF" font="font:TinySystemFont" />
+            <Poster uri="pkg:/images/mic_icon.png" width="22" height="22" blendColor="0x888888FF" />
+            <Label text="while you speak" color="0x888888FF" font="font:TinySystemFont" />
+        </LayoutGroup>
+
+    </children>
+
+</component>

@@ -3,16 +3,13 @@ sub init()
     setTopMenuVisible(true)
 
     m.voice_prompt_group = m.top.findNode("voicePromptGroup")
-    m.mic_button_large = m.top.findNode("micButtonLarge")
-    m.mic_bg = m.top.findNode("micBg")
-    m.keyboard = m.top.findNode("keyboard")
     m.search_header_bg = m.top.findNode("searchHeaderBg")
     m.search_header_label = m.top.findNode("searchHeaderLabel")
     m.search_results_grid = m.top.findNode("searchResultsGrid")
     m.all_videos_flat = invalid
-
+    
+    m.keyboard = m.top.findNode("keyboard")
     m.keyboard.showTextEditBox = true
-    m.keyboard.textEditBox.voiceEnabled = true
 
     m.keyboard_edit_box = m.keyboard.textEditBox
 
@@ -28,14 +25,8 @@ sub init()
     m.last_focused_section = m.keyboard_grid
 
     m.search_results_grid.ObserveField("itemSelected", "_onGridItemSelected")
-    m.mic_button_large.ObserveField("focusedChild", "_onMicFocusChange")
     m.top.ObserveField("focusedChild", "_onScreenFocusChange")
-    m.keyboard.textEditBox.ObserveField("text", "_onSearchQueryChanged")
     m.search_header_label.ObserveField("boundingRect", "_onHeaderBoundsChanged")
-
-    _checkVoiceSupport()
-    _updateHeaderSize()
-    initDataLoader()
 
     m.keyboard_grid.setFocus(true)
 
@@ -57,11 +48,11 @@ sub init()
 
     m.keyboard.ObserveField("focusedChild", "_onKeyboardFocusChanged")
 
-    m.keyboard.textEditBox.voiceEnabled = true
-    m.keyboard_grid = m.keyboard.keyGrid
-    m.last_focused_section = m.keyboard_grid
-
     m.keyboard.ObserveField("text", "_onSearchQueryChanged")
+
+    _checkVoiceSupport()
+    _updateHeaderSize()
+    initDataLoader()
 
 end sub
 
@@ -71,8 +62,8 @@ sub _onKeyboardFocusChanged()
 
         if (m.voice_prompt_group.visible)
 
-            m.mic_button_large.setFocus(true)
-            m.last_focused_section = m.mic_button_large
+            m.voice_prompt_group.setFocus(true)
+            m.last_focused_section = m.voice_prompt_group
 
         else
 
@@ -120,20 +111,6 @@ sub _checkVoiceSupport()
 
 end sub
 
-sub _onMicFocusChange()
-
-    if (m.mic_button_large.hasFocus())
-
-        m.mic_bg.blendColor = "0xDF46C1FF"
-
-    else
-
-        m.mic_bg.blendColor = "0xFFFFFFFF"
-
-    end if
-
-end sub
-
 sub _onScreenFocusChange()
 
     if (m.top.hasFocus())
@@ -152,7 +129,7 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     end if
 
-    if (m.mic_button_large.hasFocus())
+    if (m.voice_prompt_group.hasFocus())
 
         if (key = "down")
 
@@ -189,8 +166,8 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
         else if (key = "up" and m.voice_prompt_group.visible)
 
-            m.mic_button_large.setFocus(true)
-            m.last_focused_section = m.mic_button_large
+            m.voice_prompt_group.setFocus(true)
+            m.last_focused_section = m.voice_prompt_group
 
             return true
 

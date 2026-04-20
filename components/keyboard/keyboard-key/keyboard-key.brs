@@ -110,12 +110,12 @@ sub _updateFocusVisual()
     if (m.top.hasFocus() = true)
 
         m.background_rect.color = color_focused
-        m.letter_label.color = constants.COLOR_TEXT_FOCUSED
+        m.letter_label.font = constants.FONT_FOCUSED
 
     else
 
         m.background_rect.color = color_default
-        m.letter_label.color = constants.COLOR_TEXT_DEFAULT
+        m.letter_label.font = constants.FONT_DEFAULT
 
     end if
 

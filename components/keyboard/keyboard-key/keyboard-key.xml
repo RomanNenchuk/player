@@ -21,8 +21,7 @@
             height="100" 
             horizAlign="center" 
             vertAlign="center" 
-            color="0xFFFFFFFF" 
-            font="font:MediumSystemFont" />
+            color="0xFFFFFFFF" />
 
         <Poster 
             id="iconPoster" 

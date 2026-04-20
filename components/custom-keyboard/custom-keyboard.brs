@@ -2,7 +2,7 @@ sub init()
 
     m.constants = KeyboardConstants()
 
-    m.keyboard_layout_group = m.top.findNode("keyboard_layout_group")
+    m.keyboard_layout_group = m.top.findNode("keyboardLayoutGroup")
     m.key_nodes = []
     m.key_grid = []
     m.search_query = ""

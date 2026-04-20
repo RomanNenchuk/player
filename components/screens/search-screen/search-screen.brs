@@ -2,12 +2,12 @@ sub init()
 
     setTopMenuVisible(true)
     
-    m.voice_prompt_group = m.top.findNode("voice_prompt_group")
-    m.mic_button_large = m.top.findNode("mic_button_large")
-    m.mic_bg = m.top.findNode("mic_bg")
+    m.voice_prompt_group = m.top.findNode("voicePromptGroup")
+    m.mic_button_large = m.top.findNode("micButtonLarge")
+    m.mic_bg = m.top.findNode("micBg")
     m.keyboard = m.top.findNode("keyboard")
-    m.search_header_bg = m.top.findNode("search_header_bg")
-    m.search_header_label = m.top.findNode("search_header_label")
+    m.search_header_bg = m.top.findNode("searchHeaderBg")
+    m.search_header_label = m.top.findNode("searchHeaderLabel")
     m.search_results_grid = m.top.findNode("searchResultsGrid")
     m.last_focused_section = m.keyboard
 

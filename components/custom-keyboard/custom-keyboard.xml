@@ -12,7 +12,7 @@
 
     <children>
         <LayoutGroup
-            id="keyboard_layout_group"
+            id="keyboardLayoutGroup"
             layoutDirection="vert"
             itemSpacings="[3]"
         />

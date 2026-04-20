@@ -2,9 +2,9 @@ sub init()
 
     m.constants = KeyboardConstants()
 
-    m.background_rect = m.top.findNode("background_rect")
-    m.letter_label = m.top.findNode("letter_label")
-    m.icon_poster = m.top.findNode("icon_poster")
+    m.background_rect = m.top.findNode("backgroundRect")
+    m.letter_label = m.top.findNode("letterLabel")
+    m.icon_poster = m.top.findNode("iconPoster")
 
     m.top.ObserveField("focusedChild", "_onFocusChange")
 

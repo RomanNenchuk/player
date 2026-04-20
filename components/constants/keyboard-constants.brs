@@ -10,7 +10,7 @@ function KeyboardConstants() as Object
         "ICON_SIZE_WIDE": 40,
         "ICON_Y": 37,
         "COLOR_BG_DEFAULT": "0x222222FF",
-        "COLOR_BG_FOCUSED": "0x9B111EFF",
+        "COLOR_BG_FOCUSED": "0xFFFFFFFF",
         "COLOR_TEXT_DEFAULT": "0xFFFFFFFF",
         "COLOR_TEXT_FOCUSED": "0x000000FF",
         "ICON_CLEAR": "pkg:/images/icon_trash.png",

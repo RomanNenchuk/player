@@ -91,31 +91,19 @@ sub _updateFocusVisual()
 
     constants = m.constants
 
-    color_focused = m.top.colorFocused
-
-    if (color_focused = "")
-
-        color_focused = constants.COLOR_BG_FOCUSED
-
-    end if
-
-    color_default = m.top.colorDefault
-
-    if (color_default = "")
-
-        color_default = constants.COLOR_BG_DEFAULT
-
-    end if
-
     if (m.top.hasFocus() = true)
 
-        m.background_rect.color = color_focused
+        m.background_rect.color = constants.COLOR_BG_FOCUSED
+        m.letter_label.color = constants.COLOR_TEXT_FOCUSED
         m.letter_label.font = constants.FONT_FOCUSED
+        m.icon_poster.blendColor = constants.COLOR_TEXT_FOCUSED
 
     else
 
-        m.background_rect.color = color_default
+        m.background_rect.color = constants.COLOR_BG_DEFAULT
+        m.letter_label.color = constants.COLOR_TEXT_DEFAULT
         m.letter_label.font = constants.FONT_DEFAULT
+        m.icon_poster.blendColor = constants.COLOR_TEXT_DEFAULT
 
     end if
 

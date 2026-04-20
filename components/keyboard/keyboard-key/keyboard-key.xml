@@ -9,8 +9,6 @@
         <field id="keyTitle" type="string" onChange="_onKeyDataChange" />
         <field id="keyWidth" type="integer" onChange="_onKeyDataChange" />
         <field id="keyHeight" type="integer" value="0" onChange="_onKeyDataChange" />
-        <field id="colorFocused" type="string" value="" onChange="_updateFocusVisual" />
-        <field id="colorDefault" type="string" value="" onChange="_updateFocusVisual" />
     </interface>
 
     <children>

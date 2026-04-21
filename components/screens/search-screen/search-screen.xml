@@ -38,6 +38,24 @@
                     wrap="false" />
             </Group>
 
+            <Label
+                id="noResultsLabel"
+                text="No results found"
+                width="800"
+                height="100"
+                translation="[0, 200]" 
+                horizAlign="center"
+                vertAlign="center"
+                visible="false"
+                font="font:MediumSystemFont"
+                color="0xAAAAAAFF" />
+            
+            <BusySpinner
+                id="loadingSpinner"
+                translation="[415, 200]" 
+                visible="false"
+                control="stop" />
+
             <MarkupGrid
                 id="searchResultsGrid"
                 translation="[0, 100]"
@@ -48,12 +66,6 @@
                 numRows="2"
                 height="800"
                 visible="false" />
-            
-            <BusySpinner
-                id="loadingSpinner"
-                translation="[415, 200]" 
-                visible="false"
-                control="stop" />
 
         </Group>
 

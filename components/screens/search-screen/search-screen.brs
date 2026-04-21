@@ -9,6 +9,8 @@ sub init()
 
     m.search_timer = m.top.findNode("searchDebounceTimer")
     m.search_timer.ObserveField("fire", "_onDebounceTimerFired")
+
+    m.no_results_label = m.top.findNode("noResultsLabel")
     
     m.spinner = m.top.findNode("loadingSpinner")
     m.spinner.visible = true
@@ -88,6 +90,8 @@ sub _onKeyboardFocusChanged()
 end sub
 
 sub _onSearchQueryChanged()
+
+    m.no_results_label.visible = false
 
     query = m.keyboard.text
     max_chars = 50
@@ -307,7 +311,9 @@ sub _filterAndDisplayResults(query as String)
     end for
 
     m.search_results_grid.content = filtered_content
-    m.search_results_grid.visible = (filtered_content.getChildCount() > 0)
+    has_results = (filtered_content.getChildCount() > 0)
+    m.search_results_grid.visible = has_results
+    m.no_results_label.visible = not has_results
 
     m.spinner.control = "stop"
     m.spinner.visible = false

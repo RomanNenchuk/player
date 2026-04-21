@@ -6,6 +6,9 @@
     </interface>
 
     <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen-data.brs" />
+    <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen-focus.brs" />
+    <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen-ui.brs" />
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
 
@@ -19,7 +22,7 @@
 
             <DynamicMiniKeyboard
                 id="keyboard"
-                translation="[0, 50]"
+                translation="[0, 10]"
             />
 
         </Group>

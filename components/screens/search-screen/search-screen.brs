@@ -19,8 +19,6 @@ sub init()
     m.spinner.poster.width = 80
     m.spinner.poster.height = 80
 
-    m.all_videos_flat = invalid
-    
     m.keyboard = m.top.findNode("keyboard")
     m.keyboard.showTextEditBox = true
 
@@ -73,17 +71,8 @@ sub _onKeyboardFocusChanged()
 
     if (m.voice_edit_box <> invalid and m.voice_edit_box.hasFocus())
 
-        if (m.voice_prompt_group.visible)
-
-            m.voice_prompt_group.setFocus(true)
-            m.last_focused_section = m.voice_prompt_group
-
-        else
-
             m.keyboard_grid.setFocus(true)
             m.last_focused_section = m.keyboard_grid
-
-        end if
 
     end if
 
@@ -151,22 +140,21 @@ end sub
 
 function OnKeyEvent(key as String, press as Boolean) as Boolean
 
-    if (not press)
+    if (not press) 
 
         return false
-
+        
     end if
 
     if (m.voice_prompt_group.hasFocus())
 
-        if (key = "down")
+        if (key = "down") 
 
-            m.keyboard_grid.setFocus(true)
-            m.last_focused_section = m.keyboard_grid
+            return _setFocusTarget(m.keyboard_grid)
 
-            return true
+        end if
 
-        else if (key = "OK")
+        if (key = "OK") 
 
             return true
 
@@ -174,12 +162,9 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     else if (m.search_results_grid.hasFocus())
 
-        if (key = "left")
+        if (key = "left") 
 
-            m.keyboard_grid.setFocus(true)
-            m.last_focused_section = m.keyboard_grid
-
-            return true
+            return _setFocusTarget(m.keyboard_grid)
 
         end if
 
@@ -187,23 +172,31 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
         if (key = "right")
 
-            m.search_results_grid.setFocus(true)
-            m.last_focused_section = m.search_results_grid
+            if (m.search_results_grid.visible)
 
-            return true
+                _setFocusTarget(m.search_results_grid)
+
+            end if
+            
+            return true 
 
         else if (key = "up" and m.voice_prompt_group.visible)
 
-            m.voice_prompt_group.setFocus(true)
-            m.last_focused_section = m.voice_prompt_group
-
-            return true
+            return _setFocusTarget(m.voice_prompt_group)
 
         end if
 
     end if
 
     return false
+
+end function
+
+function _setFocusTarget(node as Object) as Boolean
+
+    node.setFocus(true)
+    m.last_focused_section = node
+    return true
 
 end function
 
@@ -245,7 +238,7 @@ sub _onFeedDataReceived()
 
     end if
 
-    m.all_videos_flat = CreateObject("roSGNode", "ContentNode")
+    m.all_videos_raw = []
 
     for each row in content_node.getChildren(-1, 0)
 
@@ -253,31 +246,17 @@ sub _onFeedDataReceived()
 
             for each video_item in row.getChildren(-1, 0)
 
-                new_item = CreateObject("roSGNode", "ContentNode")
-                new_item.title = video_item.title
-                new_item.hdposterurl = video_item.hdposterurl
-                new_item.ReleaseDate = video_item.ReleaseDate
-                new_item.shortdescriptionline2 = video_item.shortdescriptionline2
+                item_data = {
+                    "title": video_item.title,
+                    "hdposterurl": video_item.hdposterurl,
+                    "releaseDate": video_item.releaseDate,
+                    "shortdescriptionline2": video_item.shortdescriptionline2,
+                    "url": video_item.url,
+                    "id": video_item.id,
+                    "description": video_item.description
+                }
 
-                if (video_item.hasField("url"))
-
-                    new_item.url = video_item.url
-
-                end if
-
-                if (video_item.hasField("id"))
-
-                    new_item.id = video_item.id
-
-                end if
-
-                if (video_item.hasField("description"))
-
-                    new_item.description = video_item.description
-
-                end if
-
-                m.all_videos_flat.appendChild(new_item)
+                m.all_videos_raw.push(item_data)
 
             end for
 
@@ -291,7 +270,7 @@ end sub
 
 sub _filterAndDisplayResults(query as String)
 
-    if (m.all_videos_flat = invalid)
+    if (m.all_videos_raw = invalid)
 
         return
 
@@ -300,20 +279,24 @@ sub _filterAndDisplayResults(query as String)
     query_lower = LCase(query)
     filtered_content = CreateObject("roSGNode", "ContentNode")
 
-    for each video in m.all_videos_flat.getChildren(-1, 0)
+    for each video in m.all_videos_raw
 
         if (query_lower = "" or (video.title <> invalid and LCase(video.title).inStr(query_lower) >= 0))
 
-            filtered_content.appendChild(video.clone(false))
+            new_item = filtered_content.createChild("ContentNode")
+
+            new_item.update(video, true)
 
         end if
 
     end for
 
     m.search_results_grid.content = filtered_content
+
     has_results = (filtered_content.getChildCount() > 0)
+
     m.search_results_grid.visible = has_results
-    m.no_results_label.visible = not has_results
+    m.no_results_label.visible = (not has_results)
 
     m.spinner.control = "stop"
     m.spinner.visible = false

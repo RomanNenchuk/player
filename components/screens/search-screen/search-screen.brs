@@ -6,6 +6,17 @@ sub init()
     m.search_header_bg = m.top.findNode("searchHeaderBg")
     m.search_header_label = m.top.findNode("searchHeaderLabel")
     m.search_results_grid = m.top.findNode("searchResultsGrid")
+
+    m.search_timer = m.top.findNode("searchDebounceTimer")
+    m.search_timer.ObserveField("fire", "_onDebounceTimerFired")
+    
+    m.spinner = m.top.findNode("loadingSpinner")
+    m.spinner.visible = true
+    m.spinner.control = "start"
+    m.spinner.poster.uri = "pkg:/images/spinner.png"
+    m.spinner.poster.width = 80
+    m.spinner.poster.height = 80
+
     m.all_videos_flat = invalid
     
     m.keyboard = m.top.findNode("keyboard")
@@ -98,8 +109,21 @@ sub _onSearchQueryChanged()
 
     end if
 
+    m.search_results_grid.visible = false
+
+    m.spinner.visible = true
+    m.spinner.control = "start"
+
+    m.search_timer.control = "stop"
+    m.search_timer.control = "start"
+
     _updateHeaderSize()
-    _filterAndDisplayResults(query)
+
+end sub
+
+sub _onDebounceTimerFired()
+
+    _filterAndDisplayResults(m.keyboard.text)
 
 end sub
 
@@ -284,6 +308,9 @@ sub _filterAndDisplayResults(query as String)
 
     m.search_results_grid.content = filtered_content
     m.search_results_grid.visible = (filtered_content.getChildCount() > 0)
+
+    m.spinner.control = "stop"
+    m.spinner.visible = false
 
 end sub
 

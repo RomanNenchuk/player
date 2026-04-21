@@ -48,7 +48,16 @@
                 numRows="2"
                 height="800"
                 visible="false" />
+            
+            <BusySpinner
+                id="loadingSpinner"
+                translation="[415, 200]" 
+                visible="false"
+                control="stop" />
+
         </Group>
+
+        <Timer id="searchDebounceTimer" duration="0.4" repeat="false" />
 
     </children>
 

@@ -2,83 +2,73 @@ sub init()
 
     m.screen_stack = m.top.findNode("screenStack")
     m.screens = []
-    m.top.ObserveField("focusedChild", "_onManagerFocusChange")
-
-end sub
-
-sub _onManagerFocusChange()
-
-    if (m.top.hasFocus())
-
-        if (m.screens <> invalid and m.screens.Count() > 0)
-
-            m.screens.Peek().SetFocus(true)
-
-        end if
-
-    end if
 
 end sub
 
 sub navigateToScreen(payload as Object)
 
-    if (payload <> invalid and payload.DoesExist("screenName"))
-
-        new_screen = CreateObject("roSGNode", payload.screenName)
-
-        if (new_screen <> invalid)
-
-            if (payload.DoesExist("contentData"))
-
-                new_screen.content = payload.contentData
-
-            end if
-
-            if (m.screens.Count() > 0)
-
-                m.screens.Peek().visible = false
-
-            end if
-
-            m.screen_stack.AppendChild(new_screen)
-            m.screens.Push(new_screen)
-
-            new_screen.SetFocus(true)
-
-            m.top.activeScreen = payload.screenName
-
-        else
-
-            print "Navigation Error: Failed to create screen - "; payload.screenName
-
-            focus_target = m.top
-            if (payload.DoesExist("errorFocusTarget") and payload.errorFocusTarget <> invalid)
-
-                focus_target = payload.errorFocusTarget
-
-            end if
-
-            ShowModal({
-                "title": "Navigation Error",
-                "message": "Requested page unavailable. Please try again.",
-                "buttons": ["OK"],
-                "focusTarget": focus_target
-            })
-
-        end if
-
-    else
+    if (payload = invalid or not payload.DoesExist("screenName"))
 
         print "Navigation Error: Payload is invalid or missing 'screenName'"
 
-        ShowModal({
+        _requestDialog({
             "title": "Invalid Request",
             "message": "The navigation request was invalid. Please try again.",
             "buttons": ["OK"],
-            "focusTarget": m.top
+            "actions": ["dismiss"],
+            "focusTarget": m.screens.Peek()
         })
 
+        return
+
     end if
+
+    new_screen = CreateObject("roSGNode", payload.screenName)
+
+    if (new_screen = invalid)
+
+        print "Navigation Error: Failed to create screen - "; payload.screenName
+
+        _requestDialog({
+            "title": "Navigation Error",
+            "message": "Requested page unavailable. Please try again.",
+            "buttons": ["OK"],
+            "actions": ["dismiss"]
+            "focusTarget": m.screens.Peek()
+        })
+
+        return
+
+    end if
+
+    new_screen.ObserveField("dialogRequest", "_onScreenDialogRequest")
+
+    if (payload.DoesExist("contentData"))
+
+        new_screen.content = payload.contentData
+
+    end if
+
+    if (m.screens.Count() > 0)
+
+        prev_screen = m.screens.Peek()
+        prev_screen.visible = false
+
+    end if
+
+    m.screen_stack.AppendChild(new_screen)
+    m.screens.Push(new_screen)
+
+    dialog_manager = m.top.GetScene().findNode("dialogManager")
+
+    if (dialog_manager = invalid or not dialog_manager.isDialogVisible)
+
+        new_screen.SetFocus(true)
+
+    end if
+
+    m.top.currentScreen = new_screen
+
 
 end sub
 
@@ -89,6 +79,7 @@ function GoBack() as Boolean
     if (m.screens.Count() > 1)
 
         current_screen = m.screens.Pop()
+        current_screen.UnobserveField("dialogRequest")
         m.screen_stack.RemoveChild(current_screen)
 
         prev_screen = m.screens.Peek()
@@ -103,6 +94,29 @@ function GoBack() as Boolean
 
     end if
 
+    m.top.currentScreen = m.screens.Peek()
     return handled
 
 end function
+
+sub _onScreenDialogRequest(event as Object)
+
+    config = event.GetData()
+    _requestDialog(config)
+
+end sub
+
+sub _requestDialog(config as Object)
+
+    dialog_manager = m.top.GetScene().findNode("dialogManager")
+
+    if (dialog_manager = invalid)
+
+        print "ScreenManager Error: dialogManager node not found"
+        return
+
+    end if
+
+    dialog_manager.showDialog = config
+
+end sub

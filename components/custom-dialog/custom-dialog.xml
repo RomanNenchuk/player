@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="Modal" extends="Group">
+<component name="CustomDialog" extends="Group">
 
-    <script type="text/brightscript" uri="pkg:/components/modal/modal.brs" />
+    <script type="text/brightscript" uri="pkg:/components/custom-dialog/custom-dialog.brs" />
 
     <interface>
         <field id="title" type="string" value="" onChange="onTitleChange" />
         <field id="message" type="string" value="" onChange="onMessageChange" />
         <field id="buttons" type="stringarray" value="[]" onChange="onButtonsChange" />
-        <field id="itemSelected" type="integer" value="-1" />
+        <field id="itemSelected" type="integer" value="-1" alwaysNotify="true" />
     </interface>
 
     <children>
@@ -24,7 +24,7 @@
             
             <Rectangle 
                 id="dialogBackground" 
-                color="0x252525FF" 
+                color="0x252525CC" 
                 width="800" 
                 height="550" 
             />
@@ -63,7 +63,7 @@
                 translation="[100, 360]" 
                 itemSize="[600, 60]" 
                 itemSpacing="[0, 15]" 
-                itemComponentName="ModalButton" 
+                itemComponentName="CustomDialogButton" 
             />
             
         </Group>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="ScreenManager" extends="Group">
     <script type="text/brightscript" uri="pkg:/components/screen-manager/screen-manager.brs" />
-    <script type="text/brightscript" uri="pkg:/components/utils/modal-helper.brs" />
     
     <interface>
         <function name="NavigateToScreen" />
         <function name="GoBack" />
+        <field id="currentScreen" type="node" />
         <field id="activeScreen" type="string" />
     </interface>
 

@@ -14,7 +14,7 @@ sub _onContentChange()
     if (item_content <> invalid)
 
         video_content = CreateObject("roSGNode", "ContentNode")
-        
+
         video_content.url = item_content.url
         video_content.title = item_content.title
 
@@ -27,22 +27,19 @@ sub _onContentChange()
         end if
 
         video_content.streamFormat = stream_format
-        
+
         m.video_player.content = video_content
         m.video_player.control = "play"
         m.video_player.SetFocus(true)
 
     else
 
-        ShowModal({
+        m.top.dialogRequest = {
             "title": "Notice",
             "message": "This video content is currently unavailable.",
-            "buttons": ["Go Back"],
-            "focusTarget": m.top,
-            "callbacks": [
-                { "func": _onGoBackClicked }
-            ]
-        })
+            "buttons": ["Go back"],
+            "actions": ["goBack"]
+        }
 
     end if
 
@@ -64,12 +61,18 @@ end sub
 function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     handled = false
-    
-    if (press and key = "back")
 
-        if (m.video_player.state = "playing" or m.video_player.state = "buffering")
+    if (press)
 
-            m.video_player.control = "stop"
+        print "DEBUG: VideoPlayerScreen intercepted key: "; key
+
+        if (key = "back")
+
+            if (m.video_player.state = "playing" or m.video_player.state = "buffering")
+
+                m.video_player.control = "stop"
+
+            end if
 
         end if
 
@@ -78,9 +81,3 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
     return handled
 
 end function
-
-sub _onGoBackClicked()
-
-    goToPreviousScreen()
-
-end sub

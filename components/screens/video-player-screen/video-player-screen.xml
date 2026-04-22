@@ -2,11 +2,11 @@
 <component name="VideoPlayerScreen" extends="BaseScreen">
     <script type="text/brightscript" uri="pkg:/components/screens/video-player-screen/video-player-screen.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
-    <script type="text/brightscript" uri="pkg:/components/utils/modal-helper.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/top-menu-utils.brs" />
 
     <interface>
         <field id="content" type="node" onChange="_onContentChange" />
+        <field id="dialogRequest" type="assocarray" />
     </interface>
 
     <children>

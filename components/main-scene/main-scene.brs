@@ -37,7 +37,7 @@ end sub
 sub _onMenuItemSelected(event as Object)
 
     payload = event.getData()
-    payload.errorFocusTarget = m.top_menu
+    payload.errorFocusTarget = m.top_menu    
     navigateTo(payload)
 
 end sub
@@ -50,11 +50,8 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     else if (key = "back")
 
-        return _HandleBackKey()
-
-    else if (key = "up")
-
-        return _HandleUpKey()
+        _promptAppExit()
+        return true
 
     else if (key = "down")
 
@@ -66,48 +63,9 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
 end function
 
-function _HandleBackKey() as Boolean
-
-    print "_HandleBackKey"
-
-    if (GoToPreviousScreen())
-
-        return true
-
-    end if
-
-    if (not m.top_menu.isInFocusChain() and m.top_menu.visible)
-
-        m.top_menu.SetFocus(true)
-
-        return true
-
-    end if
-
-    print "_promptAppExit()"
-    _promptAppExit()
-
-    return true
-
-end function
-
-function _HandleUpKey() as Boolean
-
-    if (not m.top_menu.isInFocusChain() and m.top_menu.visible)
-
-        m.top_menu.SetFocus(true)
-
-        return true
-
-    end if
-
-    return false
-
-end function
-
 function _HandleDownKey() as Boolean
 
-    if (m.top_menu.isInFocusChain())
+    if (m.top_menu.isInFocusChain() and m.screen_manager.currentScreen <> invalid)
 
         m.screen_manager.currentScreen.SetFocus(true)
 

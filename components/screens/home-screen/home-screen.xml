@@ -3,7 +3,6 @@
 
     <script type="text/brightscript" uri="pkg:/components/screens/home-screen/home-screen.brs" />
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
-    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/top-menu-utils.brs" />
     
     <children>

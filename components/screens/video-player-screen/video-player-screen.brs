@@ -64,8 +64,6 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     if (press)
 
-        print "DEBUG: VideoPlayerScreen intercepted key: "; key
-
         if (key = "back")
 
             if (m.video_player.state = "playing" or m.video_player.state = "buffering")
@@ -75,6 +73,12 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
             end if
 
         end if
+
+    end if
+
+    if (not handled)
+
+        handled = HandleBaseKeyEvents(key, press)
 
     end if
 

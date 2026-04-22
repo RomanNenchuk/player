@@ -7,7 +7,7 @@
         <field id="title" type="string" value="" onChange="onTitleChange" />
         <field id="message" type="string" value="" onChange="onMessageChange" />
         <field id="buttons" type="stringarray" value="[]" onChange="onButtonsChange" />
-        <field id="itemSelected" type="integer" value="-1" />
+        <field id="itemSelected" type="integer" value="-1" alwaysNotify="true" />
     </interface>
 
     <children>

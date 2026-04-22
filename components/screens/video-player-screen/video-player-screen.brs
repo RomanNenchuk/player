@@ -8,7 +8,6 @@ end sub
 sub _onContentChange()
 
     item_content = m.top.content
-    item_content = invalid
 
     if (item_content <> invalid)
 

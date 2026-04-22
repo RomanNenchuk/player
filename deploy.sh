@@ -42,8 +42,15 @@ if [ "$HTTP_CODE" -eq 200 ]; then
         echo "Success!"
     else
         echo "Error: Roku returned 200, but installation failed."
-        # Виводимо частину відповіді з помилкою, якщо вона там є
-        grep -o "font color=\"red\">.*</font>" "$TEMP_RESPONSE" | sed 's/<[^>]*>//g' || cat "$TEMP_RESPONSE"
+        
+        # Витягуємо текст помилки, очищуючи його від HTML-тегів та зайвих пробілів
+        ERROR_MSG=$(grep -oi "<font color=\"red\">.*</font>" "$TEMP_RESPONSE" | sed 's/<[^>]*>//g' | xargs)
+        
+        if [ -n "$ERROR_MSG" ]; then
+            echo "Details: $ERROR_MSG"
+        else
+            echo "Details: Could not parse error message. Please check the Roku Web UI."
+        fi
     fi
 else
     echo "HTTP Error! Status: $HTTP_CODE"

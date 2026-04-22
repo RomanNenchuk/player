@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="RowListItem" extends="Group">
-    <script type="text/brightscript" uri="pkg:/components/row-list-item/row-list-item.brs" />
+<component name="VideoCardItem" extends="Group">
+    <script type="text/brightscript" uri="pkg:/components/video-card-item/video-card-item.brs" />
       <script type="text/brightscript" uri="pkg:/components/utils/time-formatter.brs" />
     
     <interface>

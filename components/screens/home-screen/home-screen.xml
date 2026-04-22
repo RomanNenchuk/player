@@ -16,7 +16,7 @@
         <RowList 
             id="contentRowList"
             translation="[100, 650]" 
-            itemComponentName="RowListItem" 
+            itemComponentName="VideoCardItem" 
             numRows="7" 
             itemSize="[1720, 400]" 
             rowItemSize="[[400, 225]]" 

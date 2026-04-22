@@ -48,21 +48,15 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
         return false
 
-    end if
-
-    if (key = "back")
+    else if (key = "back")
 
         return _HandleBackKey()
 
-    end if
-
-    if (key = "up")
+    else if (key = "up")
 
         return _HandleUpKey()
 
-    end if
-
-    if (key = "down")
+    else if (key = "down")
 
         return _HandleDownKey()
 

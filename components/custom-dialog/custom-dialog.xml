@@ -24,7 +24,7 @@
             
             <Rectangle 
                 id="dialogBackground" 
-                color="0x252525FF" 
+                color="0x252525CC" 
                 width="800" 
                 height="550" 
             />

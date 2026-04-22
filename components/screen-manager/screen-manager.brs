@@ -86,10 +86,6 @@ function GoBack() as Boolean
         prev_screen.visible = true
         prev_screen.SetFocus(true)
         
-        ' subtype returns the name of prev_screen's component, 
-        ' specified in its xml file, e.g. name="HomeScreen"
-        m.top.activeScreen = prev_screen.subtype()
-
         handled = true
 
     end if

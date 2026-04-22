@@ -26,8 +26,18 @@ function ShowModal(config as Object) as Object
         end if
         
         modal.ObserveField("itemSelected", "_onModalItemSelected")
+        dialog_container = m.top.GetScene().findNode("dialogContainer")
+
+        if (dialog_container <> invalid)
+            
+            dialog_container.AppendChild(modal)
+            
+        else
+
+            m.top.AppendChild(modal)
+            
+        end if
         
-        m.top.AppendChild(modal)
         modal.SetFocus(true)
 
     end if
@@ -79,11 +89,24 @@ sub _onModalItemSelected(event as Object)
 end sub
 
 sub dismissModal()
+    print "dismissModal"
 
     if (m.current_modal <> invalid)
 
         m.current_modal.UnobserveField("itemSelected")
-        m.top.RemoveChild(m.current_modal)
+
+        dialog_container = m.top.GetScene().findNode("dialogContainer")
+
+        if (dialog_container <> invalid)
+
+            dialog_container.RemoveChild(m.current_modal)
+
+        else
+
+            m.top.RemoveChild(m.current_modal)
+
+        end if
+
         m.current_modal = invalid
         m.current_modal_config = invalid
 

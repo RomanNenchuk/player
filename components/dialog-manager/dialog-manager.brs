@@ -11,16 +11,18 @@ sub _onShowDialog()
     config = m.top.showDialog
 
     if (config = invalid)
+
         return
+
     end if
 
     _dismissDialog()
 
-    dialog = CreateObject("roSGNode", "Modal")
+    dialog = CreateObject("roSGNode", "CustomDialog")
 
     if (dialog = invalid)
 
-        print "DialogManager Error: Failed to create Modal node"
+        print "DialogManager Error: Failed to create CustomDialog node"
         return
 
     end if
@@ -53,20 +55,23 @@ end sub
 sub _onDialogItemSelected(event as Object)
 
     selected_index = event.GetData()
-    print "_onDialogItemSelected"; selected_index
     config = m.current_dialog_config
     focus_target = m.focus_target
 
     _dismissDialog()
 
     if (config = invalid or not config.DoesExist("actions"))
+
         return
+
     end if
 
     actions = config.actions
 
     if (selected_index < 0 or selected_index >= actions.Count())
+
         return
+
     end if
 
     action = actions[selected_index]

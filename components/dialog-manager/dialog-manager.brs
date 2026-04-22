@@ -4,6 +4,24 @@ sub init()
     m.current_dialog_config = invalid
     m.focus_target = invalid
 
+    m.action_handlers = {
+        "goBack": sub(focus_target as Object)
+
+            goToPreviousScreen()
+
+        end sub,
+
+        "dismiss": sub(focus_target as Object)
+
+            if (focus_target <> invalid)
+
+                focus_target.SetFocus(true)
+
+            end if
+
+        end sub
+    }
+
 end sub
 
 sub _onShowDialog()
@@ -82,17 +100,11 @@ end sub
 
 sub _handleAction(action as String, focus_target as Object)
 
-    if (action = "goBack")
+    handler = m.action_handlers[action]
 
-        goToPreviousScreen()
+    if (handler <> invalid)
 
-    else if (action = "dismiss")
-
-        if (focus_target <> invalid)
-
-            focus_target.SetFocus(true)
-
-        end if
+        handler(focus_target)
 
     else
 

@@ -36,7 +36,6 @@ sub onButtonsChange()
     end for
     
     m.button_list.content = content
-    m.button_list.SetFocus(true) 
     
 end sub
 

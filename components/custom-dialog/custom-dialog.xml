@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="Modal" extends="Group">
+<component name="CustomDialog" extends="Group">
 
-    <script type="text/brightscript" uri="pkg:/components/modal/modal.brs" />
+    <script type="text/brightscript" uri="pkg:/components/custom-dialog/custom-dialog.brs" />
 
     <interface>
         <field id="title" type="string" value="" onChange="onTitleChange" />
@@ -63,7 +63,7 @@
                 translation="[100, 360]" 
                 itemSize="[600, 60]" 
                 itemSpacing="[0, 15]" 
-                itemComponentName="ModalButton" 
+                itemComponentName="CustomDialogButton" 
             />
             
         </Group>

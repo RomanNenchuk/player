@@ -3,6 +3,7 @@ sub init()
     m.top.createChild("TrackerTask")
 
     m.screen_manager = m.top.findNode("screenManager")
+    m.dialog_manager = m.top.findNode("dialogManager")
 
     navigateTo({ "screenName": "HomeScreen" })
 
@@ -18,16 +19,13 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
         if (not handled)
 
-            ShowModal({
+            m.dialog_manager.showDialog = {
                 "title": "Confirmation",
                 "message": "Are you sure you want to exit?",
                 "buttons": ["OK", "Cancel"],
-                "focusTarget": m.screen_manager,
-                "callbacks": [
-                    { "func": _onExitAppClicked },
-                    invalid
-                ]
-            })
+                "actions": ["exitApp", "dismiss"],
+                "focusTarget": m.screen_manager.currentScreen
+            }
 
             handled = true
 

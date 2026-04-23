@@ -21,12 +21,12 @@
             uri="pkg:/images/logo_mini.jpg"
             width="120"
             height="40"
-            translation="[120, 105]"
+            translation="[120, 95]"
             loadDisplayMode="scaleToFit" />
 
         <LayoutGroup
             id="menuGroup"
-            translation="[350, 100]"
+            translation="[350, 90]"
             layoutDirection="horiz"
             itemSpacings="[50]" />
 

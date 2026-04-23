@@ -14,12 +14,12 @@
         <HeroComponent
             id="hero"
             compactMode="true"
-            translation="[100, 130]"
+            translation="[100, 190]"
             visible="false"/>
 
         <RowList 
             id="contentRowList"
-            translation="[100, 680]" 
+            translation="[100, 660]" 
             itemComponentName="VideoCardItem" 
             numRows="7" 
             itemSize="[1720, 400]" 
@@ -43,7 +43,7 @@
             <Vector2DFieldInterpolator
                 fieldToInterp="contentRowList.translation"
                 key="[0.0, 1.0]"
-                keyValue="[[100.0, 680.0], [100.0, 130.0]]" />
+                keyValue="[[100.0, 660.0], [100.0, 190.0]]" />
         </Animation>
 
         <Animation id="showHeroAnim" duration="0.3" easeFunction="linear">
@@ -55,7 +55,7 @@
             <Vector2DFieldInterpolator
                 fieldToInterp="contentRowList.translation"
                 key="[0.0, 1.0]"
-                keyValue="[[100.0, 130.0], [100.0, 680.0]]" />
+                keyValue="[[100.0, 190.0], [100.0, 660.0]]" />
         </Animation>
 
 

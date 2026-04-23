@@ -9,67 +9,69 @@
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
 
     <children>
-        <Group id="leftPanel" translation="[100, 150]">
+        <Group translation="[100, 190]" >
+            <Group id="leftPanel">
 
-            <VoicePrompt
-                id="voicePromptGroup"
-                visible="false"
-            />
+                <VoicePrompt
+                    id="voicePromptGroup"
+                    visible="false"
+                />
 
-            <DynamicMiniKeyboard
-                id="keyboard"
-                translation="[0, 10]"
-            />
+                <DynamicMiniKeyboard
+                    id="keyboard"
+                    translation="[0, 10]"
+                />
 
-        </Group>
-
-        <Group id="rightPanel" translation="[900, 150]">
-            <Group id="search_header_group" translation="[0, 0]">
-                <Poster
-                    id="searchHeaderBg"
-                    uri="pkg:/images/pill_bg.9.png"
-                    height="64" />
-                <Label
-                    id="searchHeaderLabel"
-                    text="What are you looking for?"
-                    color="0xCCCCCCFF"
-                    font="font:SmallerSystemFont"
-                    wrap="false" />
             </Group>
 
-            <Label
-                id="noResultsLabel"
-                text="No results found"
-                width="800"
-                height="100"
-                translation="[0, 200]" 
-                horizAlign="center"
-                vertAlign="center"
-                visible="false"
-                font="font:MediumSystemFont"
-                color="0xAAAAAAFF" />
-            
-            <BusySpinner
-                id="loadingSpinner"
-                translation="[415, 200]" 
-                visible="false"
-                control="stop" />
+            <Group id="rightPanel" translation="[800, 0]">
+                <Group id="search_header_group" translation="[0, 0]">
+                    <Poster
+                        id="searchHeaderBg"
+                        uri="pkg:/images/pill_bg.9.png"
+                        height="64" />
+                    <Label
+                        id="searchHeaderLabel"
+                        text="What are you looking for?"
+                        color="0xCCCCCCFF"
+                        font="font:SmallerSystemFont"
+                        wrap="false" />
+                </Group>
 
-            <MarkupGrid
-                id="searchResultsGrid"
-                translation="[0, 100]"
-                itemComponentName="VideoCardItem"
-                itemSize="[400, 310]"
-                itemSpacing="[30, 30]"
-                numColumns="2"
-                numRows="2"
-                height="800"
-                visible="false" />
+                <Label
+                    id="noResultsLabel"
+                    text="No results found"
+                    width="800"
+                    height="100"
+                    translation="[0, 200]" 
+                    horizAlign="center"
+                    vertAlign="center"
+                    visible="false"
+                    font="font:MediumSystemFont"
+                    color="0xAAAAAAFF" />
+                
+                <BusySpinner
+                    id="loadingSpinner"
+                    translation="[415, 200]" 
+                    visible="false"
+                    control="stop" />
+
+                <MarkupGrid
+                    id="searchResultsGrid"
+                    translation="[0, 100]"
+                    itemComponentName="VideoCardItem"
+                    itemSize="[400, 310]"
+                    itemSpacing="[30, 30]"
+                    numColumns="2"
+                    numRows="2"
+                    height="800"
+                    visible="false" />
+
+            </Group>
 
         </Group>
 
         <Timer id="searchDebounceTimer" duration="0.4" repeat="false" />
-
     </children>
 
 </component>

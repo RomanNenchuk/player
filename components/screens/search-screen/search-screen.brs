@@ -74,7 +74,7 @@ sub _setupUi()
         if (child <> invalid and child.subtype() = "VoiceTextEditBox")
 
             m.voice_edit_box = child
-            m.voice_edit_box.scale = [0.001, 0.001]
+            m.voice_edit_box.scale = [0.01, 0.01]
             m.voice_edit_box.focusable = false
             exit for
 

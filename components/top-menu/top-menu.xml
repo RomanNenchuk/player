@@ -13,7 +13,7 @@
         <Rectangle
             id="menuBackground"
             width="1920"
-            height="120"
+            height="170"
             color="0x000000B3" />
 
         <Poster
@@ -21,14 +21,14 @@
             uri="pkg:/images/logo_mini.jpg"
             width="120"
             height="40"
-            translation="[100, 40]"
+            translation="[120, 105]"
             loadDisplayMode="scaleToFit" />
 
         <LayoutGroup
             id="menuGroup"
-            translation="[300, 35]"
+            translation="[350, 100]"
             layoutDirection="horiz"
-            itemSpacings="[0]" />
+            itemSpacings="[50]" />
 
     </children>
 

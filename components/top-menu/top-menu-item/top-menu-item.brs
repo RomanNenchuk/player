@@ -20,41 +20,33 @@ sub _onContentChange()
     content = m.top.itemContent
 
     if (content <> invalid)
-        
+
+        m.tab_label.width = 0
+        m.tab_label_bold.width = 0
+
         if (content.HDPosterUrl <> "")
-            
+
             m.tab_icon.uri = content.HDPosterUrl
             m.tab_icon.visible = true
-            
             m.tab_label.visible = false
             m.tab_label_bold.visible = false
-            m.focus_indicator.width = 60
-            m.focus_indicator.translation = [70, 46]
-            
+            m.focus_indicator.width = 40
+
         else
-            
+
             m.tab_label.text = content.title
             m.tab_label_bold.text = content.title
             m.tab_icon.visible = false
 
-            text_rect = m.tab_label_bold.boundingRect()
-            text_width = text_rect.width
-            
-            print text_width
-            
-            offset_x = (200 - text_width) / 2
-            m.tab_label.translation = [offset_x, 0]
-            m.tab_label_bold.translation = [offset_x, 0]
-
+            text_width = m.tab_label_bold.boundingRect().width
             m.focus_indicator.width = text_width
-            m.focus_indicator.translation = [offset_x, 46]
-            
+
         end if
-        
+
         _updateVisualState()
-        
+
     end if
-    
+
 end sub
 
 sub _updateVisualState()

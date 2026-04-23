@@ -11,15 +11,14 @@
 
         <Poster 
             id="tabIcon"
-            width="40" 
-            height="40"
-            translation="[80, 5]" 
+            width="35"
+            height="35"
+            translation="[0, 10]" 
             visible="false"
             loadDisplayMode="scaleToFit" />
 
         <Label
             id="tabLabel"
-            width="200"
             height="50"
             horizAlign="center"
             vertAlign="center"
@@ -28,7 +27,6 @@
 
         <Label
             id="tabLabelBold"
-            width="200"
             height="50"
             horizAlign="center"
             vertAlign="center"
@@ -39,6 +37,7 @@
         <Rectangle
             id="focusIndicator"
             height="4"
+            translation="[0, 46]"
             color="0xE62B1EFF"
             visible="false" />
 

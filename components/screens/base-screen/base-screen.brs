@@ -65,12 +65,6 @@ end function
 
 function _HandleBackKey() as Boolean
 
-    if (GoToPreviousScreen())
-
-        return true
-
-    end if
-    
     scene = m.top.getScene()
     top_menu = invalid
 
@@ -80,16 +74,14 @@ function _HandleBackKey() as Boolean
 
     end if
 
-
     if (top_menu <> invalid and not top_menu.isInFocusChain() and top_menu.visible)
 
         top_menu.SetFocus(true)
-
         return true
 
     end if
-
-    return false
+    
+    return GoToPreviousScreen()
 
 end function
 

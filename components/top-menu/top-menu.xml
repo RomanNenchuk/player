@@ -28,7 +28,7 @@
             id="menuGroup"
             translation="[300, 35]"
             layoutDirection="horiz"
-            itemSpacings="[0]" />
+            itemSpacings="[50]" />
 
     </children>
 

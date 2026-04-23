@@ -1,54 +1,58 @@
 function OnKeyEvent(key as String, press as Boolean) as Boolean
 
-    if (not press)
+    handled = false
 
-        return false
+    if (press)
 
-    end if
+        if (m.voice_prompt_group.hasFocus())
 
-    if (m.voice_prompt_group.hasFocus())
+            if (key = "down")
 
-        if (key = "down")
+                handled = _SetFocusTarget(m.keyboard_grid)
 
-            return _SetFocusTarget(m.keyboard_grid)
+            else if (key = "OK")
 
-        end if
-
-        if (key = "OK")
-
-            return true
-
-        end if
-
-    else if (m.search_results_grid.hasFocus())
-
-        if (key = "left")
-
-            return _SetFocusTarget(m.keyboard_grid)
-
-        end if
-
-    else if (m.keyboard_grid.hasFocus())
-
-        if (key = "right")
-
-            if (m.search_results_grid.visible)
-
-                _SetFocusTarget(m.search_results_grid)
+                handled = true
 
             end if
 
-            return true 
+        else if (m.search_results_grid.hasFocus())
 
-        else if (key = "up" and m.voice_prompt_group.visible)
+            if (key = "left")
 
-            return _SetFocusTarget(m.voice_prompt_group)
+                handled = _SetFocusTarget(m.keyboard_grid)
+
+            end if
+
+        else if (m.keyboard_grid.hasFocus())
+
+            if (key = "right")
+
+                if (m.search_results_grid.visible)
+
+                    _SetFocusTarget(m.search_results_grid)
+
+                end if
+
+                handled = true 
+
+            else if (key = "up" and m.voice_prompt_group.visible)
+
+                handled = _SetFocusTarget(m.voice_prompt_group)
+
+            end if
 
         end if
 
     end if
 
-    return false
+    if (not handled)
+
+        handled = HandleBaseKeyEvents(key, press)
+
+    end if
+
+    return handled
 
 end function
 

@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="MainScene" extends="Scene">
   <script type="text/brightscript" uri="pkg:/components/main-scene/main-scene.brs" />
-  <script type="text/brightscript" uri="pkg:/components/main-scene/key-handlers.brs" />
-  <script type="text/brightscript" uri="pkg:/components/main-scene/exit-handler.brs" />
   
   <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
-  <script type="text/brightscript" uri="pkg:/components/utils/modal-helper.brs" />
 
     <interface>
         <field id="exitApp" type="boolean" value="false" alwaysNotify="true" />
         <field id="isTopMenuVisible" type="boolean" value="false" alwaysNotify="true" />
     </interface>
 
-  <children>
+    <children>
         <Rectangle id="background" width="1920" height="1080" color="0x000000FF" />
-        
+
         <ScreenManager id="screenManager" />
 
         <TopMenu id="topMenu" visible="false" />
+
+        <DialogManager id="dialogManager" />
     </children>
 
 </component>

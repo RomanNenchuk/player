@@ -2,7 +2,6 @@
 <component name="DetailsScreen" extends="BaseScreen">
 
     <script type="text/brightscript" uri="pkg:/components/screens/details-screen/details-screen.brs" />
-    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/top-menu-utils.brs" />
 
     <interface>

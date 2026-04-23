@@ -65,7 +65,7 @@ end sub
 
 function onKeyEvent(key as string, press as boolean) as boolean
 
-    if( press and key = "OK" )
+    if (press = true and key = "OK")
 
         m.top.buttonSelected = not m.top.buttonSelected
         return true

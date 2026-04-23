@@ -7,7 +7,6 @@
 
     <script type="text/brightscript" uri="pkg:/components/screens/home-screen/home-screen.brs" />
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
-    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/top-menu-utils.brs" />
     
     <children>
@@ -21,7 +20,7 @@
         <RowList 
             id="contentRowList"
             translation="[100, 680]" 
-            itemComponentName="RowListItem" 
+            itemComponentName="VideoCardItem" 
             numRows="7" 
             itemSize="[1720, 400]" 
             rowItemSize="[[400, 225]]" 

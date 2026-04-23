@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="DialogManager" extends="Group">
+    <script type="text/brightscript" uri="pkg:/components/dialog-manager/dialog-manager.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
+
+    <interface>
+        <field id="showDialog" type="assocarray" onChange="_onShowDialog" />
+        <field id="isDialogVisible" type="boolean" value="false" />
+    </interface>
+</component>

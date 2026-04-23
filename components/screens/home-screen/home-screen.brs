@@ -130,6 +130,12 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
 
     end if
 
+    if (not handled)
+
+        handled = HandleBaseKeyEvents(key, press)
+
+    end if
+
     return handled
 
 end function

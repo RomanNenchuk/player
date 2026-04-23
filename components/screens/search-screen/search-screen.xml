@@ -10,7 +10,6 @@
     <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen-focus.brs" />
     <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen-ui.brs" />
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
-    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
 
     <children>
         <Group id="leftPanel" translation="[100, 150]">
@@ -62,7 +61,7 @@
             <MarkupGrid
                 id="searchResultsGrid"
                 translation="[0, 100]"
-                itemComponentName="RowListItem"
+                itemComponentName="VideoCardItem"
                 itemSize="[400, 310]"
                 itemSpacing="[30, 30]"
                 numColumns="2"

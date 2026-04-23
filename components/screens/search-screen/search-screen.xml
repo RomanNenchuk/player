@@ -6,9 +6,6 @@
     </interface>
 
     <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen.brs" />
-    <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen-data.brs" />
-    <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen-focus.brs" />
-    <script type="text/brightscript" uri="pkg:/components/screens/search-screen/search-screen-ui.brs" />
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
 
     <children>

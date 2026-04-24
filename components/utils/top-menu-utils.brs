@@ -1,6 +1,6 @@
 sub hideTopMenu()
 
-    if ( m.top.hasField("requiresTopMenu") )
+    if (m.top.hasField("requiresTopMenu"))
 
         m.top.requiresTopMenu = false
 
@@ -10,7 +10,7 @@ end sub
 
 sub showTopMenu()
 
-    if ( m.top.hasField("requiresTopMenu") )
+    if (m.top.hasField("requiresTopMenu"))
 
         m.top.requiresTopMenu = true
 

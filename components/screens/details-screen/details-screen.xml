@@ -9,22 +9,27 @@
     </interface>
 
     <children>
-        <HeroComponent 
-            id="hero"
-            translation="[100, 110]" />
+        <Group id="contentGroup">
+            
+            <HeroComponent 
+                id="hero"
+                translation="[100, 0]" />
 
-        <Label
-            id="errorLabel"
-            text="Content is currently unavailable. Going back..."
-            width="1920"
-            translation="[0, 500]"
-            horizAlign="center"
-            visible="false" />
+            <Label
+                id="errorLabel"
+                text="Content is currently unavailable. Going back..."
+                width="1920"
+                translation="[0, 390]"
+                horizAlign="center"
+                visible="false" />
+                
+        </Group>
 
         <Timer
             id="closeTimer"
             duration="3"
-            repeat="false" />
+            repeat="false" />            
+
     </children>
 
 </component>

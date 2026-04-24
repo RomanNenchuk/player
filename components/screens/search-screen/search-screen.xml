@@ -9,8 +9,9 @@
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
 
     <children>
-        <Group translation="[100, 190]" >
-            <Group id="leftPanel">
+
+        <Group id="contentGroup" >
+            <Group id="leftPanel" translation="[100, 0]">
 
                 <VoicePrompt
                     id="voicePromptGroup"
@@ -24,7 +25,7 @@
 
             </Group>
 
-            <Group id="rightPanel" translation="[800, 0]">
+            <Group id="rightPanel" translation="[900, 0]">
                 <Group id="search_header_group" translation="[0, 0]">
                     <Poster
                         id="searchHeaderBg"

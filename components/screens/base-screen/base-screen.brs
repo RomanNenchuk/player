@@ -111,15 +111,24 @@ sub applyMenuOffset()
 
     if (content_group <> invalid)
 
-        if (m.top.requiresTopMenu)
+        if (m.base_translation = invalid)
 
-            content_group.translation = [0, m.MENU_OFFSETS.with_menu]
-
-        else
-
-            content_group.translation = [0, m.MENU_OFFSETS.without_menu]
+            m.base_translation = content_group.translation
 
         end if
+
+        base_x = m.base_translation[0]
+        base_y = m.base_translation[1]
+
+        offset_y = m.MENU_OFFSETS.without_menu
+
+        if (m.top.requiresTopMenu)
+
+            offset_y = m.MENU_OFFSETS.with_menu
+
+        end if
+
+        content_group.translation = [base_x, base_y + offset_y]
 
     end if
 

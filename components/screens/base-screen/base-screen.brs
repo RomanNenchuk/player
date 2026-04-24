@@ -5,7 +5,7 @@ sub init()
     m.top.ObserveField("focusedChild", "_updateMenuState")
 
     m.MENU_OFFSETS = {
-        "with_menu": 190,
+        "with_menu": 180,
         "without_menu": 110
     }
 

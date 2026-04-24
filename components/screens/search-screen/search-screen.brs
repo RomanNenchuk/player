@@ -2,6 +2,15 @@ sub init()
 
     setTopMenuVisible(true)
 
+    m.SEARCH_CONFIG = {
+        "max_chars": 50,
+        "max_pill_width": 750,
+        "horizontal_padding": 48,
+        "spinner_width": 80,
+        "spinner_height": 80,
+        "spinner_uri": "pkg:/images/spinner.png"
+    }
+
     _setupUi()
     _setupObservers()
     _checkVoiceSupport()
@@ -48,9 +57,9 @@ sub _setupUi()
     m.no_results_label = m.top.findNode("noResultsLabel")
 
     m.spinner = m.top.findNode("loadingSpinner")
-    m.spinner.poster.uri = "pkg:/images/spinner.png"
-    m.spinner.poster.width = 80
-    m.spinner.poster.height = 80
+    m.spinner.poster.uri = m.SEARCH_CONFIG.spinner_uri
+    m.spinner.poster.width = m.SEARCH_CONFIG.spinner_width
+    m.spinner.poster.height = m.SEARCH_CONFIG.spinner_height
 
     _toggleLoadingSpinner(true)
 
@@ -93,14 +102,12 @@ sub _updateHeaderSize()
     text_bounds = m.search_header_label.boundingRect()
     bg_height = m.search_header_bg.height
 
-    max_pill_width = 750
-    horizontal_padding = 48
-    target_bg_width = text_bounds.width + horizontal_padding
+    target_bg_width = text_bounds.width + m.SEARCH_CONFIG.horizontal_padding
 
-    if (target_bg_width > max_pill_width)
+    if (target_bg_width > m.SEARCH_CONFIG.max_pill_width)
 
-        m.search_header_bg.width = max_pill_width
-        m.search_header_label.width = max_pill_width - horizontal_padding
+        m.search_header_bg.width = m.SEARCH_CONFIG.max_pill_width
+        m.search_header_label.width = m.SEARCH_CONFIG.max_pill_width - m.SEARCH_CONFIG.horizontal_padding
 
     else
 
@@ -110,7 +117,11 @@ sub _updateHeaderSize()
     end if
 
     current_label_bounds = m.search_header_label.boundingRect()
-    m.search_header_label.translation = [horizontal_padding / 2, (bg_height - current_label_bounds.height) / 2]
+
+    x_pos = m.SEARCH_CONFIG.horizontal_padding / 2
+    y_pos = (bg_height - current_label_bounds.height) / 2
+
+    m.search_header_label.translation = [x_pos, y_pos]
 
 end sub
 
@@ -236,11 +247,10 @@ sub _onSearchQueryChanged()
 
     m.no_results_label.visible = false
     query = m.keyboard.text
-    max_chars = 50
 
-    if (query.len() > max_chars)
+    if (query.len() > m.SEARCH_CONFIG.max_chars)
 
-        query = query.left(max_chars)
+        query = query.left(m.SEARCH_CONFIG.max_chars)
         m.keyboard.textEditBox.text = query
 
     end if

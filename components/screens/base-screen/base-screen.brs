@@ -4,6 +4,11 @@ sub init()
     m.top.ObserveField("requiresTopMenu", "_updateMenuState")
     m.top.ObserveField("focusedChild", "_updateMenuState")
 
+    m.MENU_OFFSETS = {
+        "with_menu": 190,
+        "without_menu": 110
+    }
+
 end sub
 
 sub _updateMenuState()
@@ -102,17 +107,17 @@ end function
 
 sub applyMenuOffset()
 
-    contentGroup = m.top.findNode("contentGroup")
+    content_group = m.top.findNode("contentGroup")
 
-    if contentGroup <> invalid
+    if (content_group <> invalid)
 
         if (m.top.requiresTopMenu)
 
-            contentGroup.translation = [0, 190]
+            content_group.translation = [0, m.MENU_OFFSETS.with_menu]
 
         else
 
-            contentGroup.translation = [0, 110]
+            content_group.translation = [0, m.MENU_OFFSETS.without_menu]
 
         end if
 

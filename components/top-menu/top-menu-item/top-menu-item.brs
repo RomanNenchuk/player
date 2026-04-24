@@ -1,5 +1,11 @@
 sub init()
 
+    m.TAB_CONFIG = {
+        "icon_indicator_width": 40,
+        "color_active": "0xFFFFFFFF",
+        "color_inactive": "0x888888FF"
+    }
+
     m.tab_label = m.top.findNode("tabLabel")
     m.tab_label_bold = m.top.findNode("tabLabelBold")
     m.focus_indicator = m.top.findNode("focusIndicator")
@@ -30,7 +36,7 @@ sub _onContentChange()
             m.tab_icon.visible = true
             m.tab_label.visible = false
             m.tab_label_bold.visible = false
-            m.focus_indicator.width = 40
+            m.focus_indicator.width = m.TAB_CONFIG.icon_indicator_width
 
         else
 
@@ -69,7 +75,7 @@ sub _updateVisualState()
         
         if (m.tab_icon <> invalid)
             
-            m.tab_icon.blendColor = "0xFFFFFFFF"
+            m.tab_icon.blendColor = m.TAB_CONFIG.color_active
             
         end if
         
@@ -80,7 +86,7 @@ sub _updateVisualState()
         
         if (m.tab_icon <> invalid)
             
-            m.tab_icon.blendColor = "0x888888FF"
+            m.tab_icon.blendColor = m.TAB_CONFIG.color_inactive
             
         end if
         

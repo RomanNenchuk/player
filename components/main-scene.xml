@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="MainScene" extends="Scene">
   <script type="text/brightscript" uri="pkg:/components/main-scene.brs" />
+  <script type="text/brightscript" uri="pkg:/components/utils/video-rss-parser.brs" />
 
   <children>
-    <Label 
-      id="welcome_label"
-      text="Welcome to TED"
-      translation="[960, 540]" 
-      color = "0xFFFFFFFF"
-      />
-  </children>
+        <Rectangle id="background" width="1920" height="1080" color="0x0C0C0CFF" />
+        
+        <Group id="screenStack" />
+    </children>
 </component>

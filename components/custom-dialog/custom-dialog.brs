@@ -40,7 +40,7 @@ sub onButtonsChange()
 end sub
 
 sub _onFocusChange()
-    
+
     if (m.top.hasFocus())
         
         m.button_list.SetFocus(true)
@@ -51,7 +51,6 @@ end sub
 
 sub _onButtonSelected(event as Object)
     
-    print event.GetData()
     m.top.itemSelected = event.GetData()
     
 end sub

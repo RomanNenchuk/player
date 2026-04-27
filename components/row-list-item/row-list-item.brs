@@ -25,9 +25,6 @@ sub _onContentChange()
 
         end if
 
-        print pub_date_str
-        print m.date_label.text
-
         duration_str = item_data.shortdescriptionline2
         
         if (duration_str <> "")

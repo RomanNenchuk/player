@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="VideoPlayerScreen" extends="Group">
+    <script type="text/brightscript" uri="pkg:/components/screens/video-player-screen/video-player-screen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
+
+    <interface>
+        <field id="content" type="node" onChange="_onContentChange" />
+        <field id="dialogRequest" type="assocarray" />
+    </interface>
+
+    <children>
+        <Video 
+            id="videoPlayer" 
+            width="1920" 
+            height="1080" 
+            translation="[0,0]" />
+    </children>
+</component>

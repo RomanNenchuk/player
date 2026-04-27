@@ -85,7 +85,7 @@ function GoBack() as Boolean
         prev_screen = m.screens.Peek()
         prev_screen.visible = true
         prev_screen.SetFocus(true)
-
+        
         handled = true
 
     end if

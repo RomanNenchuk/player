@@ -1,5 +1,7 @@
 sub init()
 
+    hideTopMenu()
+
     m.hero = m.top.findNode("hero")
     m.content_row_list = m.top.findNode("contentRowList")
     
@@ -37,6 +39,8 @@ sub _onContentLoad()
             m.custom_splash_screen.visible = false
         
         end if
+
+        showTopMenu()
 
     end if
 
@@ -113,6 +117,12 @@ function OnKeyEvent(key as String, press as Boolean) as Boolean
             end if
 
         end if
+
+    end if
+
+    if (not handled)
+
+        handled = HandleBaseKeyEvents(key, press)
 
     end if
 

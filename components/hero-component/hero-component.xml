@@ -19,12 +19,11 @@
                     height="360" 
                     loadDisplayMode="scaleToFit" />
                     
-                <Button 
-                    id="playButton" 
-                    text="Play Video" 
-                    minWidth="200"
-                    iconUri=""
-                    focusedIconUri="" />
+                <PlayButton
+                    id="playButton"
+                    text="Play Video"
+                    width="220"
+                    height="70" />
             </LayoutGroup>
 
             <LayoutGroup itemSpacings="[20]">

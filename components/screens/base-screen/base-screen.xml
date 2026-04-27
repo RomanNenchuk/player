@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="BaseScreen" extends="Group">
+    <script type="text/brightscript" uri="pkg:/components/screens/base-screen/base-screen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
+
+    <interface>
+        <field id="requiresTopMenu" type="boolean" value="true" alwaysNotify="true" />
+    </interface>
+</component>

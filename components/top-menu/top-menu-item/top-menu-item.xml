@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="TopMenuItem" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/top-menu/top-menu-item/top-menu-item.brs" />
+
+    <interface>
+        <field id="itemContent" type="node" onChange="_onContentChange" />
+    </interface>
+
+    <children>
+
+        <Poster 
+            id="tabIcon"
+            width="35"
+            height="35"
+            translation="[0, 10]" 
+            visible="false"
+            loadDisplayMode="scaleToFit" />
+
+        <Label
+            id="tabLabel"
+            height="50"
+            horizAlign="center"
+            vertAlign="center"
+            font="font:SmallSystemFont"
+            color="0x888888FF" />
+
+        <Label
+            id="tabLabelBold"
+            height="50"
+            horizAlign="center"
+            vertAlign="center"
+            font="font:SmallBoldSystemFont"
+            color="0xFFFFFFFF"
+            visible="false" />
+
+        <Rectangle
+            id="focusIndicator"
+            height="4"
+            translation="[0, 46]"
+            color="0xE62B1EFF"
+            visible="false" />
+
+    </children>
+
+</component>

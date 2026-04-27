@@ -1,5 +1,11 @@
 sub init()
 
+    m.ITEM_CONFIG = {
+        "duration_padding_x": 16,
+        "duration_margin_right": 10,
+        "duration_margin_bottom": 10
+    }
+
     m.poster = m.top.findNode("poster")
     m.title_label = m.top.findNode("titleLabel")
     m.duration_label = m.top.findNode("durationLabel")
@@ -35,11 +41,7 @@ sub _onContentChange()
             text_rect = m.duration_label.boundingRect()
             text_width = text_rect.width
             
-            padding_x = 16
-            margin_right = 10
-            margin_bottom = 10
-            
-            bg_width = text_width + padding_x
+            bg_width = text_width + m.ITEM_CONFIG.duration_padding_x
             
             m.duration_bg.width = bg_width
             m.duration_label.width = bg_width
@@ -47,11 +49,12 @@ sub _onContentChange()
             poster_width = m.poster.width
             poster_height = m.poster.height
             
-            bg_x = poster_width - bg_width - margin_right
-            bg_y = poster_height - m.duration_bg.height - margin_bottom
+            bg_x = poster_width - bg_width - m.ITEM_CONFIG.duration_margin_right
+            bg_y = poster_height - m.duration_bg.height - m.ITEM_CONFIG.duration_margin_bottom
             
             m.duration_bg.translation = [bg_x, bg_y]
             m.duration_bg.visible = true
+
         else
 
             m.duration_bg.visible = false

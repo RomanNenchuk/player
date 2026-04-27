@@ -10,9 +10,9 @@
     </interface>
 
     <children>
-        <LayoutGroup layoutDirection="horiz" itemSpacings="[60]">
+        <LayoutGroup id="mainLayout" layoutDirection="horiz" itemSpacings="[60]">
             
-            <LayoutGroup itemSpacings="[40]">
+            <LayoutGroup id="leftColumn" itemSpacings="[40]">
                 <Poster 
                     id="thumbnail" 
                     width="640" 
@@ -26,7 +26,7 @@
                     height="70" />
             </LayoutGroup>
 
-            <LayoutGroup itemSpacings="[20]">
+            <LayoutGroup id="rightColumn" itemSpacings="[20]">
                 <Label 
                     id="title" 
                     width="1000" 

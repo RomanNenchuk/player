@@ -1,25 +1,22 @@
 sub init()
 
-    m.top.ObserveField("visible", "_onBaseVisibilityChanged")
-    m.top.ObserveField("requiresTopMenu", "_onMenuRequirementChanged")
+    m.top.ObserveField("visible", "_updateMenuState")
+    m.top.ObserveField("requiresTopMenu", "_updateMenuState")
+    m.top.ObserveField("focusedChild", "_updateMenuState")
+
+    m.MENU_OFFSETS = {
+        "with_menu": 180,
+        "without_menu": 110
+    }
 
 end sub
 
-sub _onBaseVisibilityChanged()
+sub _updateMenuState()
 
     if (m.top.visible = true)
 
         setTopMenuVisible(m.top.requiresTopMenu)
-
-    end if
-
-end sub
-
-sub _onMenuRequirementChanged()
-
-    if (m.top.visible = true)
-
-        setTopMenuVisible(m.top.requiresTopMenu)
+        applyMenuOffset()
 
     end if
 
@@ -107,3 +104,32 @@ function _HandleUpKey() as Boolean
     return false
 
 end function
+
+sub applyMenuOffset()
+
+    content_group = m.top.findNode("contentGroup")
+
+    if (content_group <> invalid)
+
+        if (m.base_translation = invalid)
+
+            m.base_translation = content_group.translation
+
+        end if
+
+        base_x = m.base_translation[0]
+        base_y = m.base_translation[1]
+
+        offset_y = m.MENU_OFFSETS.without_menu
+
+        if (m.top.requiresTopMenu)
+
+            offset_y = m.MENU_OFFSETS.with_menu
+
+        end if
+
+        content_group.translation = [base_x, base_y + offset_y]
+
+    end if
+
+end sub

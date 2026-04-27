@@ -11,53 +11,56 @@
     
     <children>
 
-        <HeroComponent
-            id="hero"
-            compactMode="true"
-            translation="[100, 130]"
-            visible="false"/>
+        <Group id="contentGroup">
 
-        <RowList 
-            id="contentRowList"
-            translation="[100, 680]" 
-            itemComponentName="VideoCardItem" 
-            numRows="7" 
-            itemSize="[1720, 400]" 
-            rowItemSize="[[400, 225]]" 
-            itemSpacing="[0, 50]" 
-            rowItemSpacing="[[30, 0]]" 
-            rowLabelOffset="[[0, 30]]" 
-            showRowLabel="[true]" 
-            rowLabelColor="0xFFFFFFFF"
-            rowLabelFont="font:SmallSystemFont"
-            focusXOffset="[0]"
-            rowFocusAnimationStyle="floatingFocus" 
-            visible="false"/>
-        
-        <Animation id="hideHeroAnim" duration="0.3" easeFunction="linear">
-            <FloatFieldInterpolator
-                fieldToInterp="hero.opacity"
-                key="[0.0, 1.0]"
-                keyValue="[1.0, 0.0]" />
+            <HeroComponent
+                id="hero"
+                compactMode="true"
+                translation="[100, 0]"
+                visible="false"/>
 
-            <Vector2DFieldInterpolator
-                fieldToInterp="contentRowList.translation"
-                key="[0.0, 1.0]"
-                keyValue="[[100.0, 680.0], [100.0, 130.0]]" />
-        </Animation>
+            <RowList 
+                id="contentRowList"
+                translation="[100, 470]" 
+                itemComponentName="VideoCardItem" 
+                numRows="7" 
+                itemSize="[1720, 400]" 
+                rowItemSize="[[400, 225]]" 
+                itemSpacing="[0, 50]" 
+                rowItemSpacing="[[30, 0]]" 
+                rowLabelOffset="[[0, 30]]" 
+                showRowLabel="[true]" 
+                rowLabelColor="0xFFFFFFFF"
+                rowLabelFont="font:SmallSystemFont"
+                focusXOffset="[0]"
+                rowFocusAnimationStyle="floatingFocus" 
+                visible="false"/>
+            
+            <Animation id="hideHeroAnim" duration="0.3" easeFunction="linear">
+                <FloatFieldInterpolator
+                    fieldToInterp="hero.opacity"
+                    key="[0.0, 1.0]"
+                    keyValue="[1.0, 0.0]" />
 
-        <Animation id="showHeroAnim" duration="0.3" easeFunction="linear">
-            <FloatFieldInterpolator
-                fieldToInterp="hero.opacity"
-                key="[0.0, 1.0]"
-                keyValue="[0.0, 1.0]" />
+                <Vector2DFieldInterpolator
+                    fieldToInterp="contentRowList.translation"
+                    key="[0.0, 1.0]"
+                    keyValue="[[100.0, 470.0], [100.0, 0.0]]" />
+            </Animation>
 
-            <Vector2DFieldInterpolator
-                fieldToInterp="contentRowList.translation"
-                key="[0.0, 1.0]"
-                keyValue="[[100.0, 130.0], [100.0, 680.0]]" />
-        </Animation>
+            <Animation id="showHeroAnim" duration="0.3" easeFunction="linear">
+                <FloatFieldInterpolator
+                    fieldToInterp="hero.opacity"
+                    key="[0.0, 1.0]"
+                    keyValue="[0.0, 1.0]" />
 
+                <Vector2DFieldInterpolator
+                    fieldToInterp="contentRowList.translation"
+                    key="[0.0, 1.0]"
+                    keyValue="[[100.0, 0.0], [100.0, 470.0]]" />
+            </Animation>
+
+        </Group>
 
         <Poster 
             id="customSplashScreen" 
@@ -66,7 +69,6 @@
             height="1080" 
             translation="[0, 0]"
             loadDisplayMode="scaleToFill" />
-
 
     </children>
 

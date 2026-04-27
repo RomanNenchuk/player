@@ -2,3 +2,4 @@ code-standards.md
 dist
 /components/TrackerTask.xml
 .env
+/source/SafeZone.brs

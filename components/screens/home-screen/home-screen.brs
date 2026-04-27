@@ -19,6 +19,16 @@ sub init()
 
 end sub
 
+sub _onFeedDataReceived()
+
+    if (m.top.feedData <> invalid)
+
+        m.content_row_list.content = m.top.feedData
+
+    end if
+
+end sub
+
 sub _onContentLoad()
 
     if (m.content_row_list.content <> invalid and m.content_row_list.content.getChildCount() > 0)

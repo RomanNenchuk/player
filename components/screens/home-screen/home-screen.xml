@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <component name="HomeScreen" extends="Group">
+
     <script type="text/brightscript" uri="pkg:/components/screens/home-screen/home-screen.brs" />
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
     <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
     
     <children>
+
+        <HeroComponent
+            id="hero"
+            compactMode="true"
+            translation="[100, 100]"
+            visible="false"/>
+
         <RowList 
             id="contentRowList"
-            translation="[100, 150]" 
-            itemComponentName="RowListItem" 
-            numRows="3" 
+            translation="[100, 650]" 
+            itemComponentName="VideoCardItem" 
+            numRows="7" 
             itemSize="[1720, 400]" 
             rowItemSize="[[400, 225]]" 
             itemSpacing="[0, 50]" 
@@ -20,6 +28,42 @@
             rowLabelFont="font:SmallSystemFont"
             focusXOffset="[0]"
             rowFocusAnimationStyle="floatingFocus" 
-        />
+            visible="false"/>
+        
+        <Animation id="hideHeroAnim" duration="0.3" easeFunction="linear">
+            <FloatFieldInterpolator
+                fieldToInterp="hero.opacity"
+                key="[0.0, 1.0]"
+                keyValue="[1.0, 0.0]" />
+
+            <Vector2DFieldInterpolator
+                fieldToInterp="contentRowList.translation"
+                key="[0.0, 1.0]"
+                keyValue="[[100.0, 650.0], [100.0, 120.0]]" />
+        </Animation>
+
+        <Animation id="showHeroAnim" duration="0.3" easeFunction="linear">
+            <FloatFieldInterpolator
+                fieldToInterp="hero.opacity"
+                key="[0.0, 1.0]"
+                keyValue="[0.0, 1.0]" />
+
+            <Vector2DFieldInterpolator
+                fieldToInterp="contentRowList.translation"
+                key="[0.0, 1.0]"
+                keyValue="[[100.0, 120.0], [100.0, 650.0]]" />
+        </Animation>
+
+
+        <Poster 
+            id="customSplashScreen" 
+            uri="pkg:/images/splash_fhd.jpg" 
+            width="1920" 
+            height="1080" 
+            translation="[0, 0]"
+            loadDisplayMode="scaleToFill" />
+
+
     </children>
+
 </component>

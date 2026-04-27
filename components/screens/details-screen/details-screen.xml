@@ -9,35 +9,9 @@
     </interface>
 
     <children>
-        
-        <LayoutGroup translation="[100, 100]" itemSpacings="[40]">
-            <Poster 
-                id="thumbnail" 
-                width="640" 
-                height="360" 
-                loadDisplayMode="scaleToFit" />
-                
-            <Button 
-                id="playButton" 
-                text="Play Video" 
-                minWidth="200"
-                iconUri=""
-                focusedIconUri="" />
-        </LayoutGroup>
-
-        <LayoutGroup translation="[800, 100]" itemSpacings="[20]">
-            <Label 
-                id="title" 
-                width="1000" 
-                font="font:LargeBoldSystemFont" 
-                wrap="true" />
-                
-            <Label 
-                id="description" 
-                width="1000" 
-                wrap="true" 
-                numLines="15" />
-        </LayoutGroup>
+        <HeroComponent 
+            id="hero"
+            translation="[100, 100]" />
 
         <Label
             id="errorLabel"
@@ -51,7 +25,6 @@
             id="closeTimer"
             duration="3"
             repeat="false" />
-
     </children>
 
 </component>

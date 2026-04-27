@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="HeroComponent" extends="Group">
+
+    <script type="text/brightscript" uri="pkg:/components/hero-component/hero-component.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/navigation-utils.brs" />
+
+    <interface>
+        <field id="content" type="node" onChange="onContentChange" />
+        <field id="compactMode" type="boolean" value="false" onChange="onCompactModeChange" />
+    </interface>
+
+    <children>
+        <LayoutGroup layoutDirection="horiz" itemSpacings="[60]">
+            
+            <LayoutGroup itemSpacings="[40]">
+                <Poster 
+                    id="thumbnail" 
+                    width="640" 
+                    height="360" 
+                    loadDisplayMode="scaleToFit" />
+                    
+                <Button 
+                    id="playButton" 
+                    text="Play Video" 
+                    minWidth="200"
+                    iconUri=""
+                    focusedIconUri="" />
+            </LayoutGroup>
+
+            <LayoutGroup itemSpacings="[20]">
+                <Label 
+                    id="title" 
+                    width="1000" 
+                    font="font:LargeBoldSystemFont" 
+                    wrap="true" />
+                    
+                <Label 
+                    id="description" 
+                    width="1000" 
+                    wrap="true" />
+            </LayoutGroup>
+
+        </LayoutGroup>
+    </children>
+
+</component>

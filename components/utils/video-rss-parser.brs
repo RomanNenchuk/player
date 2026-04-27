@@ -1,24 +1,33 @@
-function ParseRssFeed(xml_string as String) as Object
+function ParseRss(xml_string as String) as Object
 
   root = CreateObject("roSGNode", "ContentNode")
   xml = CreateObject("roXMLElement")
 
   if (not xml.Parse(xml_string))
 
-    print "[RssParser] XML parse failed"
+    print "[DataLoaderTask] XML parse failed"
     return root
 
   end if
 
   if (xml.channel = invalid or xml.channel.item = invalid)
 
-    print "[RssParser] RSS structure is invalid: missing channel or items"
+    print "[DataLoaderTask] RSS structure is invalid: missing channel or items"
     return root
 
   end if
 
   items = xml.channel.item
-  row_titles = ["Live", "Recommended", "Trending"]
+  
+  row_titles = [
+    "Live", 
+    "Recommended", 
+    "Trending", 
+    "New Releases",
+    "Top Rated",
+    "Science & Tech"
+  ]
+
   items_per_row = Int(items.Count() / row_titles.Count())
   current_item_index = 0
 
@@ -26,6 +35,8 @@ function ParseRssFeed(xml_string as String) as Object
 
     row_node = CreateObject("roSGNode", "ContentNode")
     row_node.title = row_title
+
+    print row_title
 
     end_index = current_item_index + items_per_row - 1
 
@@ -36,30 +47,32 @@ function ParseRssFeed(xml_string as String) as Object
     end if
 
     for i = current_item_index to end_index
-      row_node.AppendChild(_BuildEpisodeNode(items[i]))
+
+      row_node.AppendChild(_ParseItem(items[i]))
+    
     end for
 
     current_item_index = end_index + 1
     root.AppendChild(row_node)
   end for
 
-  print "[RssParser] Parsed: " ; root.GetChildCount() ; " rows"
+  print "[DataLoaderTask] Parsed: " ; root.GetChildCount() ; " rows"
 
   return root
 
 end function
 
-function _BuildEpisodeNode(item as Object) as Object
+function _ParseItem(item as Object) as Object
 
-  episode = CreateObject("roSGNode", "ContentNode")
-  episode.title = item.title.GetText()
-  episode.description = item.description.GetText()
-  episode.url = item.enclosure@url
-  episode.hd_poster_url = _ExtractThumbnailUrl(item)
-  episode.short_description_line_2 = _ExtractDuration(item)
-  episode.stream_format = _ExtractStreamFormat(item)
-
-  return episode
+    episode = CreateObject("roSGNode", "ContentNode")
+    episode.title = item.title.GetText()
+    episode.description = item.description.GetText()
+    episode.url = item.enclosure@url
+    episode.hdposterurl = _ExtractThumbnailUrl(item)
+    episode.shortdescriptionline2 = _ExtractDuration(item)
+    episode.streamformat = _ExtractStreamFormat(item)
+    episode.ReleaseDate = _ExtractPubDate(item)
+    return episode
 
 end function
 
@@ -91,8 +104,14 @@ function _ExtractDuration(item as Object) as String
 
   if (duration_str.Left(3) = "00:")
 
-    return duration_str.Mid(4)
+    duration_str = duration_str.Mid(3)
 
+  end if
+
+  if (duration_str.Left(1) = "0" and duration_str.Mid(2, 1) = ":")
+    
+    duration_str = duration_str.Mid(1)
+  
   end if
 
   return duration_str
@@ -116,5 +135,17 @@ function _ExtractStreamFormat(item as Object) as String
   end if
 
   return "mp4"
+
+end function
+
+function _ExtractPubDate(item as Object) as String
+
+  if (item.pubDate <> invalid)
+    
+    return item.pubDate.GetText()
+
+  end if
+  
+  return ""
 
 end function

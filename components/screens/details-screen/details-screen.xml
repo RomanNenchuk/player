@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<component name="DetailsScreen" extends="BaseScreen">
+
+    <script type="text/brightscript" uri="pkg:/components/screens/details-screen/details-screen.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/top-menu-utils.brs" />
+
+    <interface>
+        <field id="content" type="node" onChange="onContentChange" />
+    </interface>
+
+    <children>
+        <Group id="contentGroup">
+            
+            <HeroComponent 
+                id="hero"
+                translation="[100, 0]" />
+
+            <Label
+                id="errorLabel"
+                text="Content is currently unavailable. Going back..."
+                width="1920"
+                translation="[0, 390]"
+                horizAlign="center"
+                visible="false" />
+                
+        </Group>
+
+        <Timer
+            id="closeTimer"
+            duration="3"
+            repeat="false" />            
+
+    </children>
+
+</component>

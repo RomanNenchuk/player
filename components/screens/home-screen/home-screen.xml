@@ -1,24 +1,75 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<component name="HomeScreen" extends="Group">
+<component name="HomeScreen" extends="BaseScreen">
+
+    <interface>
+        <field id="feedData" type="node" alwaysNotify="true" onChange="_onFeedDataReceived" />
+    </interface>
+
     <script type="text/brightscript" uri="pkg:/components/screens/home-screen/home-screen.brs" />
     <script type="text/brightscript" uri="pkg:/components/services/video-feed-service.brs" />
+    <script type="text/brightscript" uri="pkg:/components/utils/top-menu-utils.brs" />
     
     <children>
-        <RowList 
-            id="contentRowList"
-            translation="[100, 150]" 
-            itemComponentName="RowListItem" 
-            numRows="3" 
-            itemSize="[1720, 400]" 
-            rowItemSize="[[400, 225]]" 
-            itemSpacing="[0, 50]" 
-            rowItemSpacing="[[30, 0]]" 
-            rowLabelOffset="[[0, 30]]" 
-            showRowLabel="[true]" 
-            rowLabelColor="0xFFFFFFFF"
-            rowLabelFont="font:SmallSystemFont"
-            focusXOffset="[0]"
-            rowFocusAnimationStyle="floatingFocus" 
-        />
+
+        <Group id="contentGroup">
+
+            <HeroComponent
+                id="hero"
+                compactMode="true"
+                translation="[100, 0]"
+                visible="false"/>
+
+            <RowList 
+                id="contentRowList"
+                translation="[100, 470]" 
+                itemComponentName="VideoCardItem" 
+                numRows="7" 
+                itemSize="[1720, 400]" 
+                rowItemSize="[[400, 225]]" 
+                itemSpacing="[0, 50]" 
+                rowItemSpacing="[[30, 0]]" 
+                rowLabelOffset="[[0, 30]]" 
+                showRowLabel="[true]" 
+                rowLabelColor="0xFFFFFFFF"
+                rowLabelFont="font:SmallSystemFont"
+                focusXOffset="[0]"
+                rowFocusAnimationStyle="floatingFocus" 
+                visible="false"/>
+            
+            <Animation id="hideHeroAnim" duration="0.3" easeFunction="linear">
+                <FloatFieldInterpolator
+                    fieldToInterp="hero.opacity"
+                    key="[0.0, 1.0]"
+                    keyValue="[1.0, 0.0]" />
+
+                <Vector2DFieldInterpolator
+                    fieldToInterp="contentRowList.translation"
+                    key="[0.0, 1.0]"
+                    keyValue="[[100.0, 470.0], [100.0, 0.0]]" />
+            </Animation>
+
+            <Animation id="showHeroAnim" duration="0.3" easeFunction="linear">
+                <FloatFieldInterpolator
+                    fieldToInterp="hero.opacity"
+                    key="[0.0, 1.0]"
+                    keyValue="[0.0, 1.0]" />
+
+                <Vector2DFieldInterpolator
+                    fieldToInterp="contentRowList.translation"
+                    key="[0.0, 1.0]"
+                    keyValue="[[100.0, 0.0], [100.0, 470.0]]" />
+            </Animation>
+
+        </Group>
+
+        <Poster 
+            id="customSplashScreen" 
+            uri="pkg:/images/splash_fhd.jpg" 
+            width="1920" 
+            height="1080" 
+            translation="[0, 0]"
+            loadDisplayMode="scaleToFill" />
+
     </children>
+
 </component>
